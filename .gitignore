@@ -26,3 +26,5 @@
 *.exe
 *.out
 *.app
+build-texturePacker-Desktop_Qt_5_3_clang_64bit-Debug
+texturePacker/texturePacker.pro.user
