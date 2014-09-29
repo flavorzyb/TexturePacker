@@ -31,7 +31,7 @@ private:
     QGroupBox   * m_gbInputGroup;
     QGroupBox   * m_gbOutputGroup;
     QGroupBox   * m_gbOpGroup;
-
+    QWidget     * m_wMainWidget;
 private slots:
     void onAboutMeAction();
 };

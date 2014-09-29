@@ -21,14 +21,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::initUI()
 {
+    m_wMainWidget = new QWidget();
+    //QWidget::setLayout: Attempting to set QLayout "" on MainWindow "", which already has a layout
+    setCentralWidget(m_wMainWidget);
+
     setWindowTitle(tr("资源转换工具"));
     setMinimumSize(800, 600);
 
     QVBoxLayout * mainLayout = new QVBoxLayout();
     mainLayout->addWidget(m_gbInputGroup);
-    //QWidget::setLayout: Attempting to set QLayout "" on MainWindow "", which already has a layout
-    setCentralWidget(m_gbInputGroup);
-    setLayout(mainLayout);
+
+    m_wMainWidget->setLayout(mainLayout);
 }
 
 void MainWindow::initMenu()
@@ -52,24 +55,25 @@ void MainWindow::onAboutMeAction()
 void MainWindow::initInputGroup()
 {
     m_gbInputGroup = new QGroupBox();
+    m_gbInputGroup->setTitle(tr("输入设置"));
 
     QGridLayout * layout = new QGridLayout();
 
     QLabel * lbInput = new QLabel();
     lbInput->setText(tr("输入路径:"));
-    lbInput->setAlignment(Qt::AlignCenter | Qt::AlignLeft);
+    lbInput->setAlignment(Qt::AlignRight);
 
     m_leInputDirPath = new QLineEdit();
-    m_leInputDirPath->setBaseSize(200, 40);
-    m_leInputDirPath->setText(tr("输入路径"));
+    m_leInputDirPath->setText(tr("请设置输入路径"));
+    m_leInputDirPath->setReadOnly(true);
 
     m_pbInputDirPath = new QPushButton();
     m_pbInputDirPath->setText(tr("设置输入目录"));
     m_pbInputDirPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    layout->setColumnStretch(0, 20);
-    layout->setColumnStretch(1, 40);
-    layout->setColumnStretch(2, 20);
+    layout->setColumnStretch(0, 1);
+    layout->setColumnStretch(1, 4);
+    layout->setColumnStretch(2, 1);
 
     layout->addWidget(lbInput, 0, 0);
     layout->addWidget(m_leInputDirPath, 0, 1);
