@@ -5,6 +5,7 @@
 #include <QtGui>
 #include <QtWidgets>
 #include <QGridLayout>
+#include <QGroupBox>
 
 class MainWindow : public QMainWindow
 {
@@ -28,6 +29,8 @@ private:
     QLineEdit   * m_leOutputDirPath;
     QPushButton * m_pbInputDirPath;
     QPushButton * m_pbOutputDirPath;
+    QPushButton * m_pbPublish;
+    QPushButton * m_pbClosed;
     QGroupBox   * m_gbInputGroup;
     QGroupBox   * m_gbOutputGroup;
     QGroupBox   * m_gbOpGroup;

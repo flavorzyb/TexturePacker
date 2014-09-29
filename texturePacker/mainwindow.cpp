@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QVBoxLayout>
 #include <QtWidgets>
-
+#include <QFormLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -30,6 +30,8 @@ void MainWindow::initUI()
 
     QVBoxLayout * mainLayout = new QVBoxLayout();
     mainLayout->addWidget(m_gbInputGroup);
+    mainLayout->addWidget(m_gbOutputGroup);
+    mainLayout->addWidget(m_gbOpGroup);
 
     m_wMainWidget->setLayout(mainLayout);
 }
@@ -79,14 +81,56 @@ void MainWindow::initInputGroup()
     layout->addWidget(m_leInputDirPath, 0, 1);
     layout->addWidget(m_pbInputDirPath, 0, 2);
 
+    m_gbInputGroup->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_gbInputGroup->setLayout(layout);
 }
 
 void MainWindow::initOutputGroup()
 {
+    m_gbOutputGroup = new QGroupBox();
+    m_gbOutputGroup->setTitle(tr("输出设置"));
 
+    QGridLayout * layout = new QGridLayout();
+
+    QLabel * lbInput = new QLabel();
+    lbInput->setText(tr("输出路径:"));
+    lbInput->setAlignment(Qt::AlignRight);
+
+    m_leOutputDirPath = new QLineEdit();
+    m_leOutputDirPath->setText(tr("请设置输出路径"));
+    m_leOutputDirPath->setReadOnly(true);
+
+    m_pbOutputDirPath = new QPushButton();
+    m_pbOutputDirPath->setText(tr("设置输出目录"));
+    m_pbOutputDirPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    layout->setColumnStretch(0, 1);
+    layout->setColumnStretch(1, 4);
+    layout->setColumnStretch(2, 1);
+
+    layout->addWidget(lbInput, 0, 0);
+    layout->addWidget(m_leOutputDirPath, 0, 1);
+    layout->addWidget(m_pbOutputDirPath, 0, 2);
+
+    m_gbOutputGroup->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_gbOutputGroup->setLayout(layout);
 }
 
 void MainWindow::initOpGroup()
 {
+    m_gbOpGroup = new QGroupBox();
+    m_gbOpGroup->setTitle("操作");
+
+    m_pbPublish = new QPushButton();
+    m_pbPublish->setText(tr("导出"));
+    m_pbPublish->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    m_pbClosed  = new QPushButton();
+    m_pbClosed->setText(tr("关闭"));
+    m_pbClosed->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    QFormLayout * layout = new QFormLayout();
+    layout->addRow(m_pbPublish, m_pbClosed);
+
+    m_gbOpGroup->setLayout(layout);
 }
