@@ -32,6 +32,8 @@ void MainWindow::initUI()
     mainLayout->addWidget(m_gbInputGroup);
     mainLayout->addWidget(m_gbOutputGroup);
     mainLayout->addWidget(m_gbOpGroup);
+    mainLayout->setContentsMargins(10, 10, 10, 10);
+    mainLayout->setSpacing(30);
 
     m_wMainWidget->setLayout(mainLayout);
 }
@@ -63,7 +65,7 @@ void MainWindow::initInputGroup()
 
     QLabel * lbInput = new QLabel();
     lbInput->setText(tr("输入路径:"));
-    lbInput->setAlignment(Qt::AlignRight);
+    lbInput->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
 
     m_leInputDirPath = new QLineEdit();
     m_leInputDirPath->setText(tr("请设置输入路径"));
@@ -94,7 +96,7 @@ void MainWindow::initOutputGroup()
 
     QLabel * lbInput = new QLabel();
     lbInput->setText(tr("输出路径:"));
-    lbInput->setAlignment(Qt::AlignRight);
+    lbInput->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
 
     m_leOutputDirPath = new QLineEdit();
     m_leOutputDirPath->setText(tr("请设置输出路径"));
@@ -128,6 +130,9 @@ void MainWindow::initOpGroup()
     m_pbClosed  = new QPushButton();
     m_pbClosed->setText(tr("关闭"));
     m_pbClosed->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+
+    connect(m_pbClosed, SIGNAL(clicked()), this, SLOT(close()));
 
     QFormLayout * layout = new QFormLayout();
     layout->addRow(m_pbPublish, m_pbClosed);
