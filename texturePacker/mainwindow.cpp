@@ -37,6 +37,7 @@ void MainWindow::initUI()
     mainLayout->setSpacing(30);
 
     m_wMainWidget->setLayout(mainLayout);
+
 }
 
 void MainWindow::initMenu()
@@ -56,7 +57,6 @@ void MainWindow::onAboutMeAction()
 {
     AboutMe am(this);
     am.exec();
-    printf("onAboutMeAction.......\n");
 }
 
 void MainWindow::initInputSettingsGroup()

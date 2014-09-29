@@ -36,10 +36,10 @@ void AboutMe::initUI()
     QPushButton *pbClosed = new QPushButton;
     pbClosed->setText(tr("关闭"));
     pbClosed->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    connect(pbClosed, SIGNAL(clicked()), this, SLOT(close()));
 
     QWidget *wBlank = new QWidget;
     wBlank->setMinimumSize(20, 20);
-
 
     QVBoxLayout * layout = new QVBoxLayout;
     layout->addWidget(lbName);

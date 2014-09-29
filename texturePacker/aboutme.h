@@ -12,11 +12,6 @@ public:
 
 private:
     void initUI();
-
-signals:
-
-public slots:
-
 };
 
 #endif // ABOUTME_H
