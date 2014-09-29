@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "aboutme.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -53,6 +54,8 @@ void MainWindow::initAction()
 
 void MainWindow::onAboutMeAction()
 {
+    AboutMe am(this);
+    am.exec();
     printf("onAboutMeAction.......\n");
 }
 
