@@ -25,9 +25,14 @@ void MainWindow::initUI()
     setCentralWidget(m_wMainWidget);
 
     setWindowTitle(tr("资源转换工具"));
-    setMinimumSize(1000, 800);
+    setMinimumSize(800, 600);
+
+    QWidget * wBlank = new QWidget;
+    wBlank->setMinimumSize(20, 10);
+    wBlank->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     QVBoxLayout * mainLayout = new QVBoxLayout;
+    mainLayout->addWidget(wBlank);
     mainLayout->addWidget(m_gbInputSettingGroup);
     mainLayout->addWidget(m_gbOutputSettingGroup);
     mainLayout->addWidget(m_gbOpGroup);
@@ -37,7 +42,6 @@ void MainWindow::initUI()
     mainLayout->setSpacing(30);
 
     m_wMainWidget->setLayout(mainLayout);
-
 }
 
 void MainWindow::initMenu()
