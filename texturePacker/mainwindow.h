@@ -4,8 +4,6 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QtWidgets>
-#include <QGridLayout>
-#include <QGroupBox>
 
 class MainWindow : public QMainWindow
 {
@@ -19,21 +17,29 @@ private:
     void initUI();
     void initMenu();
     void initAction();
-    void initInputGroup();
-    void initOutputGroup();
+    void initInputSettingsGroup();
+    void initOutputSettingGroup();
     void initOpGroup();
+    void initOutputGroup();
 private:
     QAction     * m_aAboutMe;
     QMenu       * m_mAboutMe;
-    QLineEdit   * m_leInputDirPath;
-    QLineEdit   * m_leOutputDirPath;
-    QPushButton * m_pbInputDirPath;
-    QPushButton * m_pbOutputDirPath;
+
+    QLineEdit   * m_leInputSettingPath;
+    QLineEdit   * m_leOutputSettingPath;
+    QPushButton * m_pbInputSettingPath;
+    QPushButton * m_pbOutputSettingPath;
+
     QPushButton * m_pbPublish;
     QPushButton * m_pbClosed;
-    QGroupBox   * m_gbInputGroup;
-    QGroupBox   * m_gbOutputGroup;
+
+    QGroupBox   * m_gbInputSettingGroup;
+    QGroupBox   * m_gbOutputSettingGroup;
     QGroupBox   * m_gbOpGroup;
+    QGroupBox   * m_gbOutputGroup;
+
+    QPlainTextEdit * m_pteOutput;
+
     QWidget     * m_wMainWidget;
 private slots:
     void onAboutMeAction();

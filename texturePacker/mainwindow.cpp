@@ -1,14 +1,12 @@
 #include "mainwindow.h"
-#include <QVBoxLayout>
-#include <QtWidgets>
-#include <QFormLayout>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    initInputGroup();
-    initOutputGroup();
+    initInputSettingsGroup();
+    initOutputSettingGroup();
     initOpGroup();
+    initOutputGroup();
     initUI();
     initAction();
     initMenu();
@@ -26,12 +24,14 @@ void MainWindow::initUI()
     setCentralWidget(m_wMainWidget);
 
     setWindowTitle(tr("资源转换工具"));
-    setMinimumSize(800, 600);
+    setMinimumSize(1000, 800);
 
     QVBoxLayout * mainLayout = new QVBoxLayout();
-    mainLayout->addWidget(m_gbInputGroup);
-    mainLayout->addWidget(m_gbOutputGroup);
+    mainLayout->addWidget(m_gbInputSettingGroup);
+    mainLayout->addWidget(m_gbOutputSettingGroup);
     mainLayout->addWidget(m_gbOpGroup);
+    mainLayout->addWidget(m_gbOutputGroup);
+
     mainLayout->setContentsMargins(10, 10, 10, 10);
     mainLayout->setSpacing(30);
 
@@ -56,10 +56,10 @@ void MainWindow::onAboutMeAction()
     printf("onAboutMeAction.......\n");
 }
 
-void MainWindow::initInputGroup()
+void MainWindow::initInputSettingsGroup()
 {
-    m_gbInputGroup = new QGroupBox();
-    m_gbInputGroup->setTitle(tr("输入设置"));
+    m_gbInputSettingGroup = new QGroupBox();
+    m_gbInputSettingGroup->setTitle(tr("输入设置"));
 
     QGridLayout * layout = new QGridLayout();
 
@@ -67,30 +67,30 @@ void MainWindow::initInputGroup()
     lbInput->setText(tr("输入路径:"));
     lbInput->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
 
-    m_leInputDirPath = new QLineEdit();
-    m_leInputDirPath->setText(tr("请设置输入路径"));
-    m_leInputDirPath->setReadOnly(true);
+    m_leInputSettingPath = new QLineEdit();
+    m_leInputSettingPath->setText(tr("请设置输入路径"));
+    m_leInputSettingPath->setReadOnly(true);
 
-    m_pbInputDirPath = new QPushButton();
-    m_pbInputDirPath->setText(tr("设置输入目录"));
-    m_pbInputDirPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_pbInputSettingPath = new QPushButton();
+    m_pbInputSettingPath->setText(tr("设置输入目录"));
+    m_pbInputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 4);
     layout->setColumnStretch(2, 1);
 
     layout->addWidget(lbInput, 0, 0);
-    layout->addWidget(m_leInputDirPath, 0, 1);
-    layout->addWidget(m_pbInputDirPath, 0, 2);
+    layout->addWidget(m_leInputSettingPath, 0, 1);
+    layout->addWidget(m_pbInputSettingPath, 0, 2);
 
-    m_gbInputGroup->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    m_gbInputGroup->setLayout(layout);
+    m_gbInputSettingGroup->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_gbInputSettingGroup->setLayout(layout);
 }
 
-void MainWindow::initOutputGroup()
+void MainWindow::initOutputSettingGroup()
 {
-    m_gbOutputGroup = new QGroupBox();
-    m_gbOutputGroup->setTitle(tr("输出设置"));
+    m_gbOutputSettingGroup = new QGroupBox();
+    m_gbOutputSettingGroup->setTitle(tr("输出设置"));
 
     QGridLayout * layout = new QGridLayout();
 
@@ -98,24 +98,24 @@ void MainWindow::initOutputGroup()
     lbInput->setText(tr("输出路径:"));
     lbInput->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
 
-    m_leOutputDirPath = new QLineEdit();
-    m_leOutputDirPath->setText(tr("请设置输出路径"));
-    m_leOutputDirPath->setReadOnly(true);
+    m_leOutputSettingPath = new QLineEdit();
+    m_leOutputSettingPath->setText(tr("请设置输出路径"));
+    m_leOutputSettingPath->setReadOnly(true);
 
-    m_pbOutputDirPath = new QPushButton();
-    m_pbOutputDirPath->setText(tr("设置输出目录"));
-    m_pbOutputDirPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_pbOutputSettingPath = new QPushButton();
+    m_pbOutputSettingPath->setText(tr("设置输出目录"));
+    m_pbOutputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 4);
     layout->setColumnStretch(2, 1);
 
     layout->addWidget(lbInput, 0, 0);
-    layout->addWidget(m_leOutputDirPath, 0, 1);
-    layout->addWidget(m_pbOutputDirPath, 0, 2);
+    layout->addWidget(m_leOutputSettingPath, 0, 1);
+    layout->addWidget(m_pbOutputSettingPath, 0, 2);
 
-    m_gbOutputGroup->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
-    m_gbOutputGroup->setLayout(layout);
+    m_gbOutputSettingGroup->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    m_gbOutputSettingGroup->setLayout(layout);
 }
 
 void MainWindow::initOpGroup()
@@ -136,6 +136,20 @@ void MainWindow::initOpGroup()
 
     QFormLayout * layout = new QFormLayout();
     layout->addRow(m_pbPublish, m_pbClosed);
+    layout->setFormAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 
     m_gbOpGroup->setLayout(layout);
+}
+
+void MainWindow::initOutputGroup()
+{
+    m_gbOutputGroup = new QGroupBox();
+    m_gbOutputGroup->setTitle(tr("输出"));
+
+    m_pteOutput = new QPlainTextEdit();
+
+    QVBoxLayout * layout = new QVBoxLayout();
+    layout->addWidget(m_pteOutput);
+
+    m_gbOutputGroup->setLayout(layout);
 }
