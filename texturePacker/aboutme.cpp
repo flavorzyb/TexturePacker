@@ -16,37 +16,39 @@ void AboutMe::initUI()
     QFont font;
     font.setPointSize(22);
 
-    QLabel *lbName = new QLabel();
+    QLabel *lbName = new QLabel;
     lbName->setText(tr("资源转换工具"));
     lbName->setFont(font);
     lbName->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    QString str =tr("作者:");
-    str += Config::AUTHOR;
-
-    QLabel *lbAuthor = new QLabel();
-    lbAuthor->setText(str);
+    QLabel *lbAuthor = new QLabel;
+    lbAuthor->setText(tr("作者: ") + Config::AUTHOR);
     lbAuthor->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    str = tr("版本:");
-    str += Config::VERSION;
-
-    QLabel *lbVersion = new QLabel();
-    lbVersion->setText(str);
+    QLabel *lbVersion = new QLabel;
+    lbVersion->setText(tr("版本: ") + Config::VERSION);
     lbVersion->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    str = tr("时间:");
-    str += Config::DATE;
-
-    QLabel *lbDate = new QLabel();
-    lbDate->setText(str);
+    QLabel *lbDate = new QLabel;
+    lbDate->setText(tr("时间: ") + Config::DATE);
     lbDate->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    QVBoxLayout * layout = new QVBoxLayout();
+    QPushButton *pbClosed = new QPushButton;
+    pbClosed->setText(tr("关闭"));
+    pbClosed->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    QWidget *wBlank = new QWidget;
+    wBlank->setMinimumSize(20, 20);
+
+
+    QVBoxLayout * layout = new QVBoxLayout;
     layout->addWidget(lbName);
     layout->addWidget(lbAuthor);
     layout->addWidget(lbVersion);
     layout->addWidget(lbDate);
+    layout->addWidget(pbClosed);
+    layout->addWidget(wBlank);
+
     layout->setAlignment(Qt::AlignHCenter);
     layout->setContentsMargins(10, 10, 10, 10);
     layout->setSpacing(30);
