@@ -76,8 +76,8 @@ void MainWindow::initInputSettingsGroup()
     m_pbInputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     layout->setColumnStretch(0, 1);
-    layout->setColumnStretch(1, 4);
-    layout->setColumnStretch(2, 1);
+    layout->setColumnStretch(1, 6);
+    layout->setColumnStretch(2, 2);
 
     layout->addWidget(lbInput, 0, 0);
     layout->addWidget(m_leInputSettingPath, 0, 1);
@@ -107,8 +107,8 @@ void MainWindow::initOutputSettingGroup()
     m_pbOutputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     layout->setColumnStretch(0, 1);
-    layout->setColumnStretch(1, 4);
-    layout->setColumnStretch(2, 1);
+    layout->setColumnStretch(1, 6);
+    layout->setColumnStretch(2, 2);
 
     layout->addWidget(lbInput, 0, 0);
     layout->addWidget(m_leOutputSettingPath, 0, 1);
@@ -134,9 +134,9 @@ void MainWindow::initOpGroup()
 
     connect(m_pbClosed, SIGNAL(clicked()), this, SLOT(close()));
 
-    QFormLayout * layout = new QFormLayout();
-    layout->addRow(m_pbPublish, m_pbClosed);
-    layout->setFormAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    QHBoxLayout * layout = new QHBoxLayout();
+    layout->addWidget(m_pbPublish);
+    layout->addWidget(m_pbClosed);
 
     m_gbOpGroup->setLayout(layout);
 }
