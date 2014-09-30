@@ -16,9 +16,11 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     aboutme.cpp \
     config.cpp \
-    utils.cpp
+    utils.cpp \
+    settingsvo.cpp
 
 HEADERS  += mainwindow.h \
     aboutme.h \
     config.h \
-    utils.h
+    utils.h \
+    settingsvo.h

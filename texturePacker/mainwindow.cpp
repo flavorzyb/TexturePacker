@@ -169,7 +169,7 @@ void MainWindow::initOpGroup()
     m_pbClosed->setText(tr("关闭"));
     m_pbClosed->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-
+    connect(m_pbPublish, SIGNAL(clicked()), this, SLOT(onPublishEvent()));
     connect(m_pbClosed, SIGNAL(clicked()), this, SLOT(close()));
 
     QHBoxLayout * layout = new QHBoxLayout;
@@ -195,11 +195,29 @@ void MainWindow::initOutputGroup()
 void MainWindow::onSettingInputPathEvent()
 {
     QString dirPath = QFileDialog::getExistingDirectory(this, tr("选择输入目录"));
-
-    printf("dir=====%s\n", dirPath.toStdString().c_str());
+    if (dirPath.length() > 0)
+    {
+        m_settingsvo.setInputPath(dirPath);
+    }
 }
 
 void MainWindow::onSettingOutputPathEvent()
 {
+    QString dirPath = QFileDialog::getExistingDirectory(this, tr("选择输出目录"));
+    if (dirPath.length() > 0)
+    {
+        m_settingsvo.setOutputPath(dirPath);
+    }
+}
 
+void MainWindow::onPublishEvent()
+{
+    if (m_rbtnIOS->isChecked())
+    {
+        m_settingsvo.setFormat(SettingsVO::IOS);
+    }
+    else
+    {
+        m_settingsvo.setFormat(SettingsVO::ANDROID);
+    }
 }

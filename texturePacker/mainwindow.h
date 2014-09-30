@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QtWidgets>
+#include "settingsvo.h"
 
 class MainWindow : public QMainWindow
 {
@@ -23,32 +24,35 @@ private:
     void initOutputGroup();
 
 private:
-    QAction     * m_aAboutMe;
-    QMenu       * m_mAboutMe;
+    QAction         * m_aAboutMe;
+    QMenu           * m_mAboutMe;
 
-    QLineEdit   * m_leInputSettingPath;
-    QLineEdit   * m_leOutputSettingPath;
-    QPushButton * m_pbInputSettingPath;
-    QPushButton * m_pbOutputSettingPath;
+    QLineEdit       * m_leInputSettingPath;
+    QLineEdit       * m_leOutputSettingPath;
+    QPushButton     * m_pbInputSettingPath;
+    QPushButton     * m_pbOutputSettingPath;
 
-    QPushButton * m_pbPublish;
-    QPushButton * m_pbClosed;
+    QPushButton     * m_pbPublish;
+    QPushButton     * m_pbClosed;
 
-    QRadioButton * m_rbtnIOS;
-    QRadioButton * m_rbtnAndroid;
+    QRadioButton    * m_rbtnIOS;
+    QRadioButton    * m_rbtnAndroid;
 
-    QGroupBox   * m_gbInputSettingGroup;
-    QGroupBox   * m_gbOutputSettingGroup;
-    QGroupBox   * m_gbOpGroup;
-    QGroupBox   * m_gbOutputGroup;
+    QGroupBox       * m_gbInputSettingGroup;
+    QGroupBox       * m_gbOutputSettingGroup;
+    QGroupBox       * m_gbOpGroup;
+    QGroupBox       * m_gbOutputGroup;
 
-    QPlainTextEdit * m_pteOutput;
+    QPlainTextEdit  * m_pteOutput;
 
-    QWidget     * m_wMainWidget;
+    QWidget         * m_wMainWidget;
+
+    SettingsVO      m_settingsvo;
 private slots:
     void onAboutMeAction();
     void onSettingInputPathEvent();
     void onSettingOutputPathEvent();
+    void onPublishEvent();
 };
 
 #endif // MAINWINDOW_H
