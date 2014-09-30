@@ -75,6 +75,7 @@ void MainWindow::initInputSettingsGroup()
 {
     m_gbInputSettingGroup = new QGroupBox;
     m_gbInputSettingGroup->setTitle(tr("输入设置"));
+    m_gbInputSettingGroup->setAutoFillBackground(true);
 
     QGridLayout * layout = new QGridLayout();
 
@@ -107,6 +108,7 @@ void MainWindow::initOutputSettingGroup()
 {
     m_gbOutputSettingGroup = new QGroupBox;
     m_gbOutputSettingGroup->setTitle(tr("输出设置"));
+    m_gbOutputSettingGroup->setAutoFillBackground(true);
 
     QLabel * lbFormat = new QLabel;
     lbFormat->setText("输出格式:");
@@ -167,6 +169,7 @@ void MainWindow::initOpGroup()
 {
     m_gbOpGroup = new QGroupBox;
     m_gbOpGroup->setTitle("操作");
+    m_gbOpGroup->setAutoFillBackground(true);
 
     m_pbPublish = new QPushButton;
     m_pbPublish->setText(tr("导出"));
