@@ -1,5 +1,8 @@
+#include <QFileDialog>
+
 #include "mainwindow.h"
 #include "aboutme.h"
+#include "utils.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -42,6 +45,11 @@ void MainWindow::initUI()
     mainLayout->setSpacing(30);
 
     m_wMainWidget->setLayout(mainLayout);
+
+    if (!isFullScreen())
+    {
+        Utils::center(this);
+    }
 }
 
 void MainWindow::initMenu()
@@ -81,6 +89,7 @@ void MainWindow::initInputSettingsGroup()
     m_pbInputSettingPath = new QPushButton;
     m_pbInputSettingPath->setText(tr("设置输入目录"));
     m_pbInputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    connect(m_pbInputSettingPath, SIGNAL(clicked()), this, SLOT(onSettingInputPathEvent()));
 
     layout->setColumnStretch(0, 1);
     layout->setColumnStretch(1, 6);
@@ -99,6 +108,18 @@ void MainWindow::initOutputSettingGroup()
     m_gbOutputSettingGroup = new QGroupBox;
     m_gbOutputSettingGroup->setTitle(tr("输出设置"));
 
+    QButtonGroup * btnGroup = new QButtonGroup;
+
+    QRadioButton *rbtnIOS = new QRadioButton;
+    rbtnIOS->setText(tr("IOS资源格式"));
+
+    QRadioButton *rbtnAndroid = new QRadioButton;
+    rbtnAndroid->setText(tr("Android资源格式"));
+
+    btnGroup->addButton(rbtnIOS);
+    btnGroup->addButton(rbtnAndroid);
+
+
     QLabel * lbInput = new QLabel;
     lbInput->setText(tr("输出路径:"));
     lbInput->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
@@ -110,6 +131,7 @@ void MainWindow::initOutputSettingGroup()
     m_pbOutputSettingPath = new QPushButton;
     m_pbOutputSettingPath->setText(tr("设置输出目录"));
     m_pbOutputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    connect(m_pbOutputSettingPath, SIGNAL(clicked()), this, SLOT(onSettingOutputPathEvent()));
 
     QGridLayout * layout = new QGridLayout;
     layout->setColumnStretch(0, 1);
@@ -158,4 +180,16 @@ void MainWindow::initOutputGroup()
     layout->addWidget(m_pteOutput);
 
     m_gbOutputGroup->setLayout(layout);
+}
+
+void MainWindow::onSettingInputPathEvent()
+{
+    QString dirPath = QFileDialog::getExistingDirectory(this, tr("选择输入目录"));
+
+    printf("dir=====%s\n", dirPath.toStdString().c_str());
+}
+
+void MainWindow::onSettingOutputPathEvent()
+{
+
 }

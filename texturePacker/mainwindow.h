@@ -21,6 +21,7 @@ private:
     void initOutputSettingGroup();
     void initOpGroup();
     void initOutputGroup();
+
 private:
     QAction     * m_aAboutMe;
     QMenu       * m_mAboutMe;
@@ -43,6 +44,8 @@ private:
     QWidget     * m_wMainWidget;
 private slots:
     void onAboutMeAction();
+    void onSettingInputPathEvent();
+    void onSettingOutputPathEvent();
 };
 
 #endif // MAINWINDOW_H

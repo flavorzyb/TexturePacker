@@ -1,6 +1,7 @@
 #include <QtWidgets>
 #include "aboutme.h"
 #include "config.h"
+#include "utils.h"
 
 AboutMe::AboutMe(QWidget *parent) :
     QDialog(parent, Qt::Dialog)
@@ -39,7 +40,7 @@ void AboutMe::initUI()
     connect(pbClosed, SIGNAL(clicked()), this, SLOT(close()));
 
     QWidget *wBlank = new QWidget;
-    wBlank->setMinimumSize(20, 20);
+    wBlank->setMinimumSize(20, 10);
 
     QVBoxLayout * layout = new QVBoxLayout;
     layout->addWidget(lbName);
@@ -54,4 +55,6 @@ void AboutMe::initUI()
     layout->setSpacing(30);
 
     setLayout(layout);
+
+    Utils::center(this);
 }
