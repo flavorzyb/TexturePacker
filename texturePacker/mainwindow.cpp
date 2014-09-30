@@ -126,6 +126,14 @@ void MainWindow::initOutputSettingGroup()
     btnGroup->addButton(m_rbtnIOS);
     btnGroup->addButton(m_rbtnAndroid);
 
+    QHBoxLayout * lyFormat = new QHBoxLayout;
+    lyFormat->addWidget(m_rbtnIOS);
+    lyFormat->addWidget(m_rbtnAndroid);
+
+    QWidget * wFormat = new QWidget;
+    wFormat->setLayout(lyFormat);
+    //wFormat->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
     QLabel * lbInput = new QLabel;
     lbInput->setText(tr("输出路径:"));
     lbInput->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
@@ -145,8 +153,7 @@ void MainWindow::initOutputSettingGroup()
     layout->setColumnStretch(2, 2);
 
     layout->addWidget(lbFormat, 0, 0);
-    layout->addWidget(m_rbtnIOS, 0, 1);
-    layout->addWidget(m_rbtnAndroid, 0, 2);
+    layout->addWidget(wFormat, 0, 1, 1, 2);
 
     layout->addWidget(lbInput, 1, 0);
     layout->addWidget(m_leOutputSettingPath, 1, 1);
