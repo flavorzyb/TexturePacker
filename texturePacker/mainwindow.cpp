@@ -108,17 +108,23 @@ void MainWindow::initOutputSettingGroup()
     m_gbOutputSettingGroup = new QGroupBox;
     m_gbOutputSettingGroup->setTitle(tr("输出设置"));
 
+    QLabel * lbFormat = new QLabel;
+    lbFormat->setText("输出格式:");
+    lbFormat->setAlignment(Qt::AlignRight | Qt::AlignHCenter);
+
     QButtonGroup * btnGroup = new QButtonGroup;
 
-    QRadioButton *rbtnIOS = new QRadioButton;
-    rbtnIOS->setText(tr("IOS资源格式"));
+    m_rbtnIOS = new QRadioButton;
+    m_rbtnIOS->setText(tr("IOS资源格式"));
+    m_rbtnIOS->setChecked(true);
+    m_rbtnIOS->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    QRadioButton *rbtnAndroid = new QRadioButton;
-    rbtnAndroid->setText(tr("Android资源格式"));
+    m_rbtnAndroid = new QRadioButton;
+    m_rbtnAndroid->setText(tr("Android资源格式"));
+    m_rbtnAndroid->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
-    btnGroup->addButton(rbtnIOS);
-    btnGroup->addButton(rbtnAndroid);
-
+    btnGroup->addButton(m_rbtnIOS);
+    btnGroup->addButton(m_rbtnAndroid);
 
     QLabel * lbInput = new QLabel;
     lbInput->setText(tr("输出路径:"));
@@ -138,9 +144,13 @@ void MainWindow::initOutputSettingGroup()
     layout->setColumnStretch(1, 6);
     layout->setColumnStretch(2, 2);
 
-    layout->addWidget(lbInput, 0, 0);
-    layout->addWidget(m_leOutputSettingPath, 0, 1);
-    layout->addWidget(m_pbOutputSettingPath, 0, 2);
+    layout->addWidget(lbFormat, 0, 0);
+    layout->addWidget(m_rbtnIOS, 0, 1);
+    layout->addWidget(m_rbtnAndroid, 0, 2);
+
+    layout->addWidget(lbInput, 1, 0);
+    layout->addWidget(m_leOutputSettingPath, 1, 1);
+    layout->addWidget(m_pbOutputSettingPath, 1, 2);
 
     m_gbOutputSettingGroup->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
     m_gbOutputSettingGroup->setLayout(layout);

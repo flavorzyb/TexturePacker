@@ -34,6 +34,9 @@ private:
     QPushButton * m_pbPublish;
     QPushButton * m_pbClosed;
 
+    QRadioButton * m_rbtnIOS;
+    QRadioButton * m_rbtnAndroid;
+
     QGroupBox   * m_gbInputSettingGroup;
     QGroupBox   * m_gbOutputSettingGroup;
     QGroupBox   * m_gbOpGroup;
