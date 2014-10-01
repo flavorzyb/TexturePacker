@@ -195,6 +195,7 @@ void MainWindow::initOutputGroup()
     m_gbOutputGroup->setTitle(tr("输出"));
 
     m_pteOutput = new QPlainTextEdit;
+    m_pteOutput->setReadOnly(true);
 
     QVBoxLayout * layout = new QVBoxLayout;
     layout->addWidget(m_pteOutput);
@@ -208,6 +209,7 @@ void MainWindow::onSettingInputPathEvent()
     if (dirPath.length() > 0)
     {
         m_settingsvo.setInputPath(dirPath);
+        m_leInputSettingPath->setText(dirPath);
     }
 }
 
@@ -217,6 +219,7 @@ void MainWindow::onSettingOutputPathEvent()
     if (dirPath.length() > 0)
     {
         m_settingsvo.setOutputPath(dirPath);
+        m_leOutputSettingPath->setText(dirPath);
     }
 }
 
