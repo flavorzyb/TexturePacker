@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget *parent)
     initUI();
     initAction();
     initMenu();
+    initStatusBar();
 }
 
 MainWindow::~MainWindow()
@@ -65,6 +66,16 @@ void MainWindow::initAction()
     connect(m_aAboutMe, SIGNAL(triggered()), this, SLOT(onAboutMeAction()));
 }
 
+void MainWindow::initStatusBar()
+{
+    m_lbStatusBar = new QLabel;
+    m_lbStatusBar->setText("状态栏: 准备就绪");
+    m_lbStatusBar->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    m_lbStatusBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    statusBar()->addWidget(m_lbStatusBar);
+}
+
 void MainWindow::onAboutMeAction()
 {
     AboutMe am(this);
@@ -90,6 +101,7 @@ void MainWindow::initInputSettingsGroup()
     m_pbInputSettingPath = new QPushButton;
     m_pbInputSettingPath->setText(tr("设置输入目录"));
     m_pbInputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_pbInputSettingPath->setStatusTip(tr("设置资源转换的输入目录"));
     connect(m_pbInputSettingPath, SIGNAL(clicked()), this, SLOT(onSettingInputPathEvent()));
 
     layout->setColumnStretch(0, 1);
@@ -120,10 +132,12 @@ void MainWindow::initOutputSettingGroup()
     m_rbtnIOS->setText(tr("IOS资源格式"));
     m_rbtnIOS->setChecked(true);
     m_rbtnIOS->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_rbtnIOS->setStatusTip(tr("将资源转换的格式设置为IOS专用格式"));
 
     m_rbtnAndroid = new QRadioButton;
     m_rbtnAndroid->setText(tr("Android资源格式"));
     m_rbtnAndroid->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    m_rbtnAndroid->setStatusTip(tr("将资源转换的格式设置为Android专用格式"));
 
     btnGroup->addButton(m_rbtnIOS);
     btnGroup->addButton(m_rbtnAndroid);
@@ -146,6 +160,7 @@ void MainWindow::initOutputSettingGroup()
 
     m_pbOutputSettingPath = new QPushButton;
     m_pbOutputSettingPath->setText(tr("设置输出目录"));
+    m_pbOutputSettingPath->setStatusTip(tr("设置资源转换的输出目录"));
     m_pbOutputSettingPath->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
     connect(m_pbOutputSettingPath, SIGNAL(clicked()), this, SLOT(onSettingOutputPathEvent()));
 

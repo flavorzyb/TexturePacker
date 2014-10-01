@@ -22,10 +22,12 @@ private:
     void initOutputSettingGroup();
     void initOpGroup();
     void initOutputGroup();
+    void initStatusBar();
 
 private:
     QAction         * m_aAboutMe;
     QMenu           * m_mAboutMe;
+    QLabel          * m_lbStatusBar;
 
     QLineEdit       * m_leInputSettingPath;
     QLineEdit       * m_leOutputSettingPath;
