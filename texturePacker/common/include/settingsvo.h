@@ -15,6 +15,7 @@ public:
     Q_OBJECT
 public:
     SettingsVO();
+    SettingsVO(const SettingsVO & svo);
     ~SettingsVO();
     void setInputPath(QString path);
     void setOutputPath(QString path);

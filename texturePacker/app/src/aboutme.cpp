@@ -1,7 +1,7 @@
 #include <QtWidgets>
-#include "aboutme.h"
-#include "config.h"
-#include "utils.h"
+#include "include/aboutme.h"
+#include "common/include/config.h"
+#include "include/utils.h"
 
 AboutMe::AboutMe(QWidget *parent) :
     QDialog(parent, Qt::Dialog)

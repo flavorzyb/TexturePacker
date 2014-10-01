@@ -1,8 +1,7 @@
 #include <QFileDialog>
-
-#include "mainwindow.h"
-#include "aboutme.h"
-#include "utils.h"
+#include "include/mainwindow.h"
+#include "include/aboutme.h"
+#include "include/utils.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

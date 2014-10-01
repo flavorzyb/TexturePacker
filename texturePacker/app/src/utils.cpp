@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <QDesktopWidget>
-#include "utils.h"
+#include "include/utils.h"
 
 
 void Utils::center(QWidget *widget)

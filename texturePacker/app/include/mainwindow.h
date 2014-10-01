@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QtWidgets>
-#include "settingsvo.h"
+#include "common/include/settingsvo.h"
 
 class MainWindow : public QMainWindow
 {

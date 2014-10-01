@@ -1,9 +1,16 @@
-#include "settingsvo.h"
+#include "include/settingsvo.h"
 
 SettingsVO::SettingsVO():m_inputPath("")
                         ,m_outputPath("")
                         ,m_format(SettingsVO::IOS)
 {
+}
+
+SettingsVO::SettingsVO(const SettingsVO & svo)
+{
+    m_inputPath = svo.m_inputPath;
+    m_outputPath = svo.m_outputPath;
+    m_format = svo.m_format;
 }
 
 SettingsVO::~SettingsVO()
