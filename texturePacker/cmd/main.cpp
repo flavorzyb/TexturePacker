@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     printf("input:%s output:%s formate:%d\n",
            pub.getSettingsVO().getInputPath().toStdString().c_str(),
            pub.getSettingsVO().getOutputPath().toStdString().c_str(),
-           pub.getSettingsVO().getFormat() == SettingsVO::ANDROID? "android" : "ios");
+           (pub.getSettingsVO().getFormat() == SettingsVO::ANDROID) ? "android" : "ios");
 
     printf("this is a cmd application\n");
     return 0;
