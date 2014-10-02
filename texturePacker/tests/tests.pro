@@ -15,10 +15,13 @@ TEMPLATE = app
 include($$PWD/../common/common.pri)
 
 SOURCES += \
-    fileutilstest.cpp
+    fileutilstest.cpp \
+    publishertest.cpp \
+    main.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
 
 HEADERS += \
-    fileutilstest.h
+    fileutilstest.h \
+    publishertest.h

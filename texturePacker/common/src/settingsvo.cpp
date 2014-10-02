@@ -47,3 +47,10 @@ SettingsVO::format SettingsVO::getFormat() const
 {
     return m_format;
 }
+
+bool SettingsVO::operator ==(const SettingsVO & svo) const
+{
+    return ((m_inputPath == svo.getInputPath()) &&
+            (m_outputPath == svo.getOutputPath()) &&
+            (m_format == svo.getFormat()));
+}

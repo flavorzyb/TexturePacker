@@ -51,5 +51,3 @@ void FileUtilsTest::testGetAllImageFiles()
     QVector<QString> fileLists = FileUtils::getAllImageFiles(m_inputPath);
     QVERIFY(fileLists.size() > 0);
 }
-
-QTEST_MAIN(FileUtilsTest)
