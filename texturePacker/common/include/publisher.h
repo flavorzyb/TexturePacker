@@ -11,7 +11,7 @@ class Publisher : public QObject
 public:
     explicit Publisher(const SettingsVO & svo);
     const SettingsVO & getSettingsVO() const;
-    void publish();
+    bool publish();
 signals:
 
 public slots:
