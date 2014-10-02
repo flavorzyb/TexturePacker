@@ -2,17 +2,17 @@
 #define FILEUTILS_H
 
 #include <QObject>
-#include <vector>
-#include <string>
+#include <QVector>
+#include <QString>
 
 class FileUtils : public QObject
 {
     Q_OBJECT
 public:
     FileUtils();
-    static std::vector<std::string> getAllImageFiles(const std::string & path);
-    static bool hasParentDirectory(const std::string & path);
-    static bool createParentDirectory(const std::string & path);
+    static QVector<QString> getAllImageFiles(const QString & path);
+    static bool hasParentDirectory(const QString & path);
+    static bool createParentDirectory(const QString & path);
 signals:
 
 public slots:

@@ -1,4 +1,5 @@
 #include <QDir>
+#include <QVector>
 #include "fileutilstest.h"
 
 FileUtilsTest::FileUtilsTest()
@@ -34,18 +35,21 @@ void FileUtilsTest::testHasParentDirectory()
 {
     QString path = m_inputPath + "/植物_树1.png";
     QCOMPARE(FileUtils::hasParentDirectory("/asadfxi/32ad0ol/"), false);
-    QCOMPARE(FileUtils::hasParentDirectory(path.toStdString()), true);
+    QCOMPARE(FileUtils::hasParentDirectory(path), true);
 }
 
 void FileUtilsTest::testCreateParentDirectory()
 {
     QString path = m_outputPath + "/aaaa/bbb/植物_树1.png";
-    QCOMPARE(FileUtils::createParentDirectory(path.toStdString()), true);
-    QCOMPARE(FileUtils::createParentDirectory(path.toStdString()), true);
+
+    QCOMPARE(FileUtils::createParentDirectory(path), true);
+    QCOMPARE(FileUtils::createParentDirectory(path), true);
 }
 
 void FileUtilsTest::testGetAllImageFiles()
 {
+    QVector<QString> fileLists = FileUtils::getAllImageFiles(m_inputPath);
+    QVERIFY(fileLists.size() > 0);
 }
 
 QTEST_MAIN(FileUtilsTest)

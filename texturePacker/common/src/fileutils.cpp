@@ -1,5 +1,7 @@
 #include <QDir>
-#include <QString>
+#include <QFileInfo>
+#include <QStringList>
+
 #include "include/fileutils.h"
 
 FileUtils::FileUtils() :
@@ -7,41 +9,67 @@ FileUtils::FileUtils() :
 {
 }
 
-std::vector<std::string> FileUtils::getAllImageFiles(const std::string & path)
+QVector<QString> FileUtils::getAllImageFiles(const QString & path)
 {
-    std::vector<std::string> result;
+    QVector<QString> result;
+    QDir dir(path);
+    QFileInfoList fileInfoLists = dir.entryInfoList();
+    QFileInfoList::const_iterator iterator = fileInfoLists.constBegin();
+
+    for(; iterator != fileInfoLists.constEnd(); iterator++)
+    {
+        QString filename = iterator->fileName();
+
+        if (!filename.startsWith("."))
+        {
+            if (iterator->isDir())
+            {
+                result += getAllImageFiles(iterator->absoluteFilePath());
+            }
+            else if (iterator->isFile())
+            {
+                QString ext = iterator->completeSuffix();
+                QString extLower = ext.toLower();
+                if (extLower.endsWith("png") ||
+                        extLower.endsWith("jpg") ||
+                        extLower.endsWith("jpeg"))
+                {
+                    result.push_back(iterator->absoluteFilePath());
+                }
+            }
+            else
+            {
+                //
+            }
+        }
+    }
+
     return result;
 }
 
-static std::string getParentPath(const std::string & path)
+static QString getParentPath(const QString & path)
 {
-    QDir dir(path.c_str());
-    std::string absPath = dir.absolutePath().toStdString();
-    std::string dirname = dir.dirName().toStdString();
-    if (absPath.length() > (dirname.length() + 1))
-    {
-        return absPath.substr(0, absPath.length() - dirname.length() - 1);
-    }
+    QFileInfo fileInfo(path);
 
-    return "";
+    return fileInfo.absolutePath();
 }
 
-bool FileUtils::hasParentDirectory(const std::string & path)
+bool FileUtils::hasParentDirectory(const QString & path)
 {
-    std::string parentPath = getParentPath(path);
+    QString parentPath = getParentPath(path);
 
     if (parentPath.length() > 0)
     {
-        QDir parentDir(parentPath.c_str());
+        QDir parentDir(parentPath);
         return parentDir.exists();
     }
 
     return false;
 }
 
-bool FileUtils::createParentDirectory(const std::string & path)
+bool FileUtils::createParentDirectory(const QString & path)
 {
-    std::string parentPath = getParentPath(path);
-    QDir parentDir(parentPath.c_str());
-    return parentDir.mkpath(parentDir.absolutePath());
+    QString parentPath = getParentPath(path);
+    QDir parentDir;
+    return parentDir.mkpath(parentPath);
 }
