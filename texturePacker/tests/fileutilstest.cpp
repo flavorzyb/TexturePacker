@@ -16,7 +16,7 @@ void FileUtilsTest::clean()
     QDir dir(m_outputPath);
     if (dir.exists())
     {
-        dir.rmdir(dir.absolutePath());
+        dir.rmpath(dir.absolutePath());
     }
 }
 
@@ -35,6 +35,17 @@ void FileUtilsTest::testHasParentDirectory()
     QString path = m_inputPath + "/植物_树1.png";
     QCOMPARE(FileUtils::hasParentDirectory("/asadfxi/32ad0ol/"), false);
     QCOMPARE(FileUtils::hasParentDirectory(path.toStdString()), true);
+}
+
+void FileUtilsTest::testCreateParentDirectory()
+{
+    QString path = m_outputPath + "/aaaa/bbb/植物_树1.png";
+    QCOMPARE(FileUtils::createParentDirectory(path.toStdString()), true);
+    QCOMPARE(FileUtils::createParentDirectory(path.toStdString()), true);
+}
+
+void FileUtilsTest::testGetAllImageFiles()
+{
 }
 
 QTEST_MAIN(FileUtilsTest)

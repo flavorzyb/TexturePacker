@@ -21,7 +21,8 @@ private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
     void testHasParentDirectory();
-
+    void testCreateParentDirectory();
+    void testGetAllImageFiles();
 private:
     void init();
     void clean();
