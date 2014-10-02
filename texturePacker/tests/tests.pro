@@ -6,7 +6,7 @@
 
 QT       += widgets testlib
 
-TARGET = tst_teststest
+TARGET = tests
 CONFIG   += console
 CONFIG   -= app_bundle
 
@@ -16,7 +16,6 @@ include($$PWD/../common/common.pri)
 
 SOURCES += \
     fileutilstest.cpp
-DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../

@@ -16,7 +16,6 @@ public:
 signals:
 
 public slots:
-
 };
 
 #endif // FILEUTILS_H
