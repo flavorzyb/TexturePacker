@@ -24,3 +24,9 @@ void PublisherTest::testGetSettingsVO()
     Publisher pub(m_svo);
     QCOMPARE(pub.getSettingsVO(), m_svo);
 }
+
+void PublisherTest::testPublish()
+{
+    Publisher pub(m_svo);
+
+}

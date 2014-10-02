@@ -19,7 +19,7 @@ private Q_SLOTS:
     void initTestCase();
     void cleanupTestCase();
     void testGetSettingsVO();
-
+    void testPublish();
 private:
     SettingsVO m_svo;
 };
