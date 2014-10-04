@@ -38,3 +38,10 @@ bool PNG::load()
 
     return true;
 }
+
+PVR PNG::convertToPVR()
+{
+    PVR result;
+
+    return result;
+}

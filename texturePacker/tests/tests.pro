@@ -21,7 +21,8 @@ SOURCES += \
     publishertest.cpp \
     main.cpp \
     imagetest.cpp \
-    pngtest.cpp
+    pngtest.cpp \
+    pvrtest.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
@@ -30,4 +31,10 @@ HEADERS += \
     fileutilstest.h \
     publishertest.h \
     imagetest.h \
-    pngtest.h
+    pngtest.h \
+    pvrtest.h
+
+macx {
+    QMAKE_POST_LINK =   rm -rf images && \
+                        cp -rf $$PWD/images ./
+}

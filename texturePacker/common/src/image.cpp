@@ -15,6 +15,13 @@ Image::Image(QString filename):
 
 }
 
+Image::Image(const Image &img):
+    m_filePath(img.m_filePath)
+  , m_width(img.m_width)
+  , m_height(img.m_height)
+{
+}
+
 bool Image::load(QString filename)
 {
     setFilePath(filename);

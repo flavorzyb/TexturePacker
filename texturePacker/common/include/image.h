@@ -11,6 +11,7 @@ class Image : public QObject
 public:
     Image();
     Image(QString filename);
+    Image(const Image & img);
 
     bool load(QString filename);
     virtual bool load() = 0;
