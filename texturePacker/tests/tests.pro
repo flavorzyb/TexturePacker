@@ -17,11 +17,13 @@ include($$PWD/../common/common.pri)
 SOURCES += \
     fileutilstest.cpp \
     publishertest.cpp \
-    main.cpp
+    main.cpp \
+    pvrabstracttest.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
 
 HEADERS += \
     fileutilstest.h \
-    publishertest.h
+    publishertest.h \
+    pvrabstracttest.h
