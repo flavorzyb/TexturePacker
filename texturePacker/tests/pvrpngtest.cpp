@@ -17,5 +17,6 @@ void PVRPNGTest::cleanupTestCase()
 
 void PVRPNGTest::testLoad()
 {
-    printf("PVRPNGTest::testLoad()................\n");
+    QCOMPARE(m_oPVR->load("/Users/flavor/tmp/zw_input/植物_树1xadfa.png"), false);
+    QCOMPARE(m_oPVR->load(), true);
 }
