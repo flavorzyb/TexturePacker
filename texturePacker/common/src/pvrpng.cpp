@@ -1,6 +1,10 @@
 #include <QFile>
+#include <QImage>
 
 #include "include/pvrpng.h"
+#include "include/PVRTexture.h"
+#include "include/PVRTDecompress.h"
+#include "include/PVRTextureUtilities.h"
 
 PVRPNG::PVRPNG():PVRAbstract()
 {
@@ -18,7 +22,14 @@ bool PVRPNG::load()
         return false;
     }
 
+    QImage image(filePath(), "PNG");
+    setWidth(image.width());
+    setHeight(image.height());
 
+    return true;
+}
 
+bool PVRPNG::save2Pvr()
+{
     return true;
 }

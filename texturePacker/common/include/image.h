@@ -1,22 +1,22 @@
-#ifndef PVRABSTRACT_H
-#define PVRABSTRACT_H
+#ifndef IMAGE_H
+#define IMAGE_H
 
 #include <QObject>
 #include <QString>
 
-class PVRAbstract : public QObject
+class Image : public QObject
 {
     Q_OBJECT
 public:
-    PVRAbstract();
-    PVRAbstract(QString filename);
+    Image();
+    Image(QString filename);
+
     bool load(QString filename);
-
     virtual bool load() = 0;
-
     int width() const;
     int height() const;
     const QString & filePath() const;
+
 signals:
 
 public slots:
@@ -32,4 +32,4 @@ private:
     int m_height;
 };
 
-#endif // PVRABSTRACT_H
+#endif // IMAGE_H

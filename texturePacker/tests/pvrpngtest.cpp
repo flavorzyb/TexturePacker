@@ -18,5 +18,6 @@ void PVRPNGTest::cleanupTestCase()
 void PVRPNGTest::testLoad()
 {
     QCOMPARE(m_oPVR->load("/Users/flavor/tmp/zw_input/植物_树1xadfa.png"), false);
-    QCOMPARE(m_oPVR->load(), true);
+
+    QCOMPARE(m_oPVR->load("/Users/flavor/tmp/zw_input/植物_树1.png"), true);
 }

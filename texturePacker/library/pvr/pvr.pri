@@ -15,8 +15,8 @@ HEADERS +=  $$PWD/include/PVRTArray.h \
 INCLUDEPATH += $$PWD
 
 macx:   LIBS += -L$$PWD/libs/mac/ -lPVRTexLib
-unix:   LIBS += -L$$PWD/libs/unix/ -lPVRTexLib
-win32:  LIBS += -L$$PWD/libs/mac/ -lPVRTexLib
+else:unix:   LIBS += -L$$PWD/libs/unix/ -lPVRTexLib
+else:win32:  LIBS += -L$$PWD/libs/mac/ -lPVRTexLib
 
 INCLUDEPATH += $$PWD/libs
 DEPENDPATH += $$PWD/libs

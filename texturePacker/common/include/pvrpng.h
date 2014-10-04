@@ -9,6 +9,7 @@ public:
     PVRPNG();
     PVRPNG(QString filename);
     virtual bool load();
+    bool save2Pvr();
 };
 
 #endif // PVRPNG_H
