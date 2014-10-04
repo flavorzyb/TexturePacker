@@ -1,4 +1,3 @@
-#include <QFile>
 #include "include/png.h"
 
 PNG::PNG():Image()
@@ -21,8 +20,7 @@ PNG::~PNG()
 
 bool PNG::load()
 {
-    QFile file(filePath());
-    if (!file.exists())
+    if (!exists(filePath()))
     {
         return false;
     }

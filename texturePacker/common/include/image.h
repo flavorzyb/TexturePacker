@@ -18,6 +18,7 @@ public:
     int width() const;
     int height() const;
     const QString & filePath() const;
+    bool exists(QString filename) const;
 
 signals:
 

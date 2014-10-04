@@ -1,4 +1,7 @@
+#include <QFile>
+
 #include "include/image.h"
+
 
 Image::Image():
     m_filePath("")
@@ -50,6 +53,13 @@ void Image::setHeight(int height)
 const QString & Image::filePath() const
 {
     return m_filePath;
+}
+
+bool Image::exists(QString filename) const
+{
+    QFile file(filename);
+
+    return file.exists();
 }
 
 void Image::setFilePath(const QString &filePath)
