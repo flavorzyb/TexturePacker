@@ -19,7 +19,7 @@ bool Publisher::publish()
     QVector<QString>::const_iterator iterator = imageFileLists.constBegin();
     for (; iterator != imageFileLists.constEnd(); iterator++)
     {
-        printf("%s\n", iterator->toStdString().c_str());
+//        printf("%s\n", iterator->toStdString().c_str());
     }
     return true;
 }

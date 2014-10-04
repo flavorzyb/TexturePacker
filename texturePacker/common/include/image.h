@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QString>
+#include <QImage>
 
 class Image : public QObject
 {

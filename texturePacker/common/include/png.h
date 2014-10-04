@@ -1,18 +1,21 @@
 #ifndef PNG_H
 #define PNG_H
+#include "include/image.h"
 
-#include <QObject>
-
-class PNG : public QObject
+class PNG : public Image
 {
     Q_OBJECT
 public:
-    explicit PNG(QObject *parent = 0);
-
+    PNG();
+    PNG(QString filename);
+    virtual ~PNG();
+    virtual bool load();
 signals:
 
 public slots:
 
+private:
+    QImage * m_pImg;
 };
 
 #endif // PNG_H
