@@ -9,6 +9,7 @@ class PVRAbstract : public QObject
     Q_OBJECT
 public:
     PVRAbstract();
+    PVRAbstract(QString filename);
     bool load(QString filename);
 
     virtual bool load() = 0;

@@ -4,6 +4,11 @@ PVRAbstract::PVRAbstract():m_filePath("")
 {
 }
 
+PVRAbstract::PVRAbstract(QString filename)
+{
+    setFilePath(filename);
+}
+
 bool PVRAbstract::load(QString filename)
 {
     setFilePath(filename);
