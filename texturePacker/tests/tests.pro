@@ -14,6 +14,8 @@ TEMPLATE = app
 
 include($$PWD/../common/common.pri)
 
+include($$PWD/../library/pvr/pvr.pri)
+
 SOURCES += \
     fileutilstest.cpp \
     publishertest.cpp \
