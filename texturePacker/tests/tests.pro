@@ -35,6 +35,7 @@ HEADERS += \
     pvrtest.h
 
 macx {
-    QMAKE_POST_LINK =   rm -rf images && \
-                        cp -rf $$PWD/images ./
+    QMAKE_POST_LINK =   rm -rf images && cp -rf $$PWD/images ./ && \
+                        rm -rf input && cp -rf $$PWD/input ./ && \
+                        rm -rf output && mkdir output
 }

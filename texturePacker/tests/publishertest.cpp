@@ -10,8 +10,8 @@ PublisherTest::PublisherTest(QObject *parent) :
 
 void PublisherTest::initTestCase()
 {
-    m_svo.setInputPath("/Users/flavor/tmp/zw_input");
-    m_svo.setOutputPath("/Users/flavor/tmp/zw_output");
+    m_svo.setInputPath("input");
+    m_svo.setOutputPath("output");
     m_svo.setFormat(SettingsVO::IOS);
 }
 

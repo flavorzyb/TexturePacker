@@ -7,7 +7,7 @@ PngTest::PngTest()
 
 void PngTest::initTestCase()
 {
-    m_pImg = new PNG("/Users/flavor/tmp/zw_input/植物_树1.png");
+    m_pImg = new PNG("input/植物_树1.png");
 }
 
 void PngTest::cleanupTestCase()
@@ -18,5 +18,5 @@ void PngTest::cleanupTestCase()
 void PngTest::testLoad()
 {
     QCOMPARE(m_pImg->load(), true);
-    QCOMPARE(m_pImg->load("/Users/flavor/tmp/zw_input/植物_树1xxaiejl.png"), false);
+    QCOMPARE(m_pImg->load("input/植物_树1xxaiejl.png"), false);
 }

@@ -8,8 +8,8 @@ FileUtilsTest::FileUtilsTest()
 
 void FileUtilsTest::init()
 {
-    m_inputPath = "/Users/flavor/tmp/zw_input";
-    m_outputPath = "/Users/flavor/tmp/zw_output";
+    m_inputPath = "input";
+    m_outputPath = "output";
 }
 
 void FileUtilsTest::clean()

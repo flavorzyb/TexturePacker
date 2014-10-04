@@ -7,7 +7,7 @@ PVRTest::PVRTest()
 
 void PVRTest::initTestCase()
 {
-    m_pImg = new PVR("/Users/flavor/tmp/zw_input/植物_树1.png");
+    m_pImg = new PVR("input/植物_树1.png");
 }
 
 void PVRTest::cleanupTestCase()
