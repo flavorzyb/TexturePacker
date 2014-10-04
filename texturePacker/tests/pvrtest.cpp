@@ -17,6 +17,6 @@ void PVRTest::cleanupTestCase()
 
 void PVRTest::testLoad()
 {
-//    QCOMPARE(m_pImg->load("images/zw_bs.pvr.ccz"), true);
-//    QCOMPARE(m_pImg->load("images/zw_bsaduoj.pvr.ccz"), false);
+    QCOMPARE(m_pImg->load("images/zw_bs.pvr.ccz"), true);
+    QCOMPARE(m_pImg->load("images/zw_bsaduoj.pvr.ccz"), false);
 }
