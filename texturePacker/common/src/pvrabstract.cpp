@@ -1,12 +1,17 @@
 #include "include/pvrabstract.h"
 
-PVRAbstract::PVRAbstract():m_filePath("")
+PVRAbstract::PVRAbstract():
+    m_filePath("")
+  , m_width(0)
+  , m_height(0)
 {
 }
 
-PVRAbstract::PVRAbstract(QString filename)
+PVRAbstract::PVRAbstract(QString filename):
+    m_filePath(filename)
+  , m_width(0)
+  , m_height(0)
 {
-    setFilePath(filename);
 }
 
 bool PVRAbstract::load(QString filename)

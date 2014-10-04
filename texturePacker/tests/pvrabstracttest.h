@@ -13,12 +13,10 @@ public:
     PVRAbstractTest();
     virtual ~PVRAbstractTest();
 
-protected slots:
+private Q_SLOTS:
     virtual void initTestCase() = 0;
     virtual void cleanupTestCase() = 0;
-
-    void testWidth();
-    void testHeight();
+    void testWidthAndHeight();
 
 signals:
 

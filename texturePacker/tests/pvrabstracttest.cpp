@@ -9,12 +9,9 @@ PVRAbstractTest::~PVRAbstractTest()
 
 }
 
-void PVRAbstractTest::testWidth()
+void PVRAbstractTest::testWidthAndHeight()
 {
+    m_oPVR->load();
     QVERIFY2(m_oPVR->width() > 0, "width must be over then zero.");
-}
-
-void PVRAbstractTest::testHeight()
-{
     QVERIFY2(m_oPVR->height() > 0, "height must be over then zero.");
 }

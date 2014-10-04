@@ -2,7 +2,7 @@
 
 #include "include/pvrpng.h"
 
-PVRPNG::PVRPNG()
+PVRPNG::PVRPNG():PVRAbstract()
 {
 }
 

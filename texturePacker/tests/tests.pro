@@ -18,7 +18,8 @@ SOURCES += \
     fileutilstest.cpp \
     publishertest.cpp \
     main.cpp \
-    pvrabstracttest.cpp
+    pvrabstracttest.cpp \
+    pvrpngtest.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
@@ -26,4 +27,5 @@ INCLUDEPATH +=  $$PWD \
 HEADERS += \
     fileutilstest.h \
     publishertest.h \
-    pvrabstracttest.h
+    pvrabstracttest.h \
+    pvrpngtest.h
