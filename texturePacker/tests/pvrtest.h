@@ -13,6 +13,8 @@ private Q_SLOTS:
     virtual void init();
     virtual void cleanup();
     virtual void testLoad();
+    void testSave();
+    void testSaveCCZFile();
 };
 
 #endif // PVRTEST_H

@@ -15,6 +15,7 @@ public:
 
     bool load(const QString & filename);
     virtual bool load() = 0;
+    virtual bool save(const QString & filename) = 0;
     int width() const;
     int height() const;
     const QString & filePath() const;

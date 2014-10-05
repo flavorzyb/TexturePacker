@@ -1,5 +1,7 @@
 #include "include/pvr.h"
 #include "include/ziputils.h"
+#include "include/fileutils.h"
+#include <unistd.h>
 
 PVR::PVR():
     Image()
@@ -63,6 +65,40 @@ bool PVR::load()
     return result;
 }
 
+bool PVR::save(const QString & filename)
+{
+    if (m_pvrTexture == NULL)
+    {
+        return false;
+    }
+
+    return m_pvrTexture->saveFile(filename.toStdString().c_str());
+}
+
+bool PVR::saveCCZ(const QString & filename)
+{
+    QString path = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr";
+    if (save(path))
+    {
+        unsigned long fileSize = 0;
+        unsigned char * pvrdata = FileUtils::getFileData(path.toStdString().c_str(), "rb", &fileSize);
+        unlink(path.toStdString().c_str());
+
+        if ((pvrdata != NULL) && (fileSize > 0))
+        {
+            if (ZipUtils::ccDeflateCCZFile(filename.toStdString().c_str(), pvrdata, fileSize))
+            {
+                delete []pvrdata;
+                return true;
+            }
+        }
+
+        delete []pvrdata;
+    }
+
+    return false;
+}
+
 bool PVR::isPVRCCZFile(const QString &filename) const
 {
     return filename.toLower().endsWith(".pvr.ccz");
@@ -74,6 +110,7 @@ bool PVR::loadPVRCCZ(const QString &filename)
     if (ZipUtils::ccInflateCCZFile(filename.toStdString().c_str(), &out) > 1)
     {
         m_pvrTexture = new pvrtexture::CPVRTexture(out);
+
         delete [] out;
         return true;
     }

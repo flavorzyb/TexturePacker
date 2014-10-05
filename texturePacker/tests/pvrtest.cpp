@@ -25,3 +25,15 @@ void PVRTest::testLoad()
     QCOMPARE(m_pImg->width() > 1, false);
     QCOMPARE(m_pImg->height() > 1, false);
 }
+
+void PVRTest::testSave()
+{
+    m_pImg->load();
+    QCOMPARE(m_pImg->save("output/zw.pvr"), true);
+}
+
+void PVRTest::testSaveCCZFile()
+{
+    m_pImg->load();
+    QCOMPARE(((PVR *) m_pImg)->saveCCZ("output/zw.pvr.ccz"), true);
+}

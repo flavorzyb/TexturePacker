@@ -12,6 +12,7 @@ public:
     virtual ~PNG();
     virtual bool load();
     PVR convertToPVR();
+    virtual bool save(const QString & filename);
 private:
     QImage * m_pImg;
 };

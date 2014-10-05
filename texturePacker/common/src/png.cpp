@@ -43,3 +43,9 @@ PVR PNG::convertToPVR()
 
     return result;
 }
+
+bool PNG::save(const QString &filename)
+{
+    printf("filename:%s\n", filename.toStdString().c_str());
+    return false;
+}

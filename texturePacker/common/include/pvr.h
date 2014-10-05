@@ -14,6 +14,9 @@ public:
     PVR(const PVR & pvr);
     virtual ~PVR();
     virtual bool load();
+    virtual bool save(const QString & filename);
+    bool saveCCZ(const QString & filename);
+
 private:
     bool isPVRCCZFile(const QString & filename) const;
     bool loadPVRCCZ(const QString & filename);

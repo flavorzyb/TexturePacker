@@ -14,6 +14,8 @@ public:
     static bool hasParentDirectory(const QString & path);
     static bool createParentDirectory(const QString & path);
     static unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
+    static QString createImageTempFolder();
+    static QString getRandFileNameString();
 signals:
 
 public slots:

@@ -102,3 +102,24 @@ unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMo
 
     return pBuffer;
 }
+
+QString FileUtils::createImageTempFolder()
+{
+    QString path = QDir::homePath() + "/.tp/tmp";
+    QDir dir(path);
+    if (!dir.exists())
+    {
+        dir.mkpath(path);
+    }
+
+    return path;
+}
+
+QString FileUtils::getRandFileNameString()
+{
+    srand((int)time(0));
+    char strFile[32] = {0};
+    sprintf(strFile, "%d", rand());
+
+    return strFile;
+}
