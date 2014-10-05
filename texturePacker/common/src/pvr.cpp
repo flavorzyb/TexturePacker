@@ -29,10 +29,11 @@ PVR::~PVR()
 
 bool PVR::load()
 {
+    setWidth(0);
+    setHeight(0);
+
     if (!exists(filePath()))
     {
-        setWidth(0);
-        setHeight(0);
         return false;
     }
 
