@@ -73,3 +73,32 @@ bool FileUtils::createParentDirectory(const QString & path)
     QDir parentDir;
     return parentDir.mkpath(parentPath);
 }
+
+unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMode, unsigned long *pSize)
+{
+    unsigned char * pBuffer = NULL;
+
+    if (pszFileName == NULL || pSize == NULL || pszMode == NULL)
+    {
+        return NULL;
+    }
+
+    *pSize = 0;
+
+    // read the file from hardware
+    FILE *fp = fopen(pszFileName, pszMode);
+
+    if (!fp)
+    {
+        return NULL;
+    }
+
+    fseek(fp,0,SEEK_END);
+    *pSize = ftell(fp);
+    fseek(fp,0,SEEK_SET);
+    pBuffer = new unsigned char[*pSize];
+    *pSize = fread(pBuffer,sizeof(unsigned char), *pSize,fp);
+    fclose(fp);
+
+    return pBuffer;
+}

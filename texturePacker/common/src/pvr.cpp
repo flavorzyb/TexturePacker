@@ -28,8 +28,11 @@ PVR::~PVR()
 
 bool PVR::load()
 {
+
     if (!exists(filePath()))
     {
+        setWidth(0);
+        setHeight(0);
         return false;
     }
 
@@ -41,6 +44,6 @@ bool PVR::load()
     m_pvrTexture = new pvrtexture::CPVRTexture(filePath().toStdString().c_str());
     setWidth(m_pvrTexture->getWidth());
     setHeight(m_pvrTexture->getHeight());
-
+    printf("width:%d height:%d\n", width(), height());
     return true;
 }
