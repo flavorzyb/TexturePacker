@@ -16,8 +16,8 @@ signals:
 public slots:
 
 private Q_SLOTS:
-    void initTestCase();
-    void cleanupTestCase();
+    void init();
+    void cleanup();
     void testGetSettingsVO();
     void testPublish();
 private:

@@ -10,8 +10,8 @@ public:
     PVRTest();
 
 private Q_SLOTS:
-    virtual void initTestCase();
-    virtual void cleanupTestCase();
+    virtual void init();
+    virtual void cleanup();
     virtual void testLoad();
 };
 

@@ -1,7 +1,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStringList>
-
+#include <iostream>
 #include "include/fileutils.h"
 
 FileUtils::FileUtils() :

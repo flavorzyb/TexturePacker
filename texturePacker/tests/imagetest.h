@@ -17,8 +17,8 @@ signals:
 public slots:
 
 private Q_SLOTS:
-    virtual void initTestCase() = 0;
-    virtual void cleanupTestCase() = 0;
+    virtual void init() = 0;
+    virtual void cleanup() = 0;
     virtual void testLoad() = 0;
     void testWidthAndHeight();
 

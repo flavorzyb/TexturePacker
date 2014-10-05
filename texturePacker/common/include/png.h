@@ -8,7 +8,7 @@ class PNG : public Image
     Q_OBJECT
 public:
     PNG();
-    PNG(QString filename);
+    PNG(const QString & filename);
     virtual ~PNG();
     virtual bool load();
     PVR convertToPVR();

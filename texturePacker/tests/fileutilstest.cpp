@@ -12,23 +12,13 @@ void FileUtilsTest::init()
     m_outputPath = "output";
 }
 
-void FileUtilsTest::clean()
+void FileUtilsTest::cleanup()
 {
     QDir dir(m_outputPath);
     if (dir.exists())
     {
         dir.rmpath(dir.absolutePath());
     }
-}
-
-void FileUtilsTest::initTestCase()
-{
-    init();
-}
-
-void FileUtilsTest::cleanupTestCase()
-{
-    clean();
 }
 
 void FileUtilsTest::testHasParentDirectory()

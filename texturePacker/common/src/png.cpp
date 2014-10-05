@@ -5,7 +5,7 @@ PNG::PNG():Image()
 {
 }
 
-PNG::PNG(QString filename):Image(filename)
+PNG::PNG(const QString & filename):Image(filename)
     , m_pImg(NULL)
 {
 }

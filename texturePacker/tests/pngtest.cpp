@@ -5,12 +5,12 @@ PngTest::PngTest()
 {
 }
 
-void PngTest::initTestCase()
+void PngTest::init()
 {
     m_pImg = new PNG("input/植物_树1.png");
 }
 
-void PngTest::cleanupTestCase()
+void PngTest::cleanup()
 {
     delete m_pImg;
 }

@@ -10,15 +10,15 @@ class Image : public QObject
     Q_OBJECT
 public:
     Image();
-    Image(QString filename);
+    Image(const QString & filename);
     Image(const Image & img);
 
-    bool load(QString filename);
+    bool load(const QString & filename);
     virtual bool load() = 0;
     int width() const;
     int height() const;
     const QString & filePath() const;
-    bool exists(QString filename) const;
+    bool exists(const QString & filename) const;
 
 signals:
 

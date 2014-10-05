@@ -10,11 +10,14 @@ class PVR : public Image
 {
 public:
     PVR();
-    PVR(QString filename);
+    PVR(const QString & filename);
     PVR(const PVR & pvr);
     virtual ~PVR();
     virtual bool load();
-
+private:
+    bool isPVRCCZFile(const QString & filename) const;
+    bool loadPVRCCZ(const QString & filename);
+    bool loadPVR(const QString & filename);
 private:
     pvrtexture::CPVRTexture * m_pvrTexture;
 };

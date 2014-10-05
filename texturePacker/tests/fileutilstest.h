@@ -18,14 +18,12 @@ signals:
 public slots:
 
 private Q_SLOTS:
-    void initTestCase();
-    void cleanupTestCase();
+    void init();
+    void cleanup();
     void testHasParentDirectory();
     void testCreateParentDirectory();
     void testGetAllImageFiles();
-private:
-    void init();
-    void clean();
+
 private:
     QString m_inputPath;
     QString m_outputPath;

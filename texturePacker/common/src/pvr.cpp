@@ -1,4 +1,5 @@
 #include "include/pvr.h"
+#include "include/ziputils.h"
 
 PVR::PVR():
     Image()
@@ -6,7 +7,7 @@ PVR::PVR():
 {
 }
 
-PVR::PVR(QString filename):
+PVR::PVR(const QString & filename):
     Image(filename)
   , m_pvrTexture(NULL)
 {
@@ -28,7 +29,6 @@ PVR::~PVR()
 
 bool PVR::load()
 {
-
     if (!exists(filePath()))
     {
         setWidth(0);
@@ -39,11 +39,50 @@ bool PVR::load()
     if (m_pvrTexture != NULL)
     {
         delete m_pvrTexture;
+        m_pvrTexture = NULL;
     }
 
-    m_pvrTexture = new pvrtexture::CPVRTexture(filePath().toStdString().c_str());
-    setWidth(m_pvrTexture->getWidth());
-    setHeight(m_pvrTexture->getHeight());
-    printf("width:%d height:%d\n", width(), height());
+    bool result  = false;
+
+    if (isPVRCCZFile(filePath()))
+    {
+        result = loadPVRCCZ(filePath());
+    }
+    else
+    {
+        result = loadPVR(filePath());
+    }
+
+    if (result)
+    {
+        setWidth(m_pvrTexture->getWidth());
+        setHeight(m_pvrTexture->getHeight());
+    }
+
+    return result;
+}
+
+bool PVR::isPVRCCZFile(const QString &filename) const
+{
+    return filename.toLower().endsWith(".pvr.ccz");
+}
+
+bool PVR::loadPVRCCZ(const QString &filename)
+{
+    unsigned char * out = NULL;
+    if (ZipUtils::ccInflateCCZFile(filename.toStdString().c_str(), &out) > 1)
+    {
+        m_pvrTexture = new pvrtexture::CPVRTexture(out);
+        delete [] out;
+        return true;
+    }
+
+    return false;
+}
+
+bool PVR::loadPVR(const QString &filename)
+{
+    m_pvrTexture = new pvrtexture::CPVRTexture(filename.toStdString().c_str());
+
     return true;
 }

@@ -10,7 +10,7 @@ Image::Image():
 {
 }
 
-Image::Image(QString filename):
+Image::Image(const QString & filename):
     m_filePath(filename)
   , m_width(0)
   , m_height(0)
@@ -25,7 +25,7 @@ Image::Image(const Image &img):
 {
 }
 
-bool Image::load(QString filename)
+bool Image::load(const QString & filename)
 {
     setFilePath(filename);
     return load();
@@ -55,7 +55,7 @@ const QString & Image::filePath() const
     return m_filePath;
 }
 
-bool Image::exists(QString filename) const
+bool Image::exists(const QString & filename) const
 {
     QFile file(filename);
 
