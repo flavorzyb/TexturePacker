@@ -20,3 +20,10 @@ void PngTest::testLoad()
     QCOMPARE(m_pImg->load(), true);
     QCOMPARE(m_pImg->load("input/植物_树1xxaiejl.png"), false);
 }
+
+void PngTest::testSave()
+{
+    QCOMPARE(m_pImg->save("output/zw_test.png"), false);
+    m_pImg->load();
+    QCOMPARE(m_pImg->save("output/zw_test.png"), true);
+}

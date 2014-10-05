@@ -46,6 +46,10 @@ PVR PNG::convertToPVR()
 
 bool PNG::save(const QString &filename)
 {
-    printf("filename:%s\n", filename.toStdString().c_str());
-    return false;
+    if (m_pImg == NULL)
+    {
+        return false;
+    }
+
+    return m_pImg->save(filename, "PNG");
 }
