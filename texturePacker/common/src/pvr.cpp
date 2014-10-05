@@ -54,7 +54,7 @@ bool PVR::load()
         result = loadPVR(filePath());
     }
 
-    if (result)
+    if (result && m_pvrTexture)
     {
         setWidth(m_pvrTexture->getWidth());
         setHeight(m_pvrTexture->getHeight());
