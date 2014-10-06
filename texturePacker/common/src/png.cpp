@@ -1,4 +1,5 @@
 #include "include/png.h"
+#include "include/imageutils.h"
 
 PNG::PNG():Image()
     , m_pImg(NULL)
@@ -44,8 +45,10 @@ PVR * PNG::convertToPVR()
         return NULL;
     }
 
+    int pw = ImageUtils::getMinPowOf2(width());
+    int ph = ImageUtils::getMinPowOf2(height());
 
-
+    printf("widht: %d pw:%d height:%d ph:%d\n", width(), pw, height(), ph);
     return NULL;
 }
 

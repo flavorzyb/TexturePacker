@@ -7,12 +7,8 @@ class ImageUtils : public QObject
 {
     Q_OBJECT
 public:
-    explicit ImageUtils(QObject *parent = 0);
-
-signals:
-
-public slots:
-
+    ImageUtils();
+    static int getMinPowOf2(int value);
 };
 
 #endif // IMAGEUTILS_H
