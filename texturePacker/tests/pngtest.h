@@ -13,7 +13,8 @@ private Q_SLOTS:
     virtual void init();
     virtual void cleanup();
     virtual void testLoad();
-    void testSave();
+    virtual void testSave();
+    void testConvertToPVR();
 };
 
 #endif // PNGTEST_H

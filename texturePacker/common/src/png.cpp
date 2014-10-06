@@ -37,11 +37,16 @@ bool PNG::load()
     return true;
 }
 
-PVR PNG::convertToPVR()
+PVR * PNG::convertToPVR()
 {
-    PVR result;
+    if (m_pImg == NULL)
+    {
+        return NULL;
+    }
 
-    return result;
+
+
+    return NULL;
 }
 
 bool PNG::save(const QString &filename)

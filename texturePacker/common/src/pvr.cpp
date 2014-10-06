@@ -19,6 +19,10 @@ PVR::PVR(const PVR &pvr):
     Image(pvr)
   , m_pvrTexture(NULL)
 {
+    if (pvr.m_pvrTexture != NULL)
+    {
+        m_pvrTexture = new pvrtexture::CPVRTexture(*pvr.m_pvrTexture);
+    }
 }
 
 PVR::~PVR()

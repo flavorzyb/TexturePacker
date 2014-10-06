@@ -27,3 +27,10 @@ void PngTest::testSave()
     m_pImg->load();
     QCOMPARE(m_pImg->save("output/zw_test.png"), true);
 }
+
+void PngTest::testConvertToPVR()
+{
+    m_pImg->load();
+    PVR * result = ((PNG *)m_pImg)->convertToPVR();
+    QVERIFY(result != NULL);
+}

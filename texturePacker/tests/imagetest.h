@@ -20,6 +20,7 @@ private Q_SLOTS:
     virtual void init() = 0;
     virtual void cleanup() = 0;
     virtual void testLoad() = 0;
+    virtual void testSave() = 0;
     void testWidthAndHeight();
 
 protected:
