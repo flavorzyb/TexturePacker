@@ -30,7 +30,7 @@ void PngTest::testSave()
 
 void PngTest::testConvertToPVR()
 {
-    m_pImg->load();
+    m_pImg->load("images/yezhi.png");
     PVR * result = ((PNG *)m_pImg)->convertToPVR();
     QVERIFY(result != NULL);
 }

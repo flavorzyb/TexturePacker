@@ -45,10 +45,16 @@ PVR * PNG::convertToPVR()
         return NULL;
     }
 
+    int fnw = findFirstHorizontalNoBlank();
+    int lnw = findLastHorizontalNoBlank();
+
+    int fnh = findFirstVerticalNoBlank();
+    int lnh = findLastVerticalNoBlank();
+
     int pw = ImageUtils::getMinPowOf2(width());
     int ph = ImageUtils::getMinPowOf2(height());
-
-    printf("widht: %d pw:%d height:%d ph:%d\n", width(), pw, height(), ph);
+    //widht: 480 height:460 pw:512 ph:512 fnw:162 lnw:317 fnh:156 lnh:304
+    printf("widht: %d height:%d pw:%d ph:%d fnw:%d lnw:%d fnh:%d lnh:%d\n", width(), height(), pw,  ph, fnw, lnw, fnh, lnh);
     return NULL;
 }
 
@@ -60,4 +66,88 @@ bool PNG::save(const QString &filename)
     }
 
     return m_pImg->save(filename, "PNG");
+}
+
+int PNG::findFirstHorizontalNoBlank()
+{
+    if (m_pImg == NULL)
+    {
+        return -1;
+    }
+
+    for (int w = 0; w < width(); w++)
+    {
+        for (int h = 0; h < height(); ++h)
+        {
+            if (qAlpha(m_pImg->pixel(w, h)) != 0)
+            {
+                return w;
+            }
+        }
+    }
+
+    return width();
+}
+
+int PNG::findLastHorizontalNoBlank()
+{
+    if (m_pImg == NULL)
+    {
+        return -1;
+    }
+
+    for (int w = width() - 1; w >= 0; w--)
+    {
+        for (int h = 0; h < height(); ++h)
+        {
+            if (qAlpha(m_pImg->pixel(w, h)) != 0)
+            {
+                return w;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int PNG::findFirstVerticalNoBlank()
+{
+    if (m_pImg == NULL)
+    {
+        return -1;
+    }
+
+    for (int h = 0; h < height(); ++h)
+    {
+        for (int w = 0; w < width(); w++)
+        {
+            if (qAlpha(m_pImg->pixel(w, h)) != 0)
+            {
+                return h;
+            }
+        }
+    }
+
+    return height();
+}
+
+int PNG::findLastVerticalNoBlank()
+{
+    if (m_pImg == NULL)
+    {
+        return -1;
+    }
+
+    for (int h = height() - 1; h >=0; h--)
+    {
+        for (int w = 0; w < width(); w++)
+        {
+            if (qAlpha(m_pImg->pixel(w, h)) != 0)
+            {
+                return h;
+            }
+        }
+    }
+
+    return 0;
 }

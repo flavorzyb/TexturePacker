@@ -14,6 +14,12 @@ public:
     PVR * convertToPVR();
     virtual bool save(const QString & filename);
 private:
+    int findFirstHorizontalNoBlank();
+    int findLastHorizontalNoBlank();
+    int findFirstVerticalNoBlank();
+    int findLastVerticalNoBlank();
+
+private:
     QImage * m_pImg;
 };
 
