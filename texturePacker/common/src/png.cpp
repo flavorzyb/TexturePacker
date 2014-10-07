@@ -51,8 +51,12 @@ PVR * PNG::convertToPVR()
     int fnh = findFirstVerticalNoBlank();
     int lnh = findLastVerticalNoBlank();
 
-    int pw = ImageUtils::getMinPowOf2(width());
-    int ph = ImageUtils::getMinPowOf2(height());
+    int w = lnw + 1 - fnw;
+    int h = lnh + 1 - fnh;
+
+    int pw = ImageUtils::getMinPowOf2(w);
+    int ph = ImageUtils::getMinPowOf2(h);
+
     //widht: 480 height:460 pw:512 ph:512 fnw:162 lnw:317 fnh:156 lnh:304
     printf("widht: %d height:%d pw:%d ph:%d fnw:%d lnw:%d fnh:%d lnh:%d\n", width(), height(), pw,  ph, fnw, lnw, fnh, lnh);
     return NULL;

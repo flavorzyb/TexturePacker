@@ -17,7 +17,8 @@ HEADERS +=  $$PWD/include/config.h \
             $$PWD/include/jpeg.h \
             $$PWD/include/ziputils.h \
             $$PWD/include/macros.h \
-            $$PWD/include/imageutils.h
+            $$PWD/include/imageutils.h \
+            $$PWD/include/imagevo.h
 
 SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/settingsvo.cpp \
@@ -28,7 +29,8 @@ SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/pvr.cpp \
             $$PWD/src/jpeg.cpp \
             $$PWD/src/ziputils.cpp \
-            $$PWD/src/imageutils.cpp
+            $$PWD/src/imageutils.cpp \
+            $$PWD/src/imagevo.cpp
 
 INCLUDEPATH += $$PWD
 

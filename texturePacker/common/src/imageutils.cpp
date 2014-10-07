@@ -13,7 +13,7 @@ int ImageUtils::getMinPowOf2(int value)
     }
 
     int result = 1;
-    for (int i = 0; i < 100; i++)
+    for (int i = 0; i < 11; i++)
     {
         result *= 2;
         if (result >= value)
