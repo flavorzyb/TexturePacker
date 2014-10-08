@@ -2,6 +2,7 @@
 #define PVRTEST_H
 
 #include "imagetest.h"
+#include "common/include/pvr.h"
 
 class PVRTest : public ImageTest
 {
@@ -15,6 +16,12 @@ private Q_SLOTS:
     virtual void testLoad();
     void testSave();
     void testSaveCCZFile();
+
+protected:
+    virtual Image * getImage();
+
+private:
+    PVR * m_pImg;
 };
 
 #endif // PVRTEST_H

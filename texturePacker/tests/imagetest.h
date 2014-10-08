@@ -24,7 +24,7 @@ private Q_SLOTS:
     void testWidthAndHeight();
 
 protected:
-    Image * m_pImg;
+    virtual Image * getImage() = 0;
 };
 
 #endif // IMAGETEST_H

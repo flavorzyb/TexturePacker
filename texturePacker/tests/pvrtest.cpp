@@ -17,11 +17,11 @@ void PVRTest::cleanup()
 
 void PVRTest::testLoad()
 {
-    QCOMPARE(m_pImg->load("images/zw_bs.pvr.ccz"), true);
+    QCOMPARE(m_pImg->loadFile("images/zw_bs.pvr.ccz"), true);
     QVERIFY2(m_pImg->width() > 1, "width must be over then zero.");
     QVERIFY2(m_pImg->height() > 1, "height must be over then zero.");
 
-    QCOMPARE(m_pImg->load("images/zw_bsaduoj.pvr.ccz"), false);
+    QCOMPARE(m_pImg->loadFile("images/zw_bsaduoj.pvr.ccz"), false);
     QCOMPARE(m_pImg->width() > 1, false);
     QCOMPARE(m_pImg->height() > 1, false);
 }
@@ -35,5 +35,10 @@ void PVRTest::testSave()
 void PVRTest::testSaveCCZFile()
 {
     m_pImg->load();
-    QCOMPARE(((PVR *) m_pImg)->saveCCZ("output/zw.pvr.ccz"), true);
+    QCOMPARE(m_pImg->saveCCZ("output/zw.pvr.ccz"), true);
+}
+
+Image *PVRTest::getImage()
+{
+    return m_pImg;
 }

@@ -12,8 +12,9 @@ public:
     Image();
     Image(const QString & filename);
     Image(const Image & img);
+    virtual ~Image();
 
-    bool load(const QString & filename);
+    bool loadFile(const QString & filename);
     virtual bool load() = 0;
     virtual bool save(const QString & filename) = 0;
     int width() const;

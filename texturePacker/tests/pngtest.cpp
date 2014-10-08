@@ -7,34 +7,39 @@ PngTest::PngTest()
 
 void PngTest::init()
 {
-    m_pImg = new PNG("input/植物_树1.png");
+    m_image = new PNG("input/植物_树1.png");
 }
 
 void PngTest::cleanup()
 {
-    delete m_pImg;
+    delete m_image;
 }
 
 void PngTest::testLoad()
 {
-    QCOMPARE(m_pImg->load(), true);
-    QCOMPARE(m_pImg->load("input/植物_树1xxaiejl.png"), false);
+    QCOMPARE(m_image->load(), true);
+    QCOMPARE(m_image->loadFile("input/植物_树1xxaiejl.png"), false);
 }
 
 void PngTest::testSave()
 {
-    QCOMPARE(m_pImg->save("output/zw_test.png"), false);
-    m_pImg->load();
-    QCOMPARE(m_pImg->save("output/zw_test.png"), true);
+    QCOMPARE(m_image->save("output/zw_test.png"), false);
+    m_image->load();
+    QCOMPARE(m_image->save("output/zw_test.png"), true);
 }
 
 void PngTest::testConvertToPVR()
 {
-    m_pImg->load();
-    PVR * result = ((PNG *)m_pImg)->convertToPVR();
+    m_image->load();
+    PVR * result = m_image->convertToPVR();
     QVERIFY(result != NULL);
     QCOMPARE(result->save("output/zw_shu.pvr"), true);
     QCOMPARE(result->saveCCZ("output/zw_shu.pvr.ccz"), true);
 
     delete result;
+}
+
+Image *PngTest::getImage()
+{
+    return m_image;
 }

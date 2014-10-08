@@ -25,7 +25,11 @@ Image::Image(const Image &img):
 {
 }
 
-bool Image::load(const QString & filename)
+Image::~Image()
+{
+}
+
+bool Image::loadFile(const QString & filename)
 {
     setFilePath(filename);
     return load();
