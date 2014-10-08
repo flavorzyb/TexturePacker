@@ -3,6 +3,7 @@
 #include <QDataStream>
 
 #include "writertest.h"
+#include "common/include/reader.h"
 
 WriterTest::WriterTest()
 {
@@ -45,12 +46,22 @@ void WriterTest::testWriteAll()
     QCOMPARE(m_writer->writeString("hahwoadaddd."), true);
     QCOMPARE(m_writer->writeString("this is a title."), true);
 
-    unsigned char * pData = m_writer->getData();
     int len = m_writer->getLenght();
+    unsigned char * pData = m_writer->getData();
+//    unsigned char * pData = new unsigned char[len];
+//    memcpy(pData, m_writer->getData(), len * sizeof(unsigned char));
 
-    QFile file("data/writer.dat");
-    file.open(QIODevice::WriteOnly);
-    QDataStream out(&file);
-    out.writeBytes((char *)pData, len);
-    file.close();
+//    Reader reader(pData, len);
+
+//    reader.skip(HEAD_DATA_SIZE);
+
+//    QCOMPARE(reader.readByte(), (unsigned char) 50);
+//    QCOMPARE(reader.readByte(), (unsigned char) 23);
+
+    FILE * fp = fopen("data/writer.dat", "wb");
+    if (fp)
+    {
+        fwrite(pData, sizeof(unsigned char), len, fp);
+        fclose(fp);
+    }
 }

@@ -48,7 +48,7 @@ bool Reader::readBoolean()
 
 unsigned int Reader::readUnsignedInt()
 {
-    IOUtils::orderData(m_pData+m_offset, sizeof(unsigned int));
+    IOUtils::readOrderData(m_pData+m_offset, sizeof(unsigned int));
     unsigned int result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(unsigned int));
 
@@ -59,7 +59,7 @@ unsigned int Reader::readUnsignedInt()
 
 int Reader::readInt()
 {
-    IOUtils::orderData(m_pData+m_offset, sizeof(int));
+    IOUtils::readOrderData(m_pData+m_offset, sizeof(int));
     int result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(int));
 
@@ -70,7 +70,7 @@ int Reader::readInt()
 
 float Reader::readFloat()
 {
-    IOUtils::orderData(m_pData+m_offset, sizeof(float));
+    IOUtils::readOrderData(m_pData+m_offset, sizeof(float));
     float result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(float));
     m_offset+=4;
@@ -97,7 +97,7 @@ QString Reader::readString()
 
 short Reader::readShort()
 {
-    IOUtils::orderData(m_pData+m_offset, sizeof(short));
+    IOUtils::readOrderData(m_pData+m_offset, sizeof(short));
     short result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(short));
     m_offset+=2;
