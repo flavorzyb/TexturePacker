@@ -73,7 +73,17 @@ PVR * PNG::convertToPVR()
         QString pvrFile = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr";
         if (pvrtexture::Transcode(pvrTexture, pvrTC4BPP_RGB, ePVRTVarTypeUnsignedByteNorm, ePVRTCSpacelRGB, pvrtexture::ePVRTCBest, false) && pvrTexture.saveFile(pvrFile.toStdString().c_str()))
         {
+            ImageVO ivo(width(), height());
+            ivo.setFileName(filePath());
+            ivo.setRect(windex, hindex, w, h);
+            int ox = w / 2 - width() / 2 + fnw;
+            int oy = height() / 2 - fnh - h /2;
+            ivo.setOffset(ox, oy);
+            ivo.setSourceColorRect(fnw, fnh, w, h);
+            ivo.setSize(pw, ph);
+
             PVR * result = new PVR(pvrFile);
+            result->setImagevo(ivo);
             result->load();
             FileUtils::unlink(pvrFile);
 

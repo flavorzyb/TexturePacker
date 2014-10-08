@@ -6,6 +6,8 @@ ImageVO::ImageVO(const QSize &size):
   , m_rect(0, 0, 0, 0)
   , m_rotated(false)
   , m_fileName("")
+  , m_sourceColorRect(0 ,0, 0, 0)
+  , m_size(0, 0)
 {
 }
 
@@ -15,6 +17,8 @@ ImageVO::ImageVO(int w, int h):
   , m_rect(0, 0, 0, 0)
   , m_rotated(false)
   , m_fileName("")
+  , m_sourceColorRect(0 ,0, 0, 0)
+  , m_size(0, 0)
 {
 }
 
@@ -24,6 +28,8 @@ ImageVO::ImageVO(const ImageVO &ivo):
   , m_rect(ivo.m_rect)
   , m_rotated(ivo.m_rotated)
   , m_fileName(ivo.m_fileName)
+  , m_sourceColorRect(ivo.m_sourceColorRect)
+  , m_size(ivo.m_size)
 {
 
 }
@@ -36,14 +42,24 @@ void ImageVO::setSourceSize(const QSize &sourceSize)
 {
     m_sourceSize = sourceSize;
 }
-QSize ImageVO::offset() const
+
+void ImageVO::setSourceSize(int width, int height)
+{
+    m_sourceSize = QSize(width, height);
+}
+QPoint ImageVO::offset() const
 {
     return m_offset;
 }
 
-void ImageVO::setOffset(const QSize &offset)
+void ImageVO::setOffset(const QPoint &offset)
 {
     m_offset = offset;
+}
+
+void ImageVO::setOffset(int x, int y)
+{
+    m_offset = QPoint(x, y);
 }
 QRect ImageVO::rect() const
 {
@@ -54,6 +70,12 @@ void ImageVO::setRect(const QRect &rect)
 {
     m_rect = rect;
 }
+
+void ImageVO::setRect(int x, int y, int width, int height)
+{
+    m_rect = QRect(x, y, width, height);
+}
+
 bool ImageVO::rotated() const
 {
     return m_rotated;
@@ -72,3 +94,48 @@ void ImageVO::setFileName(const QString &fileName)
 {
     m_fileName = fileName;
 }
+
+ImageVO & ImageVO::operator=(const ImageVO &ivo)
+{
+    m_fileName          = ivo.m_fileName;
+    m_sourceSize        = ivo.m_sourceSize;
+    m_offset            = ivo.m_offset;
+
+    m_rect              = ivo.m_rect;
+    m_rotated           = ivo.m_rotated;
+    m_sourceColorRect   = ivo.m_sourceColorRect;
+
+    m_size              = ivo.m_size;
+
+    return (*this);
+}
+QRect ImageVO::sourceColorRect() const
+{
+    return m_sourceColorRect;
+}
+
+void ImageVO::setSourceColorRect(const QRect &sourceColorRect)
+{
+    m_sourceColorRect = sourceColorRect;
+}
+
+void ImageVO::setSourceColorRect(int x, int y, int width, int height)
+{
+    m_sourceColorRect = QRect(x, y, width, height);
+}
+QSize ImageVO::size() const
+{
+    return m_size;
+}
+
+void ImageVO::setSize(const QSize &size)
+{
+    m_size = size;
+}
+
+void ImageVO::setSize(int width, int height)
+{
+    m_size = QSize(width, height);
+}
+
+

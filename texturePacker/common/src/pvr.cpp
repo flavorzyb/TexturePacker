@@ -6,18 +6,21 @@
 PVR::PVR():
     Image()
   , m_pvrTexture(NULL)
+  , m_imagevo(0, 0)
 {
 }
 
 PVR::PVR(const QString & filename):
     Image(filename)
   , m_pvrTexture(NULL)
+  , m_imagevo(0, 0)
 {
 }
 
 PVR::PVR(const PVR &pvr):
     Image(pvr)
   , m_pvrTexture(NULL)
+  , m_imagevo(pvr.m_imagevo)
 {
     if (pvr.m_pvrTexture != NULL)
     {
@@ -128,3 +131,13 @@ bool PVR::loadPVR(const QString &filename)
 
     return true;
 }
+ImageVO PVR::imagevo() const
+{
+    return m_imagevo;
+}
+
+void PVR::setImagevo(const ImageVO & imagevo)
+{
+    m_imagevo = imagevo;
+}
+
