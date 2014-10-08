@@ -33,7 +33,7 @@ public:
     QString fileName() const;
     void setFileName(const QString &fileName);
 
-    ImageVO & operator=(const ImageVO & ivo);
+    const ImageVO & operator=(const ImageVO & ivo);
     QRect sourceColorRect() const;
     void setSourceColorRect(const QRect &sourceColorRect);
     void setSourceColorRect(int x, int y, int width, int height);

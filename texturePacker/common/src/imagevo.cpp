@@ -95,7 +95,7 @@ void ImageVO::setFileName(const QString &fileName)
     m_fileName = fileName;
 }
 
-ImageVO & ImageVO::operator=(const ImageVO &ivo)
+const ImageVO & ImageVO::operator=(const ImageVO &ivo)
 {
     m_fileName          = ivo.m_fileName;
     m_sourceSize        = ivo.m_sourceSize;
