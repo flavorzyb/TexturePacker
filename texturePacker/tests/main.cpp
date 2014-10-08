@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     PublisherTest publish;
     PngTest png;
     PVRTest pvr;
-    Reader reader;
+    ReaderTest reader;
 
 //    QTest::qExec(&fileUtils, argc, argv);
 //    QTest::qExec(&publish, argc, argv);
