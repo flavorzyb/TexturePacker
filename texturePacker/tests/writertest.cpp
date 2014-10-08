@@ -21,12 +21,9 @@ void WriterTest::cleanup()
 
 void WriterTest::testWriteAll()
 {
-    unsigned char header[] = {0x89, 'D', 'A', 'T', 0x0D, 0x0A, 0x1A, 0x0A};
+    unsigned char header[HEAD_DATA_SIZE] = {0x89, 'D', 'A', 'T', 0x0D, 0x0A, 0x1A, 0x0A};
 
-    for (int i = 0; i < HEAD_DATA_SIZE; ++i)
-    {
-        m_writer->writeByte(header[i]);
-    }
+    m_writer->copyBytes(header, HEAD_DATA_SIZE);
 
     QCOMPARE(m_writer->writeByte(50), true);
     QCOMPARE(m_writer->writeByte(23), true);

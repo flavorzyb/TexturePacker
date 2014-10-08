@@ -17,6 +17,7 @@ public:
     bool writeByte(unsigned char value);
     bool writeBoolean(bool value);
     bool writeFloat(float value);
+    bool copyBytes(unsigned char * value, unsigned int len);
     unsigned char * getData() const;
     int getLenght() const;
 private:

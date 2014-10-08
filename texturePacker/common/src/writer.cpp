@@ -54,6 +54,15 @@ bool Writer::writeString(const QString &value)
     return true;
 }
 
+bool Writer::copyBytes(unsigned char * value, unsigned int len)
+{
+    if ((NULL != value) && (len > 0))
+    {
+        memcpy(m_buffer + m_offset, value, len * sizeof(unsigned char));
+        m_offset += len;
+    }
+}
+
 unsigned char *Writer::getData() const
 {
     return m_buffer;
