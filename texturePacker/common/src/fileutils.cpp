@@ -1,6 +1,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QStringList>
+#include <QFile>
 #include <iostream>
 #include "include/fileutils.h"
 
@@ -122,4 +123,15 @@ QString FileUtils::getRandFileNameString()
     sprintf(strFile, "%d", rand());
 
     return strFile;
+}
+
+bool FileUtils::unlink(const QString &filename)
+{
+    QFile file(filename);
+    if (file.exists())
+    {
+        return file.remove();
+    }
+
+    return true;
 }

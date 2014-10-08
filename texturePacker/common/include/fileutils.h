@@ -16,6 +16,7 @@ public:
     static unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
     static QString createImageTempFolder();
     static QString getRandFileNameString();
+    static bool unlink(const QString & filename);
 signals:
 
 public slots:

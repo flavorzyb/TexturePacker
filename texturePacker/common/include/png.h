@@ -18,6 +18,7 @@ private:
     int findLastHorizontalNoBlank();
     int findFirstVerticalNoBlank();
     int findLastVerticalNoBlank();
+    unsigned char * createImageData(int fnw,  int fnh, int w, int h, int pw, int ph, int windex, int hindex);
 
 private:
     QImage * m_pImg;

@@ -1,5 +1,7 @@
+#include <QRgb>
 #include "include/png.h"
 #include "include/imageutils.h"
+#include "include/fileutils.h"
 
 PNG::PNG():Image()
     , m_pImg(NULL)
@@ -57,22 +59,72 @@ PVR * PNG::convertToPVR()
     int pw = ImageUtils::getMinPowOf2(w);
     int ph = ImageUtils::getMinPowOf2(h);
 
-
-    QImage image(pw, ph, m_pImg->format());
     int windex = ((pw - 2) > w) ? 2 : 0;
     int hindex = ((ph - 2) > h) ? 2 : 0;
 
-    for (int i = 0; i < w; ++i)
+    unsigned char * pImageData = createImageData(fnw, fnh, w, h, pw, ph, windex, hindex);
+
+    if (pImageData != NULL)
     {
-        for (int j = 0; j < h; ++j)
+        pvrtexture::CPVRTextureHeader header(pvrtexture::PVRStandard8PixelType.PixelTypeID, pw, ph);
+        pvrtexture::CPVRTexture pvrTexture(header, pImageData);
+        delete [] pImageData;
+        pvrtexture::PixelType pvrTC4BPP_RGB(ePVRTPF_PVRTCI_4bpp_RGBA);
+        QString pvrFile = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr";
+        if (pvrtexture::Transcode(pvrTexture, pvrTC4BPP_RGB, ePVRTVarTypeUnsignedByteNorm, ePVRTCSpacelRGB, pvrtexture::ePVRTCBest, false) && pvrTexture.saveFile(pvrFile.toStdString().c_str()))
         {
-            image.setPixel(i+windex, j+hindex, m_pImg->pixel(i+fnw, j+fnh));
+            PVR * result = new PVR(pvrFile);
+            result->load();
+            FileUtils::unlink(pvrFile);
+
+            return result;
         }
     }
 
-    image.save("output/yezhi.png");
-
     return NULL;
+}
+
+unsigned char *PNG::createImageData(int fnw,  int fnh, int w, int h, int pw, int ph, int windex, int hindex)
+{
+    if (m_pImg == NULL)
+    {
+        return NULL;
+    }
+
+    int len = 4 * pw * ph;
+    if (len < 4)
+    {
+        return NULL;
+    }
+
+    unsigned char * pImageData = new unsigned char [len];
+
+    for (int x = 0; x < pw; ++x)
+    {
+        for (int y = 0; y < ph; ++y)
+        {
+           if ((x >= windex) &&
+                   (y >= hindex) &&
+                   (x <= windex + w) &&
+                   (y <= hindex + h))
+           {
+               QRgb v = m_pImg->pixel(x+fnw, y+fnh);
+               pImageData[4 * (y * pw + x) + 0] = qRed(v);
+               pImageData[4 * (y * pw + x) + 1] = qGreen(v);
+               pImageData[4 * (y * pw + x) + 2] = qBlue(v);
+               pImageData[4 * (y * pw + x) + 3] = qAlpha(v);
+           }
+           else
+           {
+               pImageData[4 * (y * pw + x) + 0] = 0;
+               pImageData[4 * (y * pw + x) + 1] = 0;
+               pImageData[4 * (y * pw + x) + 2] = 0;
+               pImageData[4 * (y * pw + x) + 3] = 0;
+           }
+        }
+    }
+
+    return pImageData;
 }
 
 bool PNG::save(const QString &filename)
