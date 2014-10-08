@@ -57,8 +57,21 @@ PVR * PNG::convertToPVR()
     int pw = ImageUtils::getMinPowOf2(w);
     int ph = ImageUtils::getMinPowOf2(h);
 
-    //widht: 480 height:460 pw:512 ph:512 fnw:162 lnw:317 fnh:156 lnh:304
-    printf("widht: %d height:%d pw:%d ph:%d fnw:%d lnw:%d fnh:%d lnh:%d\n", width(), height(), pw,  ph, fnw, lnw, fnh, lnh);
+
+    QImage image(pw, ph, m_pImg->format());
+    int windex = ((pw - 2) > w) ? 2 : 0;
+    int hindex = ((ph - 2) > h) ? 2 : 0;
+
+    for (int i = 0; i < w; ++i)
+    {
+        for (int j = 0; j < h; ++j)
+        {
+            image.setPixel(i+windex, j+hindex, m_pImg->pixel(i+fnw, j+fnh));
+        }
+    }
+
+    image.save("output/yezhi.png");
+
     return NULL;
 }
 
