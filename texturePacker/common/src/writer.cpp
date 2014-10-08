@@ -25,7 +25,7 @@ Writer::~Writer()
     bool Writer::write##functionName(varType value) \
     { \
         int len = sizeof(varType); \
-        memcpy(m_buffer, &value, len);\
+        memcpy(m_buffer+ m_offset, &value, len);\
         \
         IOUtils::writeOrderData(m_buffer + m_offset, len);\
         \
