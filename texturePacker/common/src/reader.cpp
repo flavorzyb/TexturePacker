@@ -1,22 +1,22 @@
 #include "include/reader.h"
-#include "include/macros.h"
+#include "include/ioutils.h"
 
-static bool isBig = CC_HOST_IS_BIG_ENDIAN;
-inline static void orderData(unsigned char *str, unsigned int len)
-{
-    if (!isBig)
-    {
-        unsigned char *data = new unsigned char [len];
-        for (unsigned int i = 0; i< len; i++)
-        {
-            *(data+i) = *(str+len-i-1);
-        }
+//static bool isBig = CC_HOST_IS_BIG_ENDIAN;
+//inline static void orderData(unsigned char *str, unsigned int len)
+//{
+//    if (!isBig)
+//    {
+//        unsigned char *data = new unsigned char [len];
+//        for (unsigned int i = 0; i< len; i++)
+//        {
+//            *(data+i) = *(str+len-i-1);
+//        }
 
-        memcpy(str, data, len);
+//        memcpy(str, data, len);
 
-        delete [] data;
-    }
-}
+//        delete [] data;
+//    }
+//}
 
 Reader::Reader(unsigned char *pData, unsigned long nSize):
     m_pData(pData)
@@ -48,7 +48,7 @@ bool Reader::readBoolean()
 
 unsigned int Reader::readUnsignedInt()
 {
-    orderData(m_pData+m_offset, sizeof(unsigned int));
+    IOUtils::orderData(m_pData+m_offset, sizeof(unsigned int));
     unsigned int result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(unsigned int));
 
@@ -59,7 +59,7 @@ unsigned int Reader::readUnsignedInt()
 
 int Reader::readInt()
 {
-    orderData(m_pData+m_offset, sizeof(int));
+    IOUtils::orderData(m_pData+m_offset, sizeof(int));
     int result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(int));
 
@@ -70,7 +70,7 @@ int Reader::readInt()
 
 float Reader::readFloat()
 {
-    orderData(m_pData+m_offset, sizeof(float));
+    IOUtils::orderData(m_pData+m_offset, sizeof(float));
     float result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(float));
     m_offset+=4;
@@ -97,7 +97,7 @@ QString Reader::readString()
 
 short Reader::readShort()
 {
-    orderData(m_pData+m_offset, sizeof(short));
+    IOUtils::orderData(m_pData+m_offset, sizeof(short));
     short result = 0;
     memcpy(&result, m_pData+m_offset, sizeof(short));
     m_offset+=2;
