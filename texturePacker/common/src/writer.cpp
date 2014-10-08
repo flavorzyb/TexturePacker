@@ -60,7 +60,10 @@ bool Writer::copyBytes(unsigned char * value, unsigned int len)
     {
         memcpy(m_buffer + m_offset, value, len * sizeof(unsigned char));
         m_offset += len;
+        return true;
     }
+
+    return false;
 }
 
 unsigned char *Writer::getData() const
