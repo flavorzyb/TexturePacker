@@ -24,7 +24,8 @@ HEADERS +=  $$PWD/include/config.h \
             $$PWD/include/ioutils.h \
             $$PWD/include/bipwriter.h \
             $$PWD/include/bipabstract.h \
-            $$PWD/include/bipreader.h
+            $$PWD/include/bipreader.h \
+            $$PWD/include/worker.h
 
 SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/settingsvo.cpp \
@@ -42,7 +43,8 @@ SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/ioutils.cpp \
             $$PWD/src/bipwriter.cpp \
             $$PWD/src/bipabstract.cpp \
-            $$PWD/src/bipreader.cpp
+            $$PWD/src/bipreader.cpp \
+            $$PWD/src/worker.cpp
 
 INCLUDEPATH += $$PWD
 
