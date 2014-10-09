@@ -97,7 +97,7 @@ bool BipWriter::writerPVRData(const QString &filepath)
 
     if ((NULL != pData) && (size > 0))
     {
-        return FileUtils::writeFile(filepath.toStdString().c_str(), "wb+", pData, size);
+        return FileUtils::writeFile(filepath.toStdString().c_str(), "ab+", pData, size);
     }
 
     return false;
