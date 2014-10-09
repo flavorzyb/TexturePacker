@@ -20,8 +20,8 @@ const SettingsVO & Publisher::getSettingsVO() const
 bool Publisher::publish()
 {
     m_fileLists = FileUtils::getAllImageFiles(m_svo.getInputPath());
-    QTime t;
-    t.start();
+//    QTime t;
+//    t.start();
     for (int i = 0; i < MAX_THREAD_NUM; ++i)
     {
         m_works[i].setPublisher(this);
@@ -35,7 +35,7 @@ bool Publisher::publish()
         m_works[i].wait();
     }
 
-    printf("----------time: %d ms----------\n", t.elapsed());
+//    printf("----------time: %d ms----------\n", t.elapsed());
     return true;
 }
 
@@ -51,4 +51,27 @@ QString Publisher::fetchTask()
     m_mutex.unlock();
 
     return result;
+}
+QVector<QString> Publisher::succFileLists() const
+{
+    return m_succFileLists;
+}
+
+QVector<QString> Publisher::failFileLists() const
+{
+    return m_failFileLists;
+}
+
+void Publisher::doneFile(bool isSucc, const QString &filePath)
+{
+    m_doneMutex.lock();
+    if (isSucc)
+    {
+        m_succFileLists.push_back(filePath);
+    }
+    else
+    {
+        m_failFileLists.push_back(filePath);
+    }
+    m_doneMutex.unlock();
 }

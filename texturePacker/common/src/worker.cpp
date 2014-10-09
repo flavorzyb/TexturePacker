@@ -32,6 +32,7 @@ void Worker::run()
         PNG png(m_imageFilePath);
         if (!png.load())
         {
+            m_publisher->doneFile(false, m_imageFilePath);
             return ;
         }
 
@@ -45,7 +46,7 @@ void Worker::run()
         BipWriter writer(pvr);
         FileUtils::createParentDirectory(path);
         writer.save(path);
-        printf("file:%s ----- ok\n", m_imageFilePath.toStdString().c_str());
+        m_publisher->doneFile(true, m_imageFilePath);
     }
 }
 
