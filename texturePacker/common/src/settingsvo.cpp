@@ -1,4 +1,5 @@
 #include "include/settingsvo.h"
+#include "include/fileutils.h"
 
 SettingsVO::SettingsVO():m_inputPath("")
                         ,m_outputPath("")
@@ -33,12 +34,17 @@ void SettingsVO::setFormat(SettingsVO::format f)
     m_format = f;
 }
 
-const QString & SettingsVO::getInputPath() const
+QString SettingsVO::getAbsoluteInputFilePath() const
+{
+    return FileUtils::getAbsoluteFilePath(m_inputPath);
+}
+
+QString SettingsVO::getInputPath() const
 {
     return m_inputPath;
 }
 
-const QString & SettingsVO::getOutputPath() const
+QString SettingsVO::getOutputPath() const
 {
     return m_outputPath;
 }

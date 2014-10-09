@@ -22,8 +22,10 @@ public:
     void setOutputPath(QString path);
     void setFormat(format f);
 
-    const QString & getInputPath() const;
-    const QString & getOutputPath() const;
+    QString getInputPath() const;
+    QString getAbsoluteInputFilePath() const;
+    QString getOutputPath() const;
+
     format getFormat() const;
 private:
     QString m_inputPath;

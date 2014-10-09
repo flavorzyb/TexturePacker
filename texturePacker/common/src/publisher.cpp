@@ -1,8 +1,10 @@
+#include <QTime>
 #include "include/publisher.h"
 #include "include/fileutils.h"
 #include "include/png.h"
 #include "include/bipwriter.h"
 #include "include/worker.h"
+
 
 Publisher::Publisher(const SettingsVO & svo) :
     QObject(NULL),
@@ -18,28 +20,35 @@ const SettingsVO & Publisher::getSettingsVO() const
 bool Publisher::publish()
 {
     m_fileLists = FileUtils::getAllImageFiles(m_svo.getInputPath());
-    QString absInputPath = FileUtils::getAbsoluteFilePath(m_svo.getInputPath());
-
-    Worker workers[MAX_THREAD_NUM];
+    QTime t;
+    t.start();
     for (int i = 0; i < MAX_THREAD_NUM; ++i)
     {
-        connect(&workers[i], SIGNAL(done(bool, const QString &)), this, SLOT(done(bool, const QString &)));
-        workers[i].setImageFilePath("aaaaaa");
-        workers[i].run();
+        m_works[i].setPublisher(this);
+        m_works[i].setInputPath(m_svo.getAbsoluteInputFilePath());
+        m_works[i].setOutputPath(m_svo.getOutputPath());
+        m_works[i].start();
     }
 
-//    for (int i = 0; i < MAX_THREAD_NUM; ++i)
-//    {
-//        workers[i].wait();
-//    }
+    for (int i = 0; i < MAX_THREAD_NUM; ++i)
+    {
+        m_works[i].wait();
+    }
 
+    printf("----------time: %d ms----------\n", t.elapsed());
     return true;
 }
 
-void Publisher::done(bool succ, const QString &imagePath)
+QString Publisher::fetchTask()
 {
-    char str[1024] = {0};
-    sprintf(str, "succ:%s path:%s\n", succ ? "ok" : "fail", imagePath.toStdString().c_str());
+    QString result = "";
+    m_mutex.lock();
+    if (m_fileLists.size() > 0)
+    {
+        result = *(m_fileLists.begin());
+        m_fileLists.pop_front();
+    }
+    m_mutex.unlock();
 
-    FileUtils::writeFile("/Users/admin/tmp/a.txt", "ab+", str, strlen(str) * sizeof(char));
+    return result;
 }

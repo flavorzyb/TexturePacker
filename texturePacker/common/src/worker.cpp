@@ -2,42 +2,58 @@
 #include "include/png.h"
 #include "include/bipwriter.h"
 #include "include/fileutils.h"
+#include "include/publisher.h"
 
 Worker::Worker():
     QThread()
   , m_imageFilePath("")
   , m_inputPath("")
   , m_outputPath("")
+  ,m_publisher(NULL)
 {
 }
 
 void Worker::run()
 {
-    QString absInputPath = FileUtils::getAbsoluteFilePath(m_inputPath);
+    if (m_publisher==NULL)
+    {
+        return ;
+    }
 
-//    PNG png(m_imageFilePath);
 
-//    if (!png.load())
-//    {
-//        //@todo load file fail
-//        return false;
-//    }
+    for (;;)
+    {
+        m_imageFilePath = m_publisher->fetchTask();
+        if (m_imageFilePath.length() == 0)
+        {
+            break;
+        }
 
-//    PVR * pvr = png.convertToPVR();
-//    QString path = m_outputPath + "/" + m_imageFilePath.right(m_imageFilePath.length() - absInputPath.length() - 1);
-//    ImageVO ivo = pvr->imagevo();
-//    ivo.setFileName(path);
-//    pvr->setImagevo(ivo);
-//    int index = path.lastIndexOf(".");
-//    path = path.left(index) + ".bip";
-//    BipWriter writer(pvr);
-//    FileUtils::createParentDirectory(path);
-//    writer.save(path);
-//    delete pvr;
+        PNG png(m_imageFilePath);
+        if (!png.load())
+        {
+            return ;
+        }
 
-    //@todo create bip ok
-    done(false, "ddddddddddddddddd");
+        PVR * pvr = png.convertToPVR();
+        QString path = m_outputPath + "/" + m_imageFilePath.right(m_imageFilePath.length() - m_inputPath.length() - 1);
+        ImageVO ivo = pvr->imagevo();
+        ivo.setFileName(path);
+        pvr->setImagevo(ivo);
+        int index = path.lastIndexOf(".");
+        path = path.left(index) + ".bip";
+        BipWriter writer(pvr);
+        FileUtils::createParentDirectory(path);
+        writer.save(path);
+        printf("file:%s ----- ok\n", m_imageFilePath.toStdString().c_str());
+    }
 }
+
+void Worker::setPublisher(Publisher *publisher)
+{
+    m_publisher = publisher;
+}
+
 QString Worker::imageFilePath() const
 {
     return m_imageFilePath;
