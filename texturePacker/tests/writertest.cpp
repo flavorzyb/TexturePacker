@@ -47,12 +47,7 @@ void WriterTest::testWriteAll()
     int len = m_writer->getLenght();
     unsigned char * pData = m_writer->getData();
 
-    FILE * fp = fopen("data/writer.dat", "wb");
-    if (fp)
-    {
-        fwrite(pData, sizeof(unsigned char), len, fp);
-        fclose(fp);
-    }
+    FileUtils::writeFile("data/writer.dat", "wb", pData, len);
 
     unsigned long fileSize = 0;
     pData = FileUtils::getFileData("data/writer.dat", "rb", &fileSize);

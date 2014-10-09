@@ -104,6 +104,36 @@ unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMo
     return pBuffer;
 }
 
+#define WRITE_FILE_DATA(filename, mode, contentType, content, size) \
+    if (!(fileName && mode && content)) \
+    { \
+        return false; \
+    } \
+    \
+    FILE * fp = fopen(fileName, mode); \
+    if (fp) \
+    { \
+        fwrite(content, sizeof(contentType), size, fp); \
+        fclose(fp); \
+    \
+        return true; \
+    } \
+
+bool FileUtils::writeFile(const char *fileName, const char *mode, unsigned char *content, unsigned long size)
+{
+    WRITE_FILE_DATA(filename, mode, unsigned char, content, size)
+
+    return false;
+}
+
+bool FileUtils::writeFile(const char *fileName, const char *mode, char *content, unsigned long size)
+{
+    WRITE_FILE_DATA(filename, mode, char, content, size)
+
+    return false;
+}
+
+#undef WRITE_FILE_DATA
 QString FileUtils::createImageTempFolder()
 {
     QString path = QDir::homePath() + "/.tp/tmp";

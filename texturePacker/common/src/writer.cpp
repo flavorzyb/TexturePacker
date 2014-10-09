@@ -21,7 +21,7 @@ Writer::~Writer()
     }
 }
 
-#define CMDWRITER_SYNTHESIZE(varType, functionName) \
+#define WRITER_SYNTHESIZE(varType, functionName) \
     bool Writer::write##functionName(varType value) \
     { \
         int len = sizeof(varType); \
@@ -33,13 +33,13 @@ Writer::~Writer()
         return true; \
     }
 
-    CMDWRITER_SYNTHESIZE(int, Int)
-    CMDWRITER_SYNTHESIZE(unsigned int, UnsignedInt)
-    CMDWRITER_SYNTHESIZE(short, Short)
-    CMDWRITER_SYNTHESIZE(unsigned char, Byte)
-    CMDWRITER_SYNTHESIZE(bool, Boolean)
-    CMDWRITER_SYNTHESIZE(float, Float)
-#undef CMDWRITER_SYNTHESIZE
+    WRITER_SYNTHESIZE(int, Int)
+    WRITER_SYNTHESIZE(unsigned int, UnsignedInt)
+    WRITER_SYNTHESIZE(short, Short)
+    WRITER_SYNTHESIZE(unsigned char, Byte)
+    WRITER_SYNTHESIZE(bool, Boolean)
+    WRITER_SYNTHESIZE(float, Float)
+#undef WRITER_SYNTHESIZE
 
 bool Writer::writeString(const QString &value)
 {

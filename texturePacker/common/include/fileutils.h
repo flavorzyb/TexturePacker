@@ -14,6 +14,8 @@ public:
     static bool hasParentDirectory(const QString & path);
     static bool createParentDirectory(const QString & path);
     static unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
+    static bool writeFile(const char * fileName, const char * mode, unsigned char * content, unsigned long size);
+    static bool writeFile(const char * fileName, const char * mode, char * content, unsigned long size);
     static QString createImageTempFolder();
     static QString getRandFileNameString();
     static bool unlink(const QString & filename);
