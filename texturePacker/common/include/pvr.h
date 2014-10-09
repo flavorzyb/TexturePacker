@@ -21,6 +21,7 @@ public:
     ImageVO imagevo() const;
     void setImagevo(const ImageVO & imagevo);
 
+    inline bool isEmpty() const { return (NULL == m_pvrTexture);}
 private:
     bool isPVRCCZFile(const QString & filename) const;
     bool loadPVRCCZ(const QString & filename);

@@ -8,7 +8,7 @@ class Writer : public QObject
 {
     Q_OBJECT
 public:
-    explicit Writer(int size = 4096);
+    explicit Writer(unsigned  int size = 4096);
     ~Writer();
     bool writeInt(int value);
     bool writeUnsignedInt(unsigned int value);
@@ -17,13 +17,13 @@ public:
     bool writeByte(unsigned char value);
     bool writeBoolean(bool value);
     bool writeFloat(float value);
-    bool copyBytes(unsigned char * value, unsigned int len);
+    bool copyBytes(const unsigned char * value, unsigned int len);
     unsigned char * getData() const;
-    int getLenght() const;
+    unsigned int getLenght() const;
 private:
     unsigned char * m_buffer;
-    int m_size;
-    int m_offset;
+    unsigned int m_size;
+    unsigned int m_offset;
 };
 
 #endif // WRITER_H

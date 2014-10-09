@@ -1,7 +1,7 @@
 #include "include/writer.h"
 #include "include/ioutils.h"
 
-Writer::Writer(int size):
+Writer::Writer(unsigned int size):
     m_buffer(NULL)
   , m_size(size)
   , m_offset(0)
@@ -54,7 +54,7 @@ bool Writer::writeString(const QString &value)
     return true;
 }
 
-bool Writer::copyBytes(unsigned char * value, unsigned int len)
+bool Writer::copyBytes(const unsigned char * value, unsigned int len)
 {
     if ((NULL != value) && (len > 0))
     {
@@ -71,7 +71,7 @@ unsigned char *Writer::getData() const
     return m_buffer;
 }
 
-int Writer::getLenght() const
+unsigned int Writer::getLenght() const
 {
     return m_offset;
 }

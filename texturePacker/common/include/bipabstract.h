@@ -11,15 +11,17 @@ class BipAbstract : public QObject
 public:
     explicit BipAbstract();
     virtual ~BipAbstract();
-    enum{HEAD_DATA_SIZE = 8};
-
-    PVR *pvr() const;
+    PVR * pvr() const;
     void setPvr(PVR *pvr);
+
+public:
+    enum{HEAD_DATA_SIZE = 8};
+    static const unsigned char BIP_HEAD_DATA[HEAD_DATA_SIZE];
 
 private:
     BipAbstract(const BipAbstract & BipAbstract);
     const BipAbstract & operator = (const BipAbstract & bip);
-    static const unsigned char BIP_HEAD_DATA[HEAD_DATA_SIZE];
+
 private:
     PVR *m_pvr;
 };
