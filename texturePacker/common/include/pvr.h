@@ -15,6 +15,8 @@ public:
     PVR(const PVR & pvr);
     virtual ~PVR();
     virtual bool load();
+    bool loadData(const unsigned char * pData, unsigned long size);
+    bool loadCCZData(const unsigned char * pData, unsigned long size);
     virtual bool save(const QString & filename);
     bool saveCCZ(const QString & filename);
 

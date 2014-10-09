@@ -72,6 +72,32 @@ bool PVR::load()
     return result;
 }
 
+bool PVR::loadData(const unsigned char *pData, unsigned long size)
+{
+    if ((NULL != pData) && (size > 0))
+    {
+        m_pvrTexture = new pvrtexture::CPVRTexture(pData);
+        return true;
+    }
+
+    return false;
+}
+
+bool PVR::loadCCZData(const unsigned char *pData, unsigned long size)
+{
+    unsigned char * out = NULL;
+    int len = ZipUtils::ccInflateCCZData(pData, size, &out);
+
+    if ((len > 0) && (out != NULL))
+    {
+        bool result = loadData(out, len);
+        delete []out;
+        return result;
+    }
+
+    return false;
+}
+
 bool PVR::save(const QString & filename)
 {
     if (m_pvrTexture == NULL)

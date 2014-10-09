@@ -2,7 +2,7 @@
 #define BIPREADER_H
 
 #include <QString>
-
+#include "include/pvr.h"
 #include "include/bipabstract.h"
 
 class BipReader : public BipAbstract

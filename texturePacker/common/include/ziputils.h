@@ -24,6 +24,7 @@ class ZipUtils : public QObject
 public:
     ZipUtils();
     static int ccInflateCCZFile(const char *filename, unsigned char **out);
+    static int ccInflateCCZData(const unsigned char *compressed, unsigned int dataLen, unsigned char **out);
     static bool ccDeflateCCZFile(const char * filename, unsigned char * data, unsigned long dataLen);
 };
 

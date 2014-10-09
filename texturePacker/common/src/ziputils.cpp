@@ -16,13 +16,19 @@ int ZipUtils::ccInflateCCZFile(const char *filename, unsigned char **out)
         return  -1;
     }
 
-    // load file into memory
-    unsigned char* compressed = NULL;
-
     unsigned long fileLen = 0;
-    compressed = FileUtils::getFileData(filename, "rb", &fileLen);
+    // load file into memory
+    unsigned char* compressed = FileUtils::getFileData(filename, "rb", &fileLen);
 
-    if(NULL == compressed || 0 == fileLen)
+    int len = ccInflateCCZData(compressed, fileLen, out);
+    delete [] compressed;
+
+    return len;
+}
+
+int ZipUtils::ccInflateCCZData(const unsigned char *compressed, unsigned int dataLen, unsigned char **out)
+{
+    if(NULL == compressed || 0 == dataLen)
     {
         return -1;
     }
@@ -36,14 +42,12 @@ int ZipUtils::ccInflateCCZFile(const char *filename, unsigned char **out)
         unsigned int version = CC_SWAP_INT16_BIG_TO_HOST( header->version );
         if( version > 2 )
         {
-            delete [] compressed;
             return -1;
         }
 
         // verify compression format
         if( CC_SWAP_INT16_BIG_TO_HOST(header->compression_type) != CCZ_COMPRESSION_ZLIB )
         {
-            delete [] compressed;
             return -1;
         }
     }
@@ -56,20 +60,17 @@ int ZipUtils::ccInflateCCZFile(const char *filename, unsigned char **out)
         unsigned int version = CC_SWAP_INT16_BIG_TO_HOST( header->version );
         if( version > 0 )
         {
-            delete [] compressed;
             return -1;
         }
 
         // verify compression format
         if( CC_SWAP_INT16_BIG_TO_HOST(header->compression_type) != CCZ_COMPRESSION_ZLIB )
         {
-            delete [] compressed;
             return -1;
         }
     }
     else
     {
-        delete [] compressed;
         return -1;
     }
 
@@ -77,15 +78,12 @@ int ZipUtils::ccInflateCCZFile(const char *filename, unsigned char **out)
     *out = (unsigned char*)malloc( len );
     if(! *out )
     {
-        delete [] compressed;
         return -1;
     }
 
     unsigned long destlen = len;
     unsigned long source = (unsigned long) compressed + sizeof(*header);
-    int ret = uncompress(*out, &destlen, (Bytef*)source, fileLen - sizeof(*header) );
-
-    delete [] compressed;
+    int ret = uncompress(*out, &destlen, (Bytef*)source, dataLen - sizeof(*header) );
 
     if( ret != Z_OK )
     {

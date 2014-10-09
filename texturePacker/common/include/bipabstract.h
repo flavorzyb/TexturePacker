@@ -13,7 +13,7 @@ public:
     virtual ~BipAbstract();
     PVR * pvr() const;
     void setPvr(PVR *pvr);
-
+    bool isBipFile(const unsigned char * buffer, unsigned long size);
 public:
     enum{HEAD_DATA_SIZE = 8};
     static const unsigned char BIP_HEAD_DATA[HEAD_DATA_SIZE];

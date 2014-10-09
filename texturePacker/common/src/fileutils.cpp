@@ -78,13 +78,12 @@ bool FileUtils::createParentDirectory(const QString & path)
 unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMode, unsigned long *pSize)
 {
     unsigned char * pBuffer = NULL;
+    *pSize = 0;
 
     if (pszFileName == NULL || pSize == NULL || pszMode == NULL)
     {
         return NULL;
     }
-
-    *pSize = 0;
 
     // read the file from hardware
     FILE *fp = fopen(pszFileName, pszMode);

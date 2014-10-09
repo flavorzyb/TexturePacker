@@ -24,3 +24,13 @@ void BipAbstract::setPvr(PVR *pvr)
     m_pvr = pvr;
 }
 
+bool BipAbstract::isBipFile(const unsigned char *buffer, unsigned long size)
+{
+    if (size <= HEAD_DATA_SIZE)
+    {
+        return false;
+    }
+
+    return (0 == memcmp(BIP_HEAD_DATA, buffer, HEAD_DATA_SIZE));
+}
+
