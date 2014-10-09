@@ -4,18 +4,15 @@
 #include <QObject>
 #include <QString>
 
-#include "include/pvr.h"
+#include "include/bipabstract.h"
 
-class BipWriter : public QObject
+class BipWriter : public BipAbstract
 {
     Q_OBJECT
 public:
     explicit BipWriter(PVR *pvr);
-
+    virtual ~BipWriter();
     bool save(const QString & filepath);
-
-private:
-    PVR *m_pvr;
 };
 
 #endif // BIPWRITER_H

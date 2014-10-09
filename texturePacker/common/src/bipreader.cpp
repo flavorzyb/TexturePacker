@@ -1,6 +1,16 @@
-#include "bipreader.h"
+#include "include/bipreader.h"
 
-BipReader::BipReader(QObject *parent) :
-    QObject(parent)
+BipReader::BipReader():BipAbstract()
 {
+
+}
+
+BipReader::~BipReader()
+{
+
+}
+
+bool BipReader::load()
+{
+    return false;
 }

@@ -1,18 +1,15 @@
 #ifndef BIPREADER_H
 #define BIPREADER_H
 
-#include <QObject>
+#include "include/bipabstract.h"
 
-class BipReader : public QObject
+class BipReader : public BipAbstract
 {
     Q_OBJECT
 public:
-    explicit BipReader(QObject *parent = 0);
-
-signals:
-
-public slots:
-
+    explicit BipReader();
+    virtual ~BipReader();
+    bool load();
 };
 
 #endif // BIPREADER_H
