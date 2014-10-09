@@ -106,15 +106,7 @@ bool ZipUtils::ccDeflateCCZFile(const char *filename, unsigned char *data, unsig
         return false;
     }
 
-    FILE * fp = fopen(filename, "wb");
-    bool result = false;
-    if (fp)
-    {
-        fwrite(out, 1, outLen, fp);
-        fclose(fp);
-        result = true;
-    }
-
+    bool result = FileUtils::writeFile(filename, "wb", out, outLen);
     delete [] out;
 
     return result;
