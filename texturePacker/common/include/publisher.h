@@ -2,7 +2,8 @@
 #define PUBLISHER_H
 
 #include <QObject>
-
+#include <QString>
+#include <QVector>
 #include "include/settingsvo.h"
 
 class Publisher : public QObject
@@ -15,9 +16,12 @@ public:
 signals:
 
 public slots:
+    void done(bool succ, const QString & imagePath);
 
 private:
     SettingsVO  m_svo;
+    QVector<QString> m_fileLists;
+    enum{MAX_THREAD_NUM = 3};
 };
 
 #endif // PUBLISHER_H

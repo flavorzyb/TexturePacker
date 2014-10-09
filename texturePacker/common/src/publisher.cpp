@@ -2,6 +2,7 @@
 #include "include/fileutils.h"
 #include "include/png.h"
 #include "include/bipwriter.h"
+#include "include/worker.h"
 
 Publisher::Publisher(const SettingsVO & svo) :
     QObject(NULL),
@@ -16,26 +17,29 @@ const SettingsVO & Publisher::getSettingsVO() const
 
 bool Publisher::publish()
 {
-    QVector<QString> imageFileLists = FileUtils::getAllImageFiles(m_svo.getInputPath());
+    m_fileLists = FileUtils::getAllImageFiles(m_svo.getInputPath());
     QString absInputPath = FileUtils::getAbsoluteFilePath(m_svo.getInputPath());
-    QVector<QString>::const_iterator iterator = imageFileLists.constBegin();
 
-    for (; iterator != imageFileLists.constEnd(); iterator++)
+    Worker workers[MAX_THREAD_NUM];
+    for (int i = 0; i < MAX_THREAD_NUM; ++i)
     {
-        QString path = *iterator;
-        PNG png(path);
-        png.load();
-        PVR * pvr = png.convertToPVR();
-        path = m_svo.getOutputPath() + "/" + path.right(path.length() - absInputPath.length() - 1);
-        ImageVO ivo = pvr->imagevo();
-        ivo.setFileName(path);
-        pvr->setImagevo(ivo);
-        int index = path.lastIndexOf(".");
-        path = path.left(index) + ".bip";
-        BipWriter writer(pvr);
-        FileUtils::createParentDirectory(path);
-        writer.save(path);
+        connect(&workers[i], SIGNAL(done(bool, const QString &)), this, SLOT(done(bool, const QString &)));
+        workers[i].setImageFilePath("aaaaaa");
+        workers[i].run();
     }
 
+//    for (int i = 0; i < MAX_THREAD_NUM; ++i)
+//    {
+//        workers[i].wait();
+//    }
+
     return true;
+}
+
+void Publisher::done(bool succ, const QString &imagePath)
+{
+    char str[1024] = {0};
+    sprintf(str, "succ:%s path:%s\n", succ ? "ok" : "fail", imagePath.toStdString().c_str());
+
+    FileUtils::writeFile("/Users/admin/tmp/a.txt", "ab+", str, strlen(str) * sizeof(char));
 }
