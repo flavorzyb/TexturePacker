@@ -108,28 +108,60 @@ bool PVR::save(const QString & filename)
     return m_pvrTexture->saveFile(filename.toStdString().c_str());
 }
 
-bool PVR::saveCCZ(const QString & filename)
+unsigned char * PVR::saveToBuffer(unsigned int *size)
 {
     QString path = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr";
-    if (save(path))
+    *size = 0;
+    if (!save(path))
     {
-        unsigned long fileSize = 0;
-        unsigned char * pvrdata = FileUtils::getFileData(path.toStdString().c_str(), "rb", &fileSize);
-        unlink(path.toStdString().c_str());
+        return NULL;
+    }
 
-        if ((pvrdata != NULL) && (fileSize > 0))
+    unsigned long fileSize = 0;
+    unsigned char * result = FileUtils::getFileData(path.toStdString().c_str(), "rb", &fileSize);
+    *size = fileSize;
+    FileUtils::unlink(path);
+
+    return result;
+}
+
+bool PVR::saveCCZ(const QString & filename)
+{
+    unsigned int fileSize = 0;
+    unsigned char * pvrData = saveToBuffer(&fileSize);
+    if (pvrData != NULL)
+    {
+        bool result = false;
+        if (ZipUtils::ccDeflateCCZFile(filename.toStdString().c_str(), pvrData, fileSize))
         {
-            if (ZipUtils::ccDeflateCCZFile(filename.toStdString().c_str(), pvrdata, fileSize))
-            {
-                delete []pvrdata;
-                return true;
-            }
+            result = true;
         }
 
-        delete []pvrdata;
+        delete [] pvrData;
+
+        return result;
     }
 
     return false;
+}
+
+unsigned char * PVR::saveCCZToBuffer(unsigned int *size)
+{
+    unsigned int fileSize = 0;
+    *size = 0;
+
+    unsigned char * pvrData = saveToBuffer(&fileSize);
+    if (pvrData != NULL)
+    {
+        unsigned char * out = NULL;
+        *size = ZipUtils::ccDeflateCCZData(pvrData, fileSize, &out);
+        if ((*size) > 1)
+        {
+            return out;
+        }
+    }
+
+    return NULL;
 }
 
 bool PVR::isPVRCCZFile(const QString &filename) const
