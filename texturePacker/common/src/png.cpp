@@ -115,10 +115,10 @@ unsigned char *PNG::createImageData(int fnw,  int fnh, int w, int h, int pw, int
         {
            if ((x >= windex) &&
                    (y >= hindex) &&
-                   (x <= windex + w) &&
-                   (y <= hindex + h))
+                   ((x + fnw) < w) &&
+                   ((y + fnh) < h))
            {
-               QRgb v = m_pImg->pixel(x+fnw, y+fnh);
+               QRgb v = m_pImg->pixel(x + fnw, y + fnh);
                pImageData[4 * (y * pw + x) + 0] = qRed(v);
                pImageData[4 * (y * pw + x) + 1] = qGreen(v);
                pImageData[4 * (y * pw + x) + 2] = qBlue(v);

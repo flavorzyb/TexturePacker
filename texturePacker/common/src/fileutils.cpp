@@ -75,6 +75,12 @@ bool FileUtils::createParentDirectory(const QString & path)
     return parentDir.mkpath(parentPath);
 }
 
+QString FileUtils::getAbsoluteFilePath(const QString &path)
+{
+    QFileInfo fileInfo(path);
+    return fileInfo.absoluteFilePath();
+}
+
 unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMode, unsigned long *pSize)
 {
     unsigned char * pBuffer = NULL;
