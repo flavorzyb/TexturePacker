@@ -6,6 +6,7 @@
 #include "readertest.h"
 #include "writertest.h"
 #include "bipwritertest.h"
+#include "bipreadertest.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,6 +17,7 @@ int main(int argc, char *argv[])
     ReaderTest reader;
     WriterTest writer;
     BipWriterTest bipWriter;
+    BipReaderTest bipReader;
 
 //    QTest::qExec(&fileUtils, argc, argv);
 //    QTest::qExec(&publish, argc, argv);
@@ -25,7 +27,8 @@ int main(int argc, char *argv[])
 //    QTest::qExec(&reader, argc, argv);
 //    QTest::qExec(&writer, argc, argv);
 
-    QTest::qExec(&bipWriter, argc, argv);
+//    QTest::qExec(&bipWriter, argc, argv);
+    QTest::qExec(&bipReader, argc, argv);
 
     return 0;
 }

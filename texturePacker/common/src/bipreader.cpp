@@ -1,16 +1,33 @@
 #include "include/bipreader.h"
 
-BipReader::BipReader():BipAbstract()
+BipReader::BipReader(const QString &fileName):
+    BipAbstract()
+  , m_fileName(fileName)
 {
-
 }
 
 BipReader::~BipReader()
 {
-
 }
 
-bool BipReader::load()
+PVR * BipReader::load()
 {
-    return false;
+    return NULL;
 }
+
+PVR *BipReader::load(const QString &fileName)
+{
+    setFileName(fileName);
+    return load();
+}
+
+QString BipReader::fileName() const
+{
+    return m_fileName;
+}
+
+void BipReader::setFileName(const QString &fileName)
+{
+    m_fileName = fileName;
+}
+
