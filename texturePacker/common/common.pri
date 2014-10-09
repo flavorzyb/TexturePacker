@@ -21,7 +21,10 @@ HEADERS +=  $$PWD/include/config.h \
             $$PWD/include/imagevo.h \
             $$PWD/include/reader.h \
             $$PWD/include/writer.h \
-            $$PWD/include/ioutils.h
+            $$PWD/include/ioutils.h \
+            $$PWD/include/bipwriter.h \
+            $$PWD/include/bipabstract.h \
+            $$PWD/include/bipreader.h
 
 SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/settingsvo.cpp \
@@ -36,7 +39,10 @@ SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/imagevo.cpp \
             $$PWD/src/reader.cpp \
             $$PWD/src/writer.cpp \
-            $$PWD/src/ioutils.cpp
+            $$PWD/src/ioutils.cpp \
+            $$PWD/src/bipwriter.cpp \
+            $$PWD/src/bipabstract.cpp \
+            $$PWD/src/bipreader.cpp
 
 INCLUDEPATH += $$PWD
 
