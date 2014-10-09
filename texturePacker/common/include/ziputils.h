@@ -26,6 +26,7 @@ public:
     static int ccInflateCCZFile(const char *filename, unsigned char **out);
     static int ccInflateCCZData(const unsigned char *compressed, unsigned int dataLen, unsigned char **out);
     static bool ccDeflateCCZFile(const char * filename, unsigned char * data, unsigned long dataLen);
+    static int ccDeflateCCZData(unsigned char * data, unsigned long dataLen, unsigned char **out);
 };
 
 #endif // ZIPUTILS_H

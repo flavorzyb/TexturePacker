@@ -98,6 +98,30 @@ int ZipUtils::ccInflateCCZData(const unsigned char *compressed, unsigned int dat
 bool ZipUtils::ccDeflateCCZFile(const char *filename, unsigned char *data, unsigned long dataLen)
 {
     if ((filename == NULL) || (strlen(filename) < 1) || (data == NULL) || (dataLen < 1)) return false;
+
+    unsigned char * out = NULL;
+    int outLen = ccDeflateCCZData(data, dataLen, &out);
+    if (outLen < 1)
+    {
+        return false;
+    }
+
+    FILE * fp = fopen(filename, "wb");
+    bool result = false;
+    if (fp)
+    {
+        fwrite(out, 1, outLen, fp);
+        fclose(fp);
+        result = true;
+    }
+
+    delete [] out;
+
+    return result;
+}
+
+int ZipUtils::ccDeflateCCZData(unsigned char *data, unsigned long dataLen, unsigned char **out)
+{
     uLongf destLen = dataLen * sizeof(unsigned char);
     Bytef *dest = new Bytef [destLen];
     memset(dest, 0, destLen);
@@ -105,7 +129,7 @@ bool ZipUtils::ccDeflateCCZFile(const char *filename, unsigned char *data, unsig
     if (result == false)
     {
         delete [] dest;
-        return false;
+        return -1;
     }
 
     struct CCZHeader header;
@@ -118,17 +142,11 @@ bool ZipUtils::ccDeflateCCZFile(const char *filename, unsigned char *data, unsig
     header.compression_type = CC_SWAP_INT16_BIG_TO_HOST(CCZ_COMPRESSION_ZLIB);
     header.len = CC_SWAP_INT32_BIG_TO_HOST((unsigned int) dataLen);
 
-    FILE * fp = fopen(filename, "wb");
-    result = false;
-    if (fp)
-    {
-        fwrite(&header, 1, sizeof(CCZHeader), fp);
-        fwrite(dest, 1, destLen, fp);
-        fclose(fp);
-        result = true;
-    }
+    int headerLen = sizeof(CCZHeader);
 
-    delete [] dest;
+    *out = new unsigned char [headerLen + destLen];
+    memcpy(*out, &header, headerLen);
+    memcpy((*out) + headerLen, dest, destLen);
 
-    return result;
+    return (headerLen + destLen);
 }
