@@ -27,7 +27,7 @@ Writer::~Writer()
         int len = sizeof(varType); \
         memcpy(m_buffer+ m_offset, &value, len);\
         \
-        IOUtils::writeOrderData(m_buffer + m_offset, len);\
+        IOUtils::orderData(m_buffer + m_offset, len);\
         \
         m_offset +=len;\
         return true; \
