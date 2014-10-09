@@ -88,16 +88,14 @@ bool BipWriter::writerHeadData(Writer *writer, const QString & filepath)
 bool BipWriter::writerPVRData(const QString &filepath)
 {
     PVR * pvr = this->pvr();
-    QString tmpPath = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr.ccz";
-    pvr->saveCCZ(tmpPath);
-
     unsigned long size = 0;
-    unsigned char * pData = FileUtils::getFileData(tmpPath.toStdString().c_str(), "rb", &size);
-    FileUtils::unlink(tmpPath);
+    unsigned char *pData = pvr->saveCCZToBuffer(&size);
 
     if ((NULL != pData) && (size > 0))
     {
-        return FileUtils::writeFile(filepath.toStdString().c_str(), "ab+", pData, size);
+        bool result = FileUtils::writeFile(filepath.toStdString().c_str(), "ab+", pData, size);
+        delete [] pData;
+        return result;
     }
 
     return false;

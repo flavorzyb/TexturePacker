@@ -18,9 +18,9 @@ public:
     bool loadData(const unsigned char * pData, unsigned long size);
     bool loadCCZData(const unsigned char * pData, unsigned long size);
     virtual bool save(const QString & filename);
-    unsigned char * saveToBuffer(unsigned int *size);
+    unsigned char * saveToBuffer(unsigned long *size);
     bool saveCCZ(const QString & filename);
-    unsigned char * saveCCZToBuffer(unsigned int *size);
+    unsigned char * saveCCZToBuffer(unsigned long *size);
 
     ImageVO imagevo() const;
     void setImagevo(const ImageVO & imagevo);

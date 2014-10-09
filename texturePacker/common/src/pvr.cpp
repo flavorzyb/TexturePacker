@@ -108,7 +108,7 @@ bool PVR::save(const QString & filename)
     return m_pvrTexture->saveFile(filename.toStdString().c_str());
 }
 
-unsigned char * PVR::saveToBuffer(unsigned int *size)
+unsigned char * PVR::saveToBuffer(unsigned long *size)
 {
     QString path = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr";
     *size = 0;
@@ -117,9 +117,8 @@ unsigned char * PVR::saveToBuffer(unsigned int *size)
         return NULL;
     }
 
-    unsigned long fileSize = 0;
-    unsigned char * result = FileUtils::getFileData(path.toStdString().c_str(), "rb", &fileSize);
-    *size = fileSize;
+    unsigned char * result = FileUtils::getFileData(path.toStdString().c_str(), "rb", size);
+
     FileUtils::unlink(path);
 
     return result;
@@ -127,7 +126,7 @@ unsigned char * PVR::saveToBuffer(unsigned int *size)
 
 bool PVR::saveCCZ(const QString & filename)
 {
-    unsigned int fileSize = 0;
+    unsigned long fileSize = 0;
     unsigned char * pvrData = saveToBuffer(&fileSize);
     if (pvrData != NULL)
     {
@@ -145,9 +144,9 @@ bool PVR::saveCCZ(const QString & filename)
     return false;
 }
 
-unsigned char * PVR::saveCCZToBuffer(unsigned int *size)
+unsigned char * PVR::saveCCZToBuffer(unsigned long *size)
 {
-    unsigned int fileSize = 0;
+    unsigned long fileSize = 0;
     *size = 0;
 
     unsigned char * pvrData = saveToBuffer(&fileSize);
