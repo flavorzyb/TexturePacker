@@ -27,7 +27,6 @@ HEADERS  += $$PWD/include/mainwindow.h \
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
-
 macx {
-    QMAKE_POST_LINK =   rm -rf plugins && cp -rf plugins ./
+    ICON = $$PWD/../icon/tp.ico
 }
