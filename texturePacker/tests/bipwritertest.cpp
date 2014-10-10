@@ -1,4 +1,5 @@
 #include "bipwritertest.h"
+#include "common/include/fileutils.h"
 
 BipWriterTest::BipWriterTest()
 {
@@ -9,6 +10,7 @@ void BipWriterTest::init()
     PVR * pvr = new PVR("images/zw_shu.pvr");
     ImageVO ivo(500, 500);
     ivo.setFileName("zw_shu.pvr");
+    ivo.setMd5String(FileUtils::md5File("images/zw_shu.pvr"));
     ivo.setRect(2, 2, 428, 412);
     ivo.setOffset(25, 22);
     ivo.setRotated(false);

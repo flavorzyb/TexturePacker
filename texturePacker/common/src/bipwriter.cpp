@@ -47,6 +47,9 @@ void BipWriter::initWriter(Writer * writer)
     // writer filename
     writer->writeString(pvr->imagevo().fileName());
 
+    // md5string
+    writer->writeString(pvr->imagevo().md5String());
+
     // rect
     writer->writeInt(pvr->imagevo().rect().x());
     writer->writeInt(pvr->imagevo().rect().y());

@@ -27,8 +27,8 @@ int main(int argc, char *argv[])
 //    QTest::qExec(&reader, argc, argv);
 //    QTest::qExec(&writer, argc, argv);
 
-//    QTest::qExec(&bipWriter, argc, argv);
-//    QTest::qExec(&bipReader, argc, argv);
+    QTest::qExec(&bipWriter, argc, argv);
+    QTest::qExec(&bipReader, argc, argv);
 
     return 0;
 }

@@ -42,6 +42,9 @@ public:
     void setSize(const QSize &size);
     void setSize(int width, int height);
 
+    QString md5String() const;
+    void setMd5String(const QString &md5String);
+
 private:
     QSize m_sourceSize;
     QPoint m_offset;
@@ -50,6 +53,7 @@ private:
     QString m_fileName;
     QRect m_sourceColorRect;
     QSize m_size;
+    QString m_md5String;
 };
 
 #endif // IMAGEVO_H

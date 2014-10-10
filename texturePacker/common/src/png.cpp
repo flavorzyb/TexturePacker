@@ -81,6 +81,7 @@ PVR * PNG::convertToPVR()
             ivo.setOffset(ox, oy);
             ivo.setSourceColorRect(fnw, fnh, w, h);
             ivo.setSize(pw, ph);
+            ivo.setMd5String(FileUtils::md5File(filePath()));
 
             PVR * result = new PVR(pvrFile);
             result->setImagevo(ivo);

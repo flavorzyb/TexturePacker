@@ -8,6 +8,7 @@ ImageVO::ImageVO(const QSize &size):
   , m_fileName("")
   , m_sourceColorRect(0 ,0, 0, 0)
   , m_size(0, 0)
+  , m_md5String("")
 {
 }
 
@@ -19,6 +20,7 @@ ImageVO::ImageVO(int w, int h):
   , m_fileName("")
   , m_sourceColorRect(0 ,0, 0, 0)
   , m_size(0, 0)
+  , m_md5String("")
 {
 }
 
@@ -30,6 +32,7 @@ ImageVO::ImageVO(const ImageVO &ivo):
   , m_fileName(ivo.m_fileName)
   , m_sourceColorRect(ivo.m_sourceColorRect)
   , m_size(ivo.m_size)
+  , m_md5String(ivo.m_md5String)
 {
 
 }
@@ -106,6 +109,7 @@ const ImageVO & ImageVO::operator=(const ImageVO &ivo)
     m_sourceColorRect   = ivo.m_sourceColorRect;
 
     m_size              = ivo.m_size;
+    m_md5String         = ivo.m_md5String;
 
     return (*this);
 }
@@ -137,5 +141,15 @@ void ImageVO::setSize(int width, int height)
 {
     m_size = QSize(width, height);
 }
+QString ImageVO::md5String() const
+{
+    return m_md5String;
+}
+
+void ImageVO::setMd5String(const QString &md5String)
+{
+    m_md5String = md5String;
+}
+
 
 
