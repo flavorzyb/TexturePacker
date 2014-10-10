@@ -78,6 +78,9 @@ void MainWindow::initAction()
     m_aAboutMe = new QAction(tr("关于我(&A)"), this);
     m_aAboutMe->setStatusTip(tr("关于软件的一些说明"));
     connect(m_aAboutMe, SIGNAL(triggered()), this, SLOT(onAboutMeAction()));
+
+    connect(&m_publish, SIGNAL(update(QString)), this, SLOT(updatePublishInfo(QString)));
+    connect(&m_publish, SIGNAL(finished()), this, SLOT(onPublishFinished()));
 }
 
 void MainWindow::initStatusBar()
@@ -267,7 +270,5 @@ void MainWindow::onPublishEvent()
     m_pteOutput->clear();
 
     m_publish.setSettingsVO(m_settingsvo);
-    connect(&m_publish, SIGNAL(update(QString)), this, SLOT(updatePublishInfo(QString)));
-    connect(&m_publish, SIGNAL(finished()), this, SLOT(onPublishFinished()));
     m_publish.start();
 }

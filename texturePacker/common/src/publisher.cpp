@@ -90,7 +90,6 @@ QVector<QString> Publisher::failFileLists() const
 void Publisher::doneFile(bool isSucc, const QString &filePath)
 {
     m_doneMutex.lock();
-    unsigned int size = m_succFileLists.size() + m_failFileLists.size();
     QString path = filePath.right(filePath.length() - 1 - m_svo.getAbsoluteInputFilePath().length());
     QString info = path + " ... ... ";
 
@@ -106,13 +105,14 @@ void Publisher::doneFile(bool isSucc, const QString &filePath)
     }
 
     char percent[1024] = {0};
+    unsigned int size = m_succFileLists.size() + m_failFileLists.size();
     sprintf(percent, " ... ... %d / %d ... ... %.2f %%", size, m_fileCount, 1.0f * 100 * size / m_fileCount);
 
     info += percent;
     m_outInfoLists.push_back(info);
 
-//#ifdef TP_CMD_MODE
+#ifdef TP_CMD_MODE
     printf("%s\n", info.toStdString().c_str());
-//#endif
+#endif
     m_doneMutex.unlock();
 }
