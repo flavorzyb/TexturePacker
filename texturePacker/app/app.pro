@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = texturePacker
+TARGET = BipPacker
 TEMPLATE = app
 
 include($$PWD/../common/common.pri)
@@ -28,7 +28,7 @@ HEADERS  += $$PWD/include/mainwindow.h \
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
 macx {
-    ICON = $$PWD/../icon/tp.ico
+    ICON = $$PWD/../icon/tp.icns
 }
 
 CONFIG += release
