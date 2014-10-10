@@ -61,7 +61,7 @@ bool SettingsVO::operator ==(const SettingsVO & svo) const
             (m_format == svo.getFormat()));
 }
 
-const SettingsVO &SettingsVO::operator =(const SettingsVO &svo)
+const SettingsVO & SettingsVO::operator =(const SettingsVO &svo)
 {
     m_inputPath = svo.m_inputPath;
     m_outputPath = svo.m_outputPath;

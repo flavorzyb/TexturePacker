@@ -17,7 +17,7 @@ public:
     SettingsVO(const SettingsVO & svo);
     ~SettingsVO();
     bool operator ==(const SettingsVO & svo) const;
-    const SettingsVO &operator =(const SettingsVO & svo);
+    const SettingsVO & operator =(const SettingsVO & svo);
 
     void setInputPath(QString path);
     void setOutputPath(QString path);

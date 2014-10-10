@@ -20,7 +20,7 @@ public:
     const SettingsVO & getSettingsVO() const;
     bool publish();
     QString fetchTask();
-
+    QString fetchOutInfo();
     QVector<QString> succFileLists() const;
     QVector<QString> failFileLists() const;
     inline bool isFinished() const {return m_isFinished;}
@@ -34,6 +34,7 @@ private:
     Worker m_works[MAX_THREAD_NUM];
     QVector<QString> m_succFileLists;
     QVector<QString> m_failFileLists;
+    QVector<QString> m_outInfoLists;
     QMutex m_doneMutex;
     bool m_isFinished;
 };

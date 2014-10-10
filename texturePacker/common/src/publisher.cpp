@@ -24,6 +24,7 @@ bool Publisher::publish()
     m_fileCount = m_fileLists.size();
     m_succFileLists.clear();
     m_failFileLists.clear();
+    m_outInfoLists.clear();
     m_isFinished = false;
 //    QTime t;
 //    t.start();
@@ -58,6 +59,24 @@ QString Publisher::fetchTask()
 
     return result;
 }
+
+QString Publisher::fetchOutInfo()
+{
+    QString result = "";
+    m_doneMutex.lock();
+    while (m_outInfoLists.size() > 0)
+    {
+        if (result.length() > 0)
+        {
+            result +="\n";
+        }
+
+        result += *(m_outInfoLists.begin());
+        m_outInfoLists.pop_front();
+    }
+    m_doneMutex.unlock();
+    return result;
+}
 QVector<QString> Publisher::succFileLists() const
 {
     return m_succFileLists;
@@ -71,19 +90,29 @@ QVector<QString> Publisher::failFileLists() const
 void Publisher::doneFile(bool isSucc, const QString &filePath)
 {
     m_doneMutex.lock();
+    unsigned int size = m_succFileLists.size() + m_failFileLists.size();
+    QString path = filePath.right(filePath.length() - 1 - m_svo.getAbsoluteInputFilePath().length());
+    QString info = path + " ... ... ";
+
     if (isSucc)
     {
         m_succFileLists.push_back(filePath);
+        info +="succ";
     }
     else
     {
         m_failFileLists.push_back(filePath);
+        info +="fail";
     }
 
-#ifdef TP_CMD_MODE
-    unsigned int size = m_succFileLists.size() + m_failFileLists.size();
-    QString path = filePath.right(filePath.length() - 1 - m_svo.getAbsoluteInputFilePath().length());
-    printf("publishing %s ... ... %s ... ... %d / %d ... ... %.2f%%\n", path.toStdString().c_str(), isSucc ? "succ" : "fail", size, m_fileCount, 1.0f * 100 * size / m_fileCount);
-#endif
+    char percent[1024] = {0};
+    sprintf(percent, " ... ... %d / %d ... ... %.2f %%", size, m_fileCount, 1.0f * 100 * size / m_fileCount);
+
+    info += percent;
+    m_outInfoLists.push_back(info);
+
+//#ifdef TP_CMD_MODE
+    printf("%s\n", info.toStdString().c_str());
+//#endif
     m_doneMutex.unlock();
 }

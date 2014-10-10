@@ -52,7 +52,9 @@ void PublishThread::run()
 
     while(publish.isFinished() == false)
     {
-        update("this is a test......");
+        update(publish.fetchOutInfo());
         QThread::usleep(500);
     }
+
+    update(publish.fetchOutInfo());
 }

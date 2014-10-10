@@ -30,7 +30,10 @@ void MainWindow::onPublishFinished()
 
 void MainWindow::updatePublishInfo(QString info)
 {
-    m_pteOutput->appendPlainText(info);
+    if (info.length() > 0)
+    {
+        m_pteOutput->appendPlainText(info);
+    }
 }
 
 void MainWindow::initUI()
