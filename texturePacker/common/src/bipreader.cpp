@@ -40,6 +40,7 @@ PVR * BipReader::load()
     ivo.setFileName(reader.readString());
     ivo.setMd5String(reader.readString());
     ivo.setRect(reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
+    ivo.setRotated(reader.readBoolean());
     ivo.setOffset(reader.readInt(), reader.readInt());
     ivo.setSourceColorRect(reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
     ivo.setSize(reader.readInt(), reader.readInt());

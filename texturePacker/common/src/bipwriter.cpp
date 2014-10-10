@@ -38,37 +38,41 @@ bool BipWriter::save(const QString &filepath)
 void BipWriter::initWriter(Writer * writer)
 {
     PVR * pvr = this->pvr();
+    ImageVO ivo = pvr->imagevo();
 
     writer->copyBytes(BIP_HEAD_DATA, HEAD_DATA_SIZE);
     // write source size
-    writer->writeInt(pvr->imagevo().sourceSize().width());
-    writer->writeInt(pvr->imagevo().sourceSize().height());
+    writer->writeInt(ivo.sourceSize().width());
+    writer->writeInt(ivo.sourceSize().height());
 
     // writer filename
-    writer->writeString(pvr->imagevo().fileName());
+    writer->writeString(ivo.fileName());
 
     // md5string
-    writer->writeString(pvr->imagevo().md5String());
+    writer->writeString(ivo.md5String());
 
     // rect
-    writer->writeInt(pvr->imagevo().rect().x());
-    writer->writeInt(pvr->imagevo().rect().y());
-    writer->writeInt(pvr->imagevo().rect().width());
-    writer->writeInt(pvr->imagevo().rect().height());
+    writer->writeInt(ivo.rect().x());
+    writer->writeInt(ivo.rect().y());
+    writer->writeInt(ivo.rect().width());
+    writer->writeInt(ivo.rect().height());
+
+    // rotated
+    writer->writeBoolean(ivo.rotated());
 
     // offset
-    writer->writeInt(pvr->imagevo().offset().x());
-    writer->writeInt(pvr->imagevo().offset().y());
+    writer->writeInt(ivo.offset().x());
+    writer->writeInt(ivo.offset().y());
 
     // source color rect
-    writer->writeInt(pvr->imagevo().sourceColorRect().x());
-    writer->writeInt(pvr->imagevo().sourceColorRect().y());
-    writer->writeInt(pvr->imagevo().sourceColorRect().width());
-    writer->writeInt(pvr->imagevo().sourceColorRect().height());
+    writer->writeInt(ivo.sourceColorRect().x());
+    writer->writeInt(ivo.sourceColorRect().y());
+    writer->writeInt(ivo.sourceColorRect().width());
+    writer->writeInt(ivo.sourceColorRect().height());
 
     // size
-    writer->writeInt(pvr->imagevo().size().width());
-    writer->writeInt(pvr->imagevo().size().height());
+    writer->writeInt(ivo.size().width());
+    writer->writeInt(ivo.size().height());
 }
 
 bool BipWriter::writerHeadData(Writer *writer, const QString & filepath)
