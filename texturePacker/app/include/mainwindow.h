@@ -7,6 +7,7 @@
 #include <QString>
 
 #include "common/include/settingsvo.h"
+#include "include/publishthread.h"
 
 class MainWindow : public QMainWindow
 {
@@ -15,8 +16,11 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void enablePublishBtn();
-    void updatePublishInfo(const QString & info);
+
+private slots:
+    void updatePublishInfo(QString info);
+    void onPublishFinished();
+
 private:
     void initUI();
     void initMenu();
@@ -26,6 +30,12 @@ private:
     void initOpGroup();
     void initOutputGroup();
     void initStatusBar();
+
+private slots:
+    void onAboutMeAction();
+    void onSettingInputPathEvent();
+    void onSettingOutputPathEvent();
+    void onPublishEvent();
 
 private:
     QAction         * m_aAboutMe;
@@ -53,11 +63,7 @@ private:
     QWidget         * m_wMainWidget;
 
     SettingsVO      m_settingsvo;
-private slots:
-    void onAboutMeAction();
-    void onSettingInputPathEvent();
-    void onSettingOutputPathEvent();
-    void onPublishEvent();
+    PublishThread   m_publish;
 };
 
 #endif // MAINWINDOW_H

@@ -2,22 +2,25 @@
 #define PUBLISHRANNABLE_H
 
 #include <QRunnable>
+#include <QObject>
 
 #include "common/include/settingsvo.h"
 #include "common/include/publisher.h"
-#include "include/mainwindow.h"
 
 class PublishRannable : public QRunnable
 {
 public:
-    explicit PublishRannable(const SettingsVO & svo, MainWindow * mw);
+    explicit PublishRannable(const SettingsVO & svo);
     virtual ~PublishRannable();
     void run();
+
+signals:
+    void update(QString info);
+    void finished();
 
 private:
     SettingsVO m_svo;
     Publisher * m_publish;
-    MainWindow *m_mainWindow;
 };
 
 #endif // PUBLISHRANNABLE_H

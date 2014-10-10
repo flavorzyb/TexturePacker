@@ -11,18 +11,19 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = texturePacker
 TEMPLATE = app
 
-INCLUDEPATH +=  $$PWD \
-                $$PWD/../
-
 include($$PWD/../common/common.pri)
 
 SOURCES +=  $$PWD/src/main.cpp\
             $$PWD/src/mainwindow.cpp \
             $$PWD/src/aboutme.cpp \
             $$PWD/src/utils.cpp \
-            $$PWD/src/publishrannable.cpp
+            $$PWD/src/publishthread.cpp
 
 HEADERS  += $$PWD/include/mainwindow.h \
             $$PWD/include/aboutme.h \
             $$PWD/include/utils.h \
-            $$PWD/include/publishrannable.h
+            $$PWD/include/publishthread.h
+
+
+INCLUDEPATH +=  $$PWD \
+                $$PWD/../

@@ -1,5 +1,5 @@
-#include <QThread>
-#include "include/publishrannable.h"
+#include "include/publishthread.h"
+#include "common/include/publisher.h"
 
 class PubThread : public QThread
 {
@@ -28,32 +28,31 @@ void PubThread::run()
     }
 }
 
-PublishRannable::PublishRannable(const SettingsVO & svo):
-    QRunnable()
-  , m_svo(svo)
-  , m_publish(NULL)
+
+PublishThread::PublishThread():QThread()
 {
 }
 
-PublishRannable::~PublishRannable()
+SettingsVO PublishThread::getSettingsVO() const
 {
-    if (NULL != m_publish)
-    {
-        delete m_publish;
-    }
+    return m_svo;
 }
 
-void PublishRannable::run()
+void PublishThread::setSettingsVO(const SettingsVO &svo)
 {
-    m_publish = new Publisher(m_svo);
-    PubThread pb(m_publish);
+    m_svo = svo;
+}
+
+void PublishThread::run()
+{
+    Publisher publish(m_svo);
+
+    PubThread pb(&publish);
     pb.start();
 
-    while(m_publish->isFinished() == false)
+    while(publish.isFinished() == false)
     {
         update("this is a test......");
         QThread::usleep(500);
     }
-
-    finished();
 }

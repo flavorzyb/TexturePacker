@@ -4,7 +4,6 @@
 #include "include/mainwindow.h"
 #include "include/aboutme.h"
 #include "include/utils.h"
-#include "include/publishrannable.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,14 +23,14 @@ MainWindow::~MainWindow()
 
 }
 
-void MainWindow::enablePublishBtn()
+void MainWindow::onPublishFinished()
 {
-    m_pbPublish->setEnabled(true);
+     m_pbPublish->setEnabled(true);
 }
 
-void MainWindow::updatePublishInfo(const QString &info)
+void MainWindow::updatePublishInfo(QString info)
 {
-    m_pteOutput->appendPlainText(info + "\n");
+    m_pteOutput->appendPlainText(info);
 }
 
 void MainWindow::initUI()
@@ -264,6 +263,8 @@ void MainWindow::onPublishEvent()
     m_pbPublish->setEnabled(false);
     m_pteOutput->clear();
 
-    PublishRannable *pubRun = new PublishRannable(m_settingsvo, this);
-    QThreadPool::globalInstance()->start(pubRun);
+    m_publish.setSettingsVO(m_settingsvo);
+    connect(&m_publish, SIGNAL(update(QString)), this, SLOT(updatePublishInfo(QString)));
+    connect(&m_publish, SIGNAL(finished()), this, SLOT(onPublishFinished()));
+    m_publish.start();
 }

@@ -7,11 +7,11 @@ SettingsVO::SettingsVO():m_inputPath("")
 {
 }
 
-SettingsVO::SettingsVO(const SettingsVO & svo)
+SettingsVO::SettingsVO(const SettingsVO & svo):
+    m_inputPath(svo.m_inputPath)
+  , m_outputPath(svo.m_outputPath)
+  , m_format(svo.m_format)
 {
-    m_inputPath = svo.m_inputPath;
-    m_outputPath = svo.m_outputPath;
-    m_format = svo.m_format;
 }
 
 SettingsVO::~SettingsVO()
@@ -59,4 +59,13 @@ bool SettingsVO::operator ==(const SettingsVO & svo) const
     return ((m_inputPath == svo.getInputPath()) &&
             (m_outputPath == svo.getOutputPath()) &&
             (m_format == svo.getFormat()));
+}
+
+const SettingsVO &SettingsVO::operator =(const SettingsVO &svo)
+{
+    m_inputPath = svo.m_inputPath;
+    m_outputPath = svo.m_outputPath;
+    m_format = svo.m_format;
+
+    return (*this);
 }

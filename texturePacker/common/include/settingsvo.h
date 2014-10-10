@@ -4,7 +4,7 @@
 #include <QString>
 #include <QObject>
 
-class SettingsVO : public QObject
+class SettingsVO
 {
 public:
     enum format
@@ -12,12 +12,13 @@ public:
         IOS = 0,
         ANDROID = 1,
     };
-    Q_OBJECT
 public:
     SettingsVO();
     SettingsVO(const SettingsVO & svo);
     ~SettingsVO();
     bool operator ==(const SettingsVO & svo) const;
+    const SettingsVO &operator =(const SettingsVO & svo);
+
     void setInputPath(QString path);
     void setOutputPath(QString path);
     void setFormat(format f);
