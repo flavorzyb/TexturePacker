@@ -23,7 +23,7 @@ private Q_SLOTS:
     void testHasParentDirectory();
     void testCreateParentDirectory();
     void testGetAllImageFiles();
-
+    void testMd5();
 private:
     QString m_inputPath;
     QString m_outputPath;

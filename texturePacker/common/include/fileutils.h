@@ -20,6 +20,8 @@ public:
     static QString createImageTempFolder();
     static QString getRandFileNameString();
     static bool unlink(const QString & filename);
+    static QString md5(const QString & str);
+    static QString md5File(const QString & filePath);
 signals:
 
 public slots:

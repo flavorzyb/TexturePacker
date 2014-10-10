@@ -3,6 +3,9 @@
 #include <QStringList>
 #include <QFile>
 #include <iostream>
+#include <QByteArray>
+#include <QCryptographicHash>
+
 #include "include/fileutils.h"
 
 FileUtils::FileUtils() :
@@ -169,4 +172,24 @@ bool FileUtils::unlink(const QString &filename)
     }
 
     return true;
+}
+
+QString FileUtils::md5(const QString &str)
+{
+    QCryptographicHash cryto(QCryptographicHash::Md5);
+    cryto.addData(str.toStdString().c_str(), str.toStdString().length());
+    QString result(cryto.result().toHex());
+    return result;
+}
+
+QString FileUtils::md5File(const QString &filePath)
+{
+    QFile file(filePath);
+    file.open(QIODevice::ReadOnly);
+    QCryptographicHash cryto(QCryptographicHash::Md5);
+    cryto.addData(&file);
+    QString result(cryto.result().toHex());
+    file.close();
+
+    return result;
 }
