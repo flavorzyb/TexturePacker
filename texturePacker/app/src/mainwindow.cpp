@@ -31,7 +31,7 @@ void MainWindow::enablePublishBtn()
 
 void MainWindow::updatePublishInfo(const QString &info)
 {
-    m_pteOutput->insertPlainText(info + "\n");
+    m_pteOutput->appendPlainText(info + "\n");
 }
 
 void MainWindow::initUI()

@@ -8,7 +8,6 @@ class Publisher;
 class Worker : public QThread
 {
     Q_OBJECT
-
 public:
     explicit Worker();
 
