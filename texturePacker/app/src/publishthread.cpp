@@ -50,7 +50,7 @@ void PublishThread::run()
     PubThread pb(&publish);
     pb.start();
 
-    while(publish.isFinished() == false)
+    while((publish.isFinished() == false) && (pb.isFinished() == false))
     {
         update(publish.fetchOutInfo());
         QThread::usleep(500);
