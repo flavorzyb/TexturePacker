@@ -5,7 +5,7 @@
 #-------------------------------------------------
 QT       += core
 QT       -= gui
-TARGET = cmd
+TARGET = texturePacker
 CONFIG   += console
 CONFIG   -= app_bundle
 TEMPLATE = app
