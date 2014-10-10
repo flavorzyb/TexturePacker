@@ -20,6 +20,9 @@ const SettingsVO & Publisher::getSettingsVO() const
 bool Publisher::publish()
 {
     m_fileLists = FileUtils::getAllImageFiles(m_svo.getInputPath());
+    m_fileCount = m_fileLists.size();
+    m_succFileLists.clear();
+    m_failFileLists.clear();
 //    QTime t;
 //    t.start();
     for (int i = 0; i < MAX_THREAD_NUM; ++i)
@@ -73,5 +76,11 @@ void Publisher::doneFile(bool isSucc, const QString &filePath)
     {
         m_failFileLists.push_back(filePath);
     }
+
+#ifdef TP_CMD_MODE
+    unsigned int size = m_succFileLists.size() + m_failFileLists.size();
+    QString path = filePath.right(filePath.length() - 1 - m_svo.getAbsoluteInputFilePath().length());
+    printf("publishing %s ... ... %s ... ... %d / %d ... ... %.2f%%\n", path.toStdString().c_str(), isSucc ? "succ" : "fail", size, m_fileCount, 1.0f * 100 * size / m_fileCount);
+#endif
     m_doneMutex.unlock();
 }

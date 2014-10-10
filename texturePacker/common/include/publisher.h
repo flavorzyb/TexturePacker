@@ -29,6 +29,7 @@ public:
 private:
     SettingsVO  m_svo;
     QVector<QString> m_fileLists;
+    unsigned int m_fileCount;
     QMutex m_mutex;
     Worker m_works[MAX_THREAD_NUM];
     QVector<QString> m_succFileLists;

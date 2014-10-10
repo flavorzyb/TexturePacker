@@ -16,3 +16,5 @@ SOURCES += main.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
+
+DEFINES +=TP_CMD_MODE=1
