@@ -19,8 +19,10 @@ include($$PWD/../common/common.pri)
 SOURCES +=  $$PWD/src/main.cpp\
             $$PWD/src/mainwindow.cpp \
             $$PWD/src/aboutme.cpp \
-            $$PWD/src/utils.cpp
+            $$PWD/src/utils.cpp \
+            $$PWD/src/publishrannable.cpp
 
 HEADERS  += $$PWD/include/mainwindow.h \
             $$PWD/include/aboutme.h \
-            $$PWD/include/utils.h
+            $$PWD/include/utils.h \
+            $$PWD/include/publishrannable.h

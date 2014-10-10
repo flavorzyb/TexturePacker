@@ -7,8 +7,9 @@
 
 
 Publisher::Publisher(const SettingsVO & svo) :
-    QObject(NULL),
-    m_svo(svo)
+    QObject(NULL)
+  , m_svo(svo)
+  , m_isFinished(false)
 {
 }
 
@@ -23,6 +24,7 @@ bool Publisher::publish()
     m_fileCount = m_fileLists.size();
     m_succFileLists.clear();
     m_failFileLists.clear();
+    m_isFinished = false;
 //    QTime t;
 //    t.start();
     for (int i = 0; i < MAX_THREAD_NUM; ++i)
@@ -39,6 +41,7 @@ bool Publisher::publish()
     }
 
 //    printf("----------time: %d ms----------\n", t.elapsed());
+    m_isFinished = true;
     return true;
 }
 

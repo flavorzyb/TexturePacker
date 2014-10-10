@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QtGui>
 #include <QtWidgets>
+#include <QString>
+
 #include "common/include/settingsvo.h"
 
 class MainWindow : public QMainWindow
@@ -13,7 +15,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+    void enablePublishBtn();
+    void updatePublishInfo(const QString & info);
 private:
     void initUI();
     void initMenu();

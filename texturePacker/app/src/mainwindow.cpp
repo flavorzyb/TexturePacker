@@ -1,7 +1,10 @@
 #include <QFileDialog>
+#include <QThreadPool>
+
 #include "include/mainwindow.h"
 #include "include/aboutme.h"
 #include "include/utils.h"
+#include "include/publishrannable.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -19,6 +22,16 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::enablePublishBtn()
+{
+    m_pbPublish->setEnabled(true);
+}
+
+void MainWindow::updatePublishInfo(const QString &info)
+{
+    m_pteOutput->insertPlainText(info + "\n");
 }
 
 void MainWindow::initUI()
@@ -247,4 +260,10 @@ void MainWindow::onPublishEvent()
     {
         m_settingsvo.setFormat(SettingsVO::ANDROID);
     }
+
+    m_pbPublish->setEnabled(false);
+    m_pteOutput->clear();
+
+    PublishRannable *pubRun = new PublishRannable(m_settingsvo, this);
+    QThreadPool::globalInstance()->start(pubRun);
 }

@@ -23,7 +23,7 @@ public:
 
     QVector<QString> succFileLists() const;
     QVector<QString> failFileLists() const;
-
+    inline bool isFinished() const {return m_isFinished;}
     void doneFile(bool isSucc, const QString & filePath);
 
 private:
@@ -35,6 +35,7 @@ private:
     QVector<QString> m_succFileLists;
     QVector<QString> m_failFileLists;
     QMutex m_doneMutex;
+    bool m_isFinished;
 };
 
 #endif // PUBLISHER_H
