@@ -1,6 +1,6 @@
 #include <QFileDialog>
 #include <QThreadPool>
-
+#include <QMessageBox>
 #include "include/mainwindow.h"
 #include "include/aboutme.h"
 #include "include/utils.h"
@@ -264,6 +264,15 @@ void MainWindow::onPublishEvent()
     else
     {
         m_settingsvo.setFormat(SettingsVO::ANDROID);
+    }
+
+    if ((m_settingsvo.getInputPath().length() < 1) || (m_settingsvo.getOutputPath().length() < 1))
+    {
+        QMessageBox mb(this);
+        mb.setWindowTitle("错误");
+        mb.setText(tr("请先设置输入路径或输出路径"));
+        mb.exec();
+        return ;
     }
 
     m_pbPublish->setEnabled(false);

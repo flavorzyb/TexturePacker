@@ -30,5 +30,3 @@ INCLUDEPATH +=  $$PWD \
 macx {
     ICON = $$PWD/../icon/tp.icns
 }
-
-CONFIG += release
