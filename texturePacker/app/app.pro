@@ -29,6 +29,6 @@ INCLUDEPATH +=  $$PWD \
                 $$PWD/../
 macx {
     ICON = $$PWD/../resources/icon/tp.icns
-    ##QMAKE_INFO_PLIST = $$PWD/../Info.plist
+    ##QMAKE_INFO_PLIST = $$PWD/../resources/Info.plist
     ##LIBS += -framework CoreFoundation
 }
