@@ -10,11 +10,11 @@
 				<string>bip</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string>TexturePackerDocument.icns</string>
+			<string>tp</string>
 			<key>CFBundleTypeName</key>
 			<string>bip</string>
 			<key>CFBundleTypeRole</key>
-			<string>Viewer</string>
+			<string>Editor</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>com.zhuyanbiin.BipPacker</string>
@@ -33,6 +33,17 @@
 	<string>1.0.0</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string>tp</string>
+			<key>CFBundleURLName</key>
+			<string>com.zhuyanbiin.BipPacker</string>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
 	<key>LSApplicationCategoryType</key>

@@ -127,14 +127,14 @@ unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMo
         return true; \
     } \
 
-bool FileUtils::writeFile(const char *fileName, const char *mode, unsigned char *content, unsigned long size)
+bool FileUtils::writeFile(const char *fileName, const char *mode, const unsigned char *content, unsigned long size)
 {
     WRITE_FILE_DATA(filename, mode, unsigned char, content, size)
 
     return false;
 }
 
-bool FileUtils::writeFile(const char *fileName, const char *mode, char *content, unsigned long size)
+bool FileUtils::writeFile(const char *fileName, const char *mode, const char *content, unsigned long size)
 {
     WRITE_FILE_DATA(filename, mode, char, content, size)
 
