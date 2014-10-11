@@ -28,7 +28,7 @@ HEADERS  += $$PWD/include/mainwindow.h \
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
 macx {
-    ICON = $$PWD/../icon/tp.icns
+    ICON = $$PWD/../resources/icon/tp.icns
     ##QMAKE_INFO_PLIST = $$PWD/../Info.plist
     ##LIBS += -framework CoreFoundation
 }
