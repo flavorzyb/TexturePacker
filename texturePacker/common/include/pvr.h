@@ -12,7 +12,7 @@ class PVR : public Image
 public:
     PVR();
     PVR(const QString & filename);
-    PVR(const PVR & pvr);
+//    PVR(const PVR & pvr);
     virtual ~PVR();
     virtual bool load();
     bool loadData(const unsigned char * pData, unsigned long size);

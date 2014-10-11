@@ -11,7 +11,7 @@ class Image : public QObject
 public:
     Image();
     Image(const QString & filename);
-    Image(const Image & img);
+    //Image(const Image & img);
     virtual ~Image();
 
     bool loadFile(const QString & filename);

@@ -18,12 +18,12 @@ Image::Image(const QString & filename):
 
 }
 
-Image::Image(const Image &img):
-    m_filePath(img.m_filePath)
-  , m_width(img.m_width)
-  , m_height(img.m_height)
-{
-}
+//Image::Image(const Image &img):
+//    m_filePath(img.m_filePath)
+//  , m_width(img.m_width)
+//  , m_height(img.m_height)
+//{
+//}
 
 Image::~Image()
 {
