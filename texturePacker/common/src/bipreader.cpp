@@ -35,7 +35,7 @@ PVR * BipReader::load()
     }
 
     reader.skip(HEAD_DATA_SIZE);
-
+    reader.readInt();
     ImageVO ivo(reader.readInt(), reader.readInt());
     ivo.setFileName(reader.readString());
     ivo.setMd5String(reader.readString());

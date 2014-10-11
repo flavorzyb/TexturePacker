@@ -41,6 +41,7 @@ void BipWriter::initWriter(Writer * writer)
     ImageVO ivo = pvr->imagevo();
 
     writer->copyBytes(BIP_HEAD_DATA, HEAD_DATA_SIZE);
+    writer->writeInt(1);
     // write source size
     writer->writeInt(ivo.sourceSize().width());
     writer->writeInt(ivo.sourceSize().height());
