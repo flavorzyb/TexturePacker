@@ -80,12 +80,12 @@ void BipWriter::initWriter(Writer * writer)
         writer->writeInt(frame.sourceSize().height());
     }
 
-    // writer filename
-    writer->writeString(ivo.fileName());
-
     // size
     writer->writeInt(ivo.size().width());
     writer->writeInt(ivo.size().height());
+
+    // writer filename
+    writer->writeString(ivo.fileName());
 }
 
 bool BipWriter::writerHeadData(Writer *writer, const QString & filepath)

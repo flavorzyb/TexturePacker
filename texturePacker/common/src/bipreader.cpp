@@ -35,15 +35,26 @@ PVR * BipReader::load()
     }
 
     reader.skip(HEAD_DATA_SIZE);
-    reader.readInt();
+    int frameCount = reader.readInt();
+
+    QVector<FrameVO> frameLists;
+    for(int i = 0; i < frameCount; i++)
+    {
+        FrameVO fvo;
+        fvo.setName(reader.readString());
+        fvo.setMd5String(reader.readString());
+        fvo.setRect(reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
+        fvo.setOffset(reader.readInt(), reader.readInt());
+        fvo.setRotated(reader.readBoolean());
+        fvo.setSourceColorRect(reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
+        fvo.setSourceSize(reader.readInt(), reader.readInt());
+        frameLists.push_back(fvo);
+    }
+
+
     ImageVO ivo(reader.readInt(), reader.readInt());
-//    ivo.setFileName(reader.readString());
-//    ivo.setMd5String(reader.readString());
-//    ivo.setRect(reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
-//    ivo.setRotated(reader.readBoolean());
-//    ivo.setOffset(reader.readInt(), reader.readInt());
-//    ivo.setSourceColorRect(reader.readInt(), reader.readInt(), reader.readInt(), reader.readInt());
-//    ivo.setSize(reader.readInt(), reader.readInt());
+    ivo.setFileName(reader.readString());
+    ivo.setFrames(frameLists);
 
     PVR * result = new PVR;
 
