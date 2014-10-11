@@ -39,37 +39,49 @@ void BipWriter::initWriter(Writer * writer)
 {
     PVR * pvr = this->pvr();
     ImageVO ivo = pvr->imagevo();
+    const QVector<FrameVO> & frameLists = ivo.frames();
+    unsigned int frameCount = frameLists.size();
 
     writer->copyBytes(BIP_HEAD_DATA, HEAD_DATA_SIZE);
-    writer->writeInt(1);
-    // write source size
-    writer->writeInt(ivo.sourceSize().width());
-    writer->writeInt(ivo.sourceSize().height());
+
+    writer->writeInt(frameCount);
+
+    for(unsigned int i = 0; i < frameCount; i++)
+    {
+        const FrameVO & frame = frameLists.at(i);
+
+        // writer filename
+        writer->writeString(frame.name());
+
+        // md5string
+        writer->writeString(frame.md5String());
+
+        // rect
+        writer->writeInt(frame.rect().x());
+        writer->writeInt(frame.rect().y());
+        writer->writeInt(frame.rect().width());
+        writer->writeInt(frame.rect().height());
+
+        // offset
+        writer->writeInt(frame.offset().x());
+        writer->writeInt(frame.offset().y());
+
+        // rotated
+        writer->writeBoolean(frame.rotated());
+
+        // source color rect
+        writer->writeInt(frame.sourceColorRect().x());
+        writer->writeInt(frame.sourceColorRect().y());
+        writer->writeInt(frame.sourceColorRect().width());
+        writer->writeInt(frame.sourceColorRect().height());
+
+        // write source size
+        writer->writeInt(frame.sourceSize().width());
+        writer->writeInt(frame.sourceSize().height());
+    }
 
     // writer filename
     writer->writeString(ivo.fileName());
-
-    // md5string
-    writer->writeString(ivo.md5String());
-
-    // rect
-    writer->writeInt(ivo.rect().x());
-    writer->writeInt(ivo.rect().y());
-    writer->writeInt(ivo.rect().width());
-    writer->writeInt(ivo.rect().height());
-
-    // rotated
-    writer->writeBoolean(ivo.rotated());
-
-    // offset
-    writer->writeInt(ivo.offset().x());
-    writer->writeInt(ivo.offset().y());
-
-    // source color rect
-    writer->writeInt(ivo.sourceColorRect().x());
-    writer->writeInt(ivo.sourceColorRect().y());
-    writer->writeInt(ivo.sourceColorRect().width());
-    writer->writeInt(ivo.sourceColorRect().height());
 
     // size
     writer->writeInt(ivo.size().width());

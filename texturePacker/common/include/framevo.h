@@ -8,8 +8,9 @@
 class FrameVO
 {
 public:
-    explicit FrameVO(const QSize & size);
-    explicit FrameVO(int width, int height);
+    FrameVO();
+    FrameVO(const QSize & size);
+    FrameVO(int width, int height);
     FrameVO(const FrameVO & fvo);
     const FrameVO & operator= (const FrameVO & fvo);
 

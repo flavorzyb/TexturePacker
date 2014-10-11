@@ -8,15 +8,21 @@ BipWriterTest::BipWriterTest()
 void BipWriterTest::init()
 {
     PVR * pvr = new PVR("images/zw_shu.pvr");
-    ImageVO ivo(500, 500);
+    ImageVO ivo(512, 512);
     ivo.setFileName("zw_shu.pvr");
-    ivo.setMd5String(FileUtils::md5File("images/zw_shu.pvr"));
-    ivo.setRect(2, 2, 428, 412);
-    ivo.setOffset(25, 22);
-    ivo.setRotated(false);
-    ivo.setSourceColorRect(61, 22, 428, 412);
-    ivo.setSize(512, 512);
+
+    FrameVO fvo(500, 500);
+    fvo.setName("zw_shu.pvr");
+    fvo.setMd5String(FileUtils::md5File("images/zw_shu.pvr"));
+    fvo.setRect(2, 2, 428, 412);
+    fvo.setOffset(25, 22);
+    fvo.setRotated(false);
+    fvo.setSourceColorRect(61, 22, 428, 412);
+
+    ivo.addFrame(fvo);
+
     pvr->setImagevo(ivo);
+
     pvr->load();
     m_writer = new BipWriter(pvr);
 }

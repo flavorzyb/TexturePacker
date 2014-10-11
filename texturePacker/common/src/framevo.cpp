@@ -1,5 +1,17 @@
 #include "include/framevo.h"
 
+FrameVO::FrameVO():
+    m_name("")
+  , m_md5String("")
+  , m_rect(0, 0, 0, 0)
+  , m_offset(0,0)
+  , m_rotated(false)
+  , m_sourceColorRect(0 ,0, 0, 0)
+  , m_sourceSize(0,0)
+{
+
+}
+
 FrameVO::FrameVO(const QSize &size):
     m_name("")
   , m_md5String("")
