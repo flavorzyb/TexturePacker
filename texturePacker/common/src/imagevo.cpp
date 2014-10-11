@@ -71,6 +71,18 @@ void ImageVO::addFrame(const FrameVO &fvo)
     m_frames.push_back(fvo);
 }
 
+void ImageVO::chopFrameNamePath(const QString &path)
+{
+    QVector<FrameVO>::iterator iterator = m_frames.begin();
+    for(; iterator != m_frames.end(); iterator++)
+    {
+        if (iterator->name().startsWith(path))
+        {
+            iterator->setName(iterator->name().right(iterator->name().length() - path.length() - 1));
+        }
+    }
+}
+
 
 
 

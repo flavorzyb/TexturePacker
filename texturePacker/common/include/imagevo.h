@@ -22,6 +22,7 @@ public:
     const QVector<FrameVO> & frames() const;
     void setFrames(const QVector<FrameVO> &frames);
     void addFrame(const FrameVO & fvo);
+    void chopFrameNamePath(const QString & path);
     inline unsigned int getFramesCount() const {return m_frames.size();}
 private:
     QString m_fileName;

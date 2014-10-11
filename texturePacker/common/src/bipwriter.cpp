@@ -52,7 +52,6 @@ void BipWriter::initWriter(Writer * writer)
 
         // writer filename
         writer->writeString(frame.name());
-
         // md5string
         writer->writeString(frame.md5String());
 

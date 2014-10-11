@@ -37,9 +37,11 @@ void Worker::run()
         }
 
         PVR * pvr = png.convertToPVR();
-        QString path = m_outputPath + "/" + m_imageFilePath.right(m_imageFilePath.length() - m_inputPath.length() - 1);
+        QString path =  m_imageFilePath.right(m_imageFilePath.length() - m_inputPath.length() - 1);
         ImageVO ivo = pvr->imagevo();
         ivo.setFileName(path);
+        ivo.chopFrameNamePath(FileUtils::getAbsoluteFilePath(m_inputPath));
+        path  = m_outputPath + "/" + path;
         pvr->setImagevo(ivo);
         int index = path.lastIndexOf(".");
         path = path.left(index) + ".bip";
