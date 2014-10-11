@@ -73,18 +73,22 @@ PVR * PNG::convertToPVR()
         QString pvrFile = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr";
         if (pvrtexture::Transcode(pvrTexture, pvrTC4BPP_RGB, ePVRTVarTypeUnsignedByteNorm, ePVRTCSpacelRGB, pvrtexture::ePVRTCBest, false) && pvrTexture.saveFile(pvrFile.toStdString().c_str()))
         {
-//            ImageVO ivo(width(), height());
-//            ivo.setFileName(filePath());
-//            ivo.setRect(windex, hindex, w, h);
-//            int ox = w / 2 - width() / 2 + fnw;
-//            int oy = height() / 2 - fnh - h /2;
-//            ivo.setOffset(ox, oy);
-//            ivo.setSourceColorRect(fnw, fnh, w, h);
-//            ivo.setSize(pw, ph);
-//            ivo.setMd5String(FileUtils::md5File(filePath()));
+            ImageVO ivo(pw, ph);
+            ivo.setFileName(filePath());
+            FrameVO frame(width(), height());
+            frame.setName(filePath());
+            frame.setMd5String(FileUtils::md5File(filePath()));
+            frame.setRect(windex, hindex, w, h);
+            int ox = w / 2 - width() / 2 + fnw;
+            int oy = height() / 2 - fnh - h /2;
+            frame.setOffset(ox, oy);
+            frame.setSourceColorRect(fnw, fnh, w, h);
+
+            ivo.addFrame(frame);
 
             PVR * result = new PVR(pvrFile);
-//            result->setImagevo(ivo);
+            result->setImagevo(ivo);
+
             result->load();
             FileUtils::unlink(pvrFile);
 
