@@ -1,6 +1,6 @@
-#include <QApplication>
-#include "include/mainwindow.h"
+#include "include/tpapplication.h"
 #include "common/include/publisher.h"
+#include "common/include/fileutils.h"
 
 bool isConsole(int argc, char *argv[]);
 
@@ -10,16 +10,28 @@ void print_usage();
 
 int main(int argc, char *argv[])
 {
+
+    QString param;
+    for (int i = 0; i < argc; ++i)
+    {
+        param = argv[i];
+        param += "\n";
+    }
+
+    param += "\n\n";
+    FileUtils::writeFile("/Users/flavor/tmp/tp.dat", "ab+", param.toStdString().c_str(), param.length());
+
     if (isConsole(argc, argv))
     {
         return runInConsole(argc, argv);
     }
     else
     {
-        QApplication a(argc, argv);
-        MainWindow w;
-        w.show();
-        return a.exec();
+        TpApplication ta(argc, argv);
+
+        ta.initMainWindow();
+
+        return ta.exec();
     }
 }
 
