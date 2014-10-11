@@ -5,6 +5,4 @@
 #-------------------------------------------------
 TEMPLATE = subdirs
 
-SUBDIRS =   app \
-            cmd \
-            tests
+SUBDIRS =  tests
