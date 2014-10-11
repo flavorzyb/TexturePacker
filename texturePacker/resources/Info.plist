@@ -9,13 +9,15 @@
 			<array>
 				<string>bip</string>
 			</array>
+			<key>CFBundleTypeIconFile</key>
+			<string>TexturePackerDocument.icns</string>
 			<key>CFBundleTypeName</key>
 			<string>bip</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>com.zhuyanbiin.$(PRODUCT_NAME:rfc1034identifier)</string>
+				<string>com.zhuyanbiin.BipPacker</string>
 			</array>
 		</dict>
 	</array>
@@ -24,7 +26,7 @@
 	<key>CFBundleGetInfoString</key>
 	<string>Created by Qt/QMake</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.zhuyanbiin.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.zhuyanbiin.BipPacker</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
