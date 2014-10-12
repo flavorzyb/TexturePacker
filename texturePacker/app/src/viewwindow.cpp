@@ -7,6 +7,9 @@ ViewWindow::ViewWindow(QWidget *parent) :
     initStatusBar();
     initAction();
     initMenu();
+    initInfoList();
+    initViewArea();
+    initBottom();
     initUI();
 }
 
@@ -23,9 +26,16 @@ void ViewWindow::initUI()
     m_wWindow = new QWidget(this);
     setCentralWidget(m_wWindow);
 
-    QFormLayout * layout = new QFormLayout;
+    QGridLayout * layout = new QGridLayout;
     layout->setContentsMargins(10, 10, 10, 10);
     layout->setSpacing(30);
+
+    layout->setColumnStretch(0, 3);
+    layout->setColumnStretch(1, 7);
+
+    layout->addWidget(m_lwInfoList);
+
+    layout->addWidget(m_sViewScroll);
 
     m_wWindow->setLayout(layout);
 
@@ -51,5 +61,39 @@ void ViewWindow::initAction()
 
 void ViewWindow::initStatusBar()
 {
-    statusBar();
+    m_lbStatusBar = new QLabel;
+    m_lbStatusBar->setText("状态栏: 准备就绪");
+    m_lbStatusBar->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+    m_lbStatusBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    statusBar()->addWidget(m_lbStatusBar);
+}
+
+void ViewWindow::initInfoList()
+{
+    m_lwInfoList = new QListWidget;
+    QListWidgetItem *item = new QListWidgetItem;
+    item->setText("aaaaaaaa");
+    item->setStatusTip("bbbbbb");
+    m_lwInfoList->addItem(item);
+
+    item = new QListWidgetItem;
+        item->setText("ccccccc");
+        item->setStatusTip("bbbbbb");
+        m_lwInfoList->addItem(item);
+
+        item = new QListWidgetItem;
+            item->setText("aaaaddddddaaaa");
+            item->setStatusTip("bbbbbb");
+            m_lwInfoList->addItem(item);
+
+}
+
+void ViewWindow::initViewArea()
+{
+    m_sViewScroll = new QScrollArea;
+}
+
+void ViewWindow::initBottom()
+{
+
 }
