@@ -101,7 +101,7 @@ void ViewWindow::onSliderValueChanged(int value)
 void ViewWindow::initUI()
 {
     setWindowTitle("资源查看器");
-    setMinimumSize(1000, 800);
+    setMinimumSize(900, 700);
 
     m_wWindow = new QWidget(this);
     setCentralWidget(m_wWindow);

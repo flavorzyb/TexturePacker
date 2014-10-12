@@ -11,6 +11,7 @@ public:
     TpApplication(int &argc, char **argv);
     virtual ~TpApplication();
     void initMainWindow();
+    void showViewWindow();
 
 protected:
 #if defined(Q_OS_OSX)

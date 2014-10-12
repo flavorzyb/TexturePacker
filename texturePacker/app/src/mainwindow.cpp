@@ -4,9 +4,11 @@
 #include "include/mainwindow.h"
 #include "include/aboutme.h"
 #include "include/utils.h"
+#include "include/tpapplication.h"
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
+MainWindow::MainWindow(QWidget *parent):
+    QMainWindow(parent)
+  , m_app(NULL)
 {
     initInputSettingsGroup();
     initOutputSettingGroup();
@@ -69,15 +71,23 @@ void MainWindow::initUI()
 
 void MainWindow::initMenu()
 {
+    m_mTools = menuBar()->addMenu("工具(&T)");
+    m_mTools->addAction(m_aTools);
+
     m_mAboutMe = menuBar()->addMenu("帮助(&H)");
     m_mAboutMe->addAction(m_aAboutMe);
 }
 
 void MainWindow::initAction()
 {
+    m_aTools = new QAction(tr("资源查看器(&V)"), this);
+    m_aTools->setStatusTip(tr("资源查看器"));
+
     m_aAboutMe = new QAction(tr("关于我(&A)"), this);
     m_aAboutMe->setStatusTip(tr("关于软件的一些说明"));
+
     connect(m_aAboutMe, SIGNAL(triggered()), this, SLOT(onAboutMeAction()));
+    connect(m_aTools, SIGNAL(triggered()), this, SLOT(onToolsAction()));
 
     connect(&m_publish, SIGNAL(update(QString)), this, SLOT(updatePublishInfo(QString)));
     connect(&m_publish, SIGNAL(finished()), this, SLOT(onPublishFinished()));
@@ -91,6 +101,14 @@ void MainWindow::initStatusBar()
     m_lbStatusBar->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     statusBar()->addWidget(m_lbStatusBar);
+}
+
+void MainWindow::onToolsAction()
+{
+    if (NULL != m_app)
+    {
+        m_app->showViewWindow();
+    }
 }
 
 void MainWindow::onAboutMeAction()
@@ -281,3 +299,9 @@ void MainWindow::onPublishEvent()
     m_publish.setSettingsVO(m_settingsvo);
     m_publish.start();
 }
+
+void MainWindow::setApp(TpApplication *app)
+{
+    m_app = app;
+}
+

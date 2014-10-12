@@ -9,7 +9,12 @@ TpApplication::~TpApplication()
 
 void TpApplication::initMainWindow()
 {
-//    m_mainWindow.show();
+    m_mainWindow.setApp(this);
+    m_mainWindow.show();
+}
+
+void TpApplication::showViewWindow()
+{
     m_viewWindow.show();
 }
 
@@ -19,10 +24,9 @@ bool TpApplication::event(QEvent* event)
     switch (event->type())
     {
     case QEvent::FileOpen:
-//        if (!m_mainWindows.isEmpty()) {
-//            mainWindow()->loadPage(static_cast<QFileOpenEvent *>(event)->file());
-//            return true;
-//        }
+        m_viewWindow.show();
+        m_viewWindow.loadFile(static_cast<QFileOpenEvent *>(event)->file());
+        break;
     default:
         break;
     }

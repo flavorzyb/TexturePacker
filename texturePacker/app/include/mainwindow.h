@@ -9,6 +9,8 @@
 #include "common/include/settingsvo.h"
 #include "include/publishthread.h"
 
+class TpApplication;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -16,6 +18,8 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    void setApp(TpApplication *app);
 
 private slots:
     void updatePublishInfo(QString info);
@@ -32,6 +36,7 @@ private:
     void initStatusBar();
 
 private slots:
+    void onToolsAction();
     void onAboutMeAction();
     void onSettingInputPathEvent();
     void onSettingOutputPathEvent();
@@ -40,6 +45,8 @@ private slots:
 private:
     QAction         * m_aAboutMe;
     QMenu           * m_mAboutMe;
+    QAction         * m_aTools;
+    QMenu           * m_mTools;
     QLabel          * m_lbStatusBar;
 
     QLineEdit       * m_leInputSettingPath;
@@ -64,6 +71,7 @@ private:
 
     SettingsVO      m_settingsvo;
     PublishThread   m_publish;
+    TpApplication   * m_app;
 };
 
 #endif // MAINWINDOW_H
