@@ -1,7 +1,7 @@
 #include "include/pvr.h"
 #include "include/ziputils.h"
 #include "include/fileutils.h"
-#include <unistd.h>
+#include "include/png.h"
 
 PVR::PVR():
     Image()
@@ -77,7 +77,12 @@ bool PVR::loadData(const unsigned char *pData, unsigned long size)
     if ((NULL != pData) && (size > 0))
     {
         m_pvrTexture = new pvrtexture::CPVRTexture(pData);
-        return true;
+        if (NULL != m_pvrTexture)
+        {
+            setWidth(m_pvrTexture->getWidth());
+            setHeight(m_pvrTexture->getHeight());
+            return true;
+        }
     }
 
     return false;
@@ -196,5 +201,36 @@ ImageVO PVR::imagevo() const
 void PVR::setImagevo(const ImageVO & imagevo)
 {
     m_imagevo = imagevo;
+}
+
+PNG *PVR::convertToPng()
+{
+    if (NULL == m_pvrTexture)
+    {
+        return NULL;
+    }
+
+    int len = 4 * width() * height();
+    if (len > 4)
+    {
+        unsigned char * buffer = new unsigned char [len];
+        if (PVRTDecompressPVRTC(m_pvrTexture->getDataPtr(), 0, width(), height(), buffer) < 1)
+        {
+            delete [] buffer;
+            return NULL;
+        }
+
+        PNG * result = new PNG;
+
+        if (result->loadData(buffer, width(), height()))
+        {
+            delete [] buffer;
+            return result;
+        }
+
+        delete []buffer;
+        delete result;
+    }
+    return NULL;
 }
 

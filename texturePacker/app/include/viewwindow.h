@@ -14,6 +14,8 @@ public:
 
 private slots:
     void onFileAction();
+    void onSpinBoxValueChanged(double value);
+    void onSliderValueChanged(int value);
 
 private:
     void initUI();
@@ -23,16 +25,21 @@ private:
     void initInfoList();
     void initViewArea();
     void initBottom();
+    void onMagnificationImage();
+
 private:
     QWidget         * m_wWindow;
     QListWidget     * m_lwInfoList;
-    QScrollArea     * m_sViewScroll;
-    QSpinBox        * m_sbMagnificationBox;
+    QDoubleSpinBox  * m_sbMagnificationBox;
     QSlider         * m_sMagnificationSlider;
     QAction         * m_aFile;
     QMenu           * m_mFile;
     QLabel          * m_lbStatusBar;
-    QLabel          * m_lbViewContent;
+    QGraphicsView   * m_lbViewContent;
+    QGraphicsScene  * m_lbViewScene;
+    QImage            m_viewImage;
+    QGroupBox       * m_gbMagnification;
+    double          m_scaleValue;
 };
 
 #endif // VIEWWINDOW_H

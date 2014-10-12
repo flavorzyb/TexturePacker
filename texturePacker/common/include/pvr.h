@@ -7,6 +7,8 @@
 #include "include/PVRTextureUtilities.h"
 #include "include/imagevo.h"
 
+class PNG;
+
 class PVR : public Image
 {
 public:
@@ -26,6 +28,9 @@ public:
     void setImagevo(const ImageVO & imagevo);
 
     inline bool isEmpty() const { return (NULL == m_pvrTexture);}
+
+    PNG * convertToPng();
+
 private:
     bool isPVRCCZFile(const QString & filename) const;
     bool loadPVRCCZ(const QString & filename);

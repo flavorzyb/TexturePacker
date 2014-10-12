@@ -2,6 +2,7 @@
 #include "include/png.h"
 #include "include/imageutils.h"
 #include "include/fileutils.h"
+#include "include/pvr.h"
 
 PNG::PNG():Image()
     , m_pImg(NULL)
@@ -36,6 +37,21 @@ bool PNG::load()
     m_pImg = new QImage(filePath(), "PNG");
     setWidth(m_pImg->width());
     setHeight(m_pImg->height());
+
+    return true;
+}
+
+bool PNG::loadData(const unsigned char *pData, int width, int height)
+{
+    if (m_pImg != NULL)
+    {
+        delete m_pImg;
+    }
+
+    setWidth(width);
+    setHeight(height);
+
+    m_pImg = new QImage(pData, width, height, QImage::Format_RGBA8888);
 
     return true;
 }

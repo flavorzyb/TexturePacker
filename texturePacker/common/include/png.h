@@ -1,7 +1,8 @@
 #ifndef PNG_H
 #define PNG_H
 #include "include/image.h"
-#include "include/pvr.h"
+
+class PVR;
 
 class PNG : public Image
 {
@@ -11,8 +12,10 @@ public:
     PNG(const QString & filename);
     virtual ~PNG();
     virtual bool load();
+    bool loadData(const unsigned char * pData, int width, int height);
     PVR * convertToPVR();
     virtual bool save(const QString & filename);
+    inline const QImage * getImage() const {return m_pImg;}
 private:
     int findFirstHorizontalNoBlank();
     int findLastHorizontalNoBlank();

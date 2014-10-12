@@ -4,37 +4,66 @@
 #include "include/viewwindow.h"
 #include "include/utils.h"
 #include "common/include/bipreader.h"
+#include "common/include/png.h"
+#include "common/include/pvr.h"
 
 ViewWindow::ViewWindow(QWidget *parent) :
     QMainWindow(parent)
 {
     initStatusBar();
-    initAction();
-    initMenu();
     initInfoList();
     initViewArea();
     initBottom();
     initUI();
+    initAction();
+    initMenu();
 }
 
 bool ViewWindow::loadFile(const QString &filePath)
 {
     if (filePath.toLower().endsWith(".bip"))
     {
+        m_lwInfoList->clear();
+
         QFileInfo fileInfo(filePath);
-        char strSize[64] = {0};
-        snprintf(strSize, sizeof(strSize), "%.2fKB (%lld bytes)", fileInfo.size() * 1.0f / 1024, fileInfo.size());
-        m_lbStatusBar->setText("文件名: " + fileInfo.fileName() + "    文件大小: " + strSize);
         BipReader reader(filePath);
         PVR * pvr = reader.load();
-        m_lwInfoList->clear();
-        const QVector<FrameVO> framelists = pvr->imagevo().frames();
+        if (NULL == pvr)
+        {
+            return false;
+        }
 
+        char strSize[1024] = {0};
+        snprintf(strSize,
+                 sizeof(strSize),
+                 "文件名: %s    文件大小: %.2fKB (%lld bytes)    宽: %d  高: %d",
+                 fileInfo.fileName().toStdString().c_str(),
+                 fileInfo.size() * 1.0f / 1024,
+                 fileInfo.size(),
+                 pvr->width(),
+                 pvr->height());
+
+        m_lbStatusBar->setText(strSize);
+
+        const QVector<FrameVO> framelists = pvr->imagevo().frames();
         QVector<FrameVO>::const_iterator iterator = framelists.begin();
         for (; iterator != framelists.end(); iterator++)
         {
             m_lwInfoList->addItem(iterator->name());
         }
+
+        PNG * png = pvr->convertToPng();
+        if (png && png->getImage())
+        {
+            m_viewImage = *(png->getImage());
+            m_lbViewScene->clear();
+            m_lbViewScene->addPixmap(QPixmap::fromImage(m_viewImage));
+            m_lbViewContent->setMinimumSize(m_viewImage.width() + 10, m_viewImage.height() + 10);
+            m_scaleValue = 1;
+        }
+
+        delete png;
+        delete pvr;
     }
     return false;
 }
@@ -57,10 +86,22 @@ void ViewWindow::onFileAction()
     }
 }
 
+void ViewWindow::onSpinBoxValueChanged(double value)
+{
+    m_sMagnificationSlider->setValue(value * 10);
+    onMagnificationImage();
+}
+
+void ViewWindow::onSliderValueChanged(int value)
+{
+    m_sbMagnificationBox->setValue(value * 1.0f / 10);
+    onMagnificationImage();
+}
+
 void ViewWindow::initUI()
 {
     setWindowTitle("资源查看器");
-    setMinimumSize(800, 600);
+    setMinimumSize(1000, 800);
 
     m_wWindow = new QWidget(this);
     setCentralWidget(m_wWindow);
@@ -69,12 +110,14 @@ void ViewWindow::initUI()
     layout->setContentsMargins(10, 10, 10, 10);
     layout->setSpacing(30);
 
-    layout->setColumnStretch(0, 25);
-    layout->setColumnStretch(1, 75);
+    layout->setColumnStretch(0, 2);
+    layout->setColumnStretch(1, 8);
 
-    layout->addWidget(m_lwInfoList);
+    layout->addWidget(m_lwInfoList, 0, 0);
 
-    layout->addWidget(m_sViewScroll);
+    layout->addWidget(m_lbViewContent, 0, 1);
+
+    layout->addWidget(m_gbMagnification, 1, 0, 1, 2);
 
     m_wWindow->setLayout(layout);
 
@@ -96,6 +139,9 @@ void ViewWindow::initAction()
     m_aFile->setStatusTip(tr("打开BIP文件"));
     m_aFile->setShortcut(QApplication::translate("ViewWindow", "Ctrl+O", 0));
     connect(m_aFile, SIGNAL(triggered()), this, SLOT(onFileAction()));
+
+    connect(m_sbMagnificationBox, SIGNAL(valueChanged(double)), this, SLOT(onSpinBoxValueChanged(double)));
+    connect(m_sMagnificationSlider, SIGNAL(valueChanged(int)), this, SLOT(onSliderValueChanged(int)));
 }
 
 void ViewWindow::initStatusBar()
@@ -114,14 +160,45 @@ void ViewWindow::initInfoList()
 
 void ViewWindow::initViewArea()
 {
-    m_sViewScroll = new QScrollArea;
-    QImage image("/Users/flavor/tmp/zw_bs.png");
-//    image = image.scaled(image.width() * 2, image.height() * 2);
-    m_lbViewContent = new QLabel;
-    m_lbViewContent->setPixmap(QPixmap::fromImage(image));
-    m_sViewScroll->setWidget(m_lbViewContent);
+    m_lbViewScene   = new QGraphicsScene;
+    m_lbViewContent = new QGraphicsView(m_lbViewScene);
 }
 
 void ViewWindow::initBottom()
 {
+    m_gbMagnification = new QGroupBox;
+    m_gbMagnification->setTitle("放大/缩小");
+
+    m_sbMagnificationBox = new QDoubleSpinBox;
+    m_sbMagnificationBox->setMinimum(0.1);
+    m_sbMagnificationBox->setMaximum(10.0);
+    m_sbMagnificationBox->setMinimumWidth(100);
+    m_sbMagnificationBox->setSingleStep(0.1);
+    m_sbMagnificationBox->setAlignment(Qt::AlignRight);
+    m_sbMagnificationBox->setValue(1.0);
+
+    m_sbMagnificationBox->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+
+    m_sMagnificationSlider = new QSlider;
+    m_sMagnificationSlider->setOrientation(Qt::Horizontal);
+    m_sMagnificationSlider->setMinimum(1);
+    m_sMagnificationSlider->setMaximum(100);
+    m_sMagnificationSlider->setValue(10);
+    m_sMagnificationSlider->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
+    QHBoxLayout * layout = new QHBoxLayout;
+    layout->addWidget(m_sbMagnificationBox);
+    layout->addWidget(m_sMagnificationSlider);
+
+    m_gbMagnification->setLayout(layout);
+}
+
+void ViewWindow::onMagnificationImage()
+{
+    if (m_viewImage.width() > 0)
+    {
+        m_lbViewContent->scale(1.0 / m_scaleValue, 1.0 / m_scaleValue);
+        m_scaleValue = m_sbMagnificationBox->value();
+        m_lbViewContent->scale(m_scaleValue, m_scaleValue);
+    }
 }

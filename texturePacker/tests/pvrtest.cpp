@@ -1,5 +1,6 @@
 #include "pvrtest.h"
 #include "common/include/pvr.h"
+#include "common/include/png.h"
 
 PVRTest::PVRTest()
 {
@@ -36,6 +37,14 @@ void PVRTest::testSaveCCZFile()
 {
     m_pImg->load();
     QCOMPARE(m_pImg->saveCCZ("output/zw.pvr.ccz"), true);
+}
+
+void PVRTest::testConvertToPng()
+{
+    m_pImg->load();
+    PNG * png = m_pImg->convertToPng();
+    QVERIFY(png != NULL);
+    QCOMPARE(png->save("output/pvr_to_png.png"), true);
 }
 
 Image *PVRTest::getImage()

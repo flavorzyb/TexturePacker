@@ -1,5 +1,6 @@
 #include "pngtest.h"
 #include "common/include/png.h"
+#include "common/include/pvr.h"
 
 PngTest::PngTest()
 {

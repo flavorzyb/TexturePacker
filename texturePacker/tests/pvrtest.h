@@ -16,10 +16,9 @@ private Q_SLOTS:
     virtual void testLoad();
     void testSave();
     void testSaveCCZFile();
-
+    void testConvertToPng();
 protected:
     virtual Image * getImage();
-
 private:
     PVR * m_pImg;
 };
