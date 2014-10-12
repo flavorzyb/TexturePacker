@@ -1,3 +1,5 @@
+#include <QFileDialog>
+
 #include "include/viewwindow.h"
 #include "include/utils.h"
 
@@ -15,7 +17,20 @@ ViewWindow::ViewWindow(QWidget *parent) :
 
 void ViewWindow::onFileAction()
 {
-    printf("ffffffffffffff\n");
+    QFileDialog fd(this, "选取要查看的BIP文件");
+    fd.setAcceptMode(QFileDialog::AcceptOpen);
+    fd.setFileMode(QFileDialog::ExistingFile);
+    fd.setFilter(QDir::Files);
+    fd.setNameFilter("*.bip");
+    if (fd.exec())
+    {
+        QStringList filenames = fd.selectedFiles();
+        for (int var = 0; var < filenames.size(); ++var)
+        {
+            printf("file:%s\n", filenames.at(var).toStdString().c_str());
+        }
+
+    }
 }
 
 void ViewWindow::initUI()
