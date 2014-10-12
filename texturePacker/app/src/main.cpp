@@ -10,17 +10,6 @@ void print_usage();
 
 int main(int argc, char *argv[])
 {
-
-    QString param;
-    for (int i = 0; i < argc; ++i)
-    {
-        param = argv[i];
-        param += "\n";
-    }
-
-    param += "\n\n";
-    FileUtils::writeFile("/Users/flavor/tmp/tp.dat", "ab+", param.toStdString().c_str(), param.length());
-
     if (isConsole(argc, argv))
     {
         return runInConsole(argc, argv);
