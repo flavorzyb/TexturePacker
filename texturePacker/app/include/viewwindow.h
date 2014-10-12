@@ -2,6 +2,8 @@
 #define VIEWWINDOW_H
 
 #include <QMainWindow>
+#include <QtGui>
+#include <QtWidgets>
 
 class ViewWindow : public QMainWindow
 {
@@ -9,10 +11,19 @@ class ViewWindow : public QMainWindow
 public:
     explicit ViewWindow(QWidget *parent = 0);
 
-signals:
+private slots:
+    void onFileAction();
 
-public slots:
+private:
+    void initUI();
+    void initMenu();
+    void initAction();
+    void initStatusBar();
 
+private:
+    QWidget         * m_wWindow;
+    QAction         * m_aFile;
+    QMenu           * m_mFile;
 };
 
 #endif // VIEWWINDOW_H

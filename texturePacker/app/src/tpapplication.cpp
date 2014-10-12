@@ -1,5 +1,4 @@
 #include "include/tpapplication.h"
-
 TpApplication::TpApplication(int &argc, char **argv):QApplication(argc, argv)
 {
 }
@@ -10,7 +9,8 @@ TpApplication::~TpApplication()
 
 void TpApplication::initMainWindow()
 {
-    m_mainWindow.show();
+//    m_mainWindow.show();
+    m_viewWindow.show();
 }
 
 #if defined(Q_OS_OSX)

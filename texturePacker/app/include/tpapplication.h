@@ -3,6 +3,7 @@
 
 #include <QApplication>
 #include "include/mainwindow.h"
+#include "include/viewwindow.h"
 
 class TpApplication : public QApplication
 {
@@ -18,5 +19,6 @@ protected:
 
 private:
     MainWindow m_mainWindow;
+    ViewWindow m_viewWindow;
 };
 #endif // TPAPPLICATION_H
