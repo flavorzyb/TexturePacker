@@ -10,6 +10,7 @@ class ViewWindow : public QMainWindow
     Q_OBJECT
 public:
     explicit ViewWindow(QWidget *parent = 0);
+    bool loadFile(const QString & filePath);
 
 private slots:
     void onFileAction();
@@ -31,6 +32,7 @@ private:
     QAction         * m_aFile;
     QMenu           * m_mFile;
     QLabel          * m_lbStatusBar;
+    QLabel          * m_lbViewContent;
 };
 
 #endif // VIEWWINDOW_H

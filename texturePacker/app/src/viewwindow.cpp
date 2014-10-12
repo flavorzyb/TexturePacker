@@ -1,7 +1,9 @@
 #include <QFileDialog>
+#include <QFileInfo>
 
 #include "include/viewwindow.h"
 #include "include/utils.h"
+#include "common/include/bipreader.h"
 
 ViewWindow::ViewWindow(QWidget *parent) :
     QMainWindow(parent)
@@ -15,6 +17,28 @@ ViewWindow::ViewWindow(QWidget *parent) :
     initUI();
 }
 
+bool ViewWindow::loadFile(const QString &filePath)
+{
+    if (filePath.toLower().endsWith(".bip"))
+    {
+        QFileInfo fileInfo(filePath);
+        char strSize[64] = {0};
+        snprintf(strSize, sizeof(strSize), "%.2fKB (%lld bytes)", fileInfo.size() * 1.0f / 1024, fileInfo.size());
+        m_lbStatusBar->setText("文件名: " + fileInfo.fileName() + "    文件大小: " + strSize);
+        BipReader reader(filePath);
+        PVR * pvr = reader.load();
+        m_lwInfoList->clear();
+        const QVector<FrameVO> framelists = pvr->imagevo().frames();
+
+        QVector<FrameVO>::const_iterator iterator = framelists.begin();
+        for (; iterator != framelists.end(); iterator++)
+        {
+            m_lwInfoList->addItem(iterator->name());
+        }
+    }
+    return false;
+}
+
 void ViewWindow::onFileAction()
 {
     QFileDialog fd(this, "选取要查看的BIP文件");
@@ -25,9 +49,9 @@ void ViewWindow::onFileAction()
     if (fd.exec())
     {
         QStringList filenames = fd.selectedFiles();
-        for (int var = 0; var < filenames.size(); ++var)
+        for (int i = 0; i < filenames.size(); ++i)
         {
-            printf("file:%s\n", filenames.at(var).toStdString().c_str());
+            loadFile(filenames.at(i));
         }
 
     }
@@ -45,8 +69,8 @@ void ViewWindow::initUI()
     layout->setContentsMargins(10, 10, 10, 10);
     layout->setSpacing(30);
 
-    layout->setColumnStretch(0, 3);
-    layout->setColumnStretch(1, 7);
+    layout->setColumnStretch(0, 25);
+    layout->setColumnStretch(1, 75);
 
     layout->addWidget(m_lwInfoList);
 
@@ -86,29 +110,18 @@ void ViewWindow::initStatusBar()
 void ViewWindow::initInfoList()
 {
     m_lwInfoList = new QListWidget;
-    QListWidgetItem *item = new QListWidgetItem;
-    item->setText("aaaaaaaa");
-    item->setStatusTip("bbbbbb");
-    m_lwInfoList->addItem(item);
-
-    item = new QListWidgetItem;
-        item->setText("ccccccc");
-        item->setStatusTip("bbbbbb");
-        m_lwInfoList->addItem(item);
-
-        item = new QListWidgetItem;
-            item->setText("aaaaddddddaaaa");
-            item->setStatusTip("bbbbbb");
-            m_lwInfoList->addItem(item);
-
 }
 
 void ViewWindow::initViewArea()
 {
     m_sViewScroll = new QScrollArea;
+    QImage image("/Users/flavor/tmp/zw_bs.png");
+//    image = image.scaled(image.width() * 2, image.height() * 2);
+    m_lbViewContent = new QLabel;
+    m_lbViewContent->setPixmap(QPixmap::fromImage(image));
+    m_sViewScroll->setWidget(m_lbViewContent);
 }
 
 void ViewWindow::initBottom()
 {
-
 }
