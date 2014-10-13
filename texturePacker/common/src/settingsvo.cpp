@@ -49,6 +49,11 @@ QString SettingsVO::getOutputPath() const
     return m_outputPath;
 }
 
+QString SettingsVO::getAbsoluteOutputFilePath() const
+{
+    return FileUtils::getAbsoluteFilePath(m_outputPath);
+}
+
 SettingsVO::format SettingsVO::getFormat() const
 {
     return m_format;

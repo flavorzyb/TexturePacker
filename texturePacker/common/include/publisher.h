@@ -8,6 +8,7 @@
 
 #include "include/worker.h"
 #include "include/settingsvo.h"
+#include "include/png2bipcache.h"
 
 class Publisher : public QObject
 {
@@ -24,7 +25,10 @@ public:
     QVector<QString> succFileLists() const;
     QVector<QString> failFileLists() const;
     inline bool isFinished() const {return m_isFinished;}
-    void doneFile(bool isSucc, const QString & filePath);
+    void doneFile(bool isSucc, const QString & filePath, const QString & bipFilePath);
+
+private:
+    void loadCacheData();
 
 private:
     SettingsVO  m_svo;
@@ -37,6 +41,7 @@ private:
     QVector<QString> m_outInfoLists;
     QMutex m_doneMutex;
     bool m_isFinished;
+    Png2BipCache m_png2BipCache;
 };
 
 #endif // PUBLISHER_H
