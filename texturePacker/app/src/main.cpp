@@ -1,6 +1,7 @@
 #include "include/tpapplication.h"
 #include "common/include/publisher.h"
 #include "common/include/fileutils.h"
+#include "common/include/config.h"
 
 bool isConsole(int argc, char *argv[]);
 
@@ -42,6 +43,7 @@ bool isConsole(int argc, char *argv[])
 int runInConsole(int argc, char *argv[])
 {
     SettingsVO svo;
+    Config::setIsConsole(true);
 
     if (argc < 8)
     {

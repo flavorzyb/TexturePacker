@@ -69,11 +69,33 @@ PVR * PNG::convertToPVR()
     int fnh = findFirstVerticalNoBlank();
     int lnh = findLastVerticalNoBlank();
 
+    // if image is blank
+    if (fnw== width())
+    {
+        fnw = 0;
+        lnw = width() - 1;
+    }
+
+    if (fnh == height())
+    {
+        fnh = 0;
+        lnh = height() - 1;
+    }
+
     int w = lnw + 1 - fnw;
     int h = lnh + 1 - fnh;
 
     int pw = ImageUtils::getMinPowOf2(w);
     int ph = ImageUtils::getMinPowOf2(h);
+
+    if (pw > ph)
+    {
+        ph = pw;
+    }
+    else
+    {
+        pw = ph;
+    }
 
     int windex = ((pw - 2) > w) ? 2 : 0;
     int hindex = ((ph - 2) > h) ? 2 : 0;

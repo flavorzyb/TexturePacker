@@ -5,7 +5,7 @@
 #include <iostream>
 #include <QByteArray>
 #include <QCryptographicHash>
-
+#include <QThread>
 #include "include/fileutils.h"
 
 FileUtils::FileUtils() :
@@ -158,8 +158,7 @@ QString FileUtils::getRandFileNameString()
 {
     srand((int)time(0));
     char strFile[32] = {0};
-    sprintf(strFile, "%d", rand());
-
+    sprintf(strFile, "%d_%d", rand(), rand());
     return strFile;
 }
 

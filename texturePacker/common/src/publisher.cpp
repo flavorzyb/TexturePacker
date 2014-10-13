@@ -4,7 +4,7 @@
 #include "include/png.h"
 #include "include/bipwriter.h"
 #include "include/worker.h"
-
+#include "include/config.h"
 
 Publisher::Publisher(const SettingsVO & svo) :
     QObject(NULL)
@@ -111,8 +111,10 @@ void Publisher::doneFile(bool isSucc, const QString &filePath)
     info += percent;
     m_outInfoLists.push_back(info);
 
-#ifdef TP_CMD_MODE
-    printf("%s\n", info.toStdString().c_str());
-#endif
+    if (Config::isConsole())
+    {
+        printf("%s\n", info.toStdString().c_str());
+    }
+
     m_doneMutex.unlock();
 }
