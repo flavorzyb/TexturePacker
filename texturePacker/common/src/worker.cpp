@@ -29,15 +29,16 @@ void Worker::run()
             break;
         }
 
+        QString path =  m_imageFilePath.right(m_imageFilePath.length() - m_inputPath.length() - 1);
+
         PNG png(m_imageFilePath);
         if (!png.load())
         {
-            m_publisher->doneFile(false, m_imageFilePath);
+            m_publisher->doneFile(false, m_imageFilePath, "", 0, 0);
             return ;
         }
 
         PVR * pvr = png.convertToPVR();
-        QString path =  m_imageFilePath.right(m_imageFilePath.length() - m_inputPath.length() - 1);
         ImageVO ivo = pvr->imagevo();
         ivo.setFileName(path);
         ivo.chopFrameNamePath(FileUtils::getAbsoluteFilePath(m_inputPath));
@@ -48,7 +49,7 @@ void Worker::run()
         BipWriter writer(pvr);
         FileUtils::createParentDirectory(path);
         writer.save(path);
-        m_publisher->doneFile(true, m_imageFilePath);
+        m_publisher->doneFile(true, m_imageFilePath, path, png.width(), png.height());
     }
 }
 

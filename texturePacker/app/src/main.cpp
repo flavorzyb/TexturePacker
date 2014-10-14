@@ -1,19 +1,29 @@
 #include "include/tpapplication.h"
+#include "include/tpconsoleapplication.h"
 #include "common/include/publisher.h"
 #include "common/include/fileutils.h"
 #include "common/include/config.h"
 
 bool isConsole(int argc, char *argv[]);
 
-int runInConsole(int argc, char *argv[]);
-
-void print_usage();
-
 int main(int argc, char *argv[])
 {
     if (isConsole(argc, argv))
     {
-        return runInConsole(argc, argv);
+        TPConsoleApplication ta(argc, argv);
+        if (false==ta.checkConsole())
+        {
+            return 0;
+        }
+
+        if (ta.isInitCache())
+        {
+            return ta.initCache();
+        }
+
+        ta.runConsole();
+
+        return ta.exec();
     }
     else
     {
@@ -38,59 +48,4 @@ bool isConsole(int argc, char *argv[])
     }
 
     return false;
-}
-
-int runInConsole(int argc, char *argv[])
-{
-    SettingsVO svo;
-    Config::setIsConsole(true);
-
-    if (argc < 8)
-    {
-        print_usage();
-        return 0;
-    }
-
-    for (int i = 1; i < argc - 1; ++i)
-    {
-        if (strcmp("-i", argv[i])==0)
-        {
-            svo.setInputPath(argv[i+1]);
-        }
-        else if (strcmp("-o", argv[i])==0)
-        {
-            svo.setOutputPath(argv[i+1]);
-        }
-        else if (strcmp("-f", argv[i])==0)
-        {
-            if (strcmp("ios", argv[i+1]) == 0)
-            {
-                svo.setFormat(SettingsVO::IOS);
-            }
-            else if (strcmp("android", argv[i+1]) == 0)
-            {
-                svo.setFormat(SettingsVO::ANDROID);
-            }
-        }
-    }
-
-    if ((svo.getInputPath().length() < 1) || (svo.getOutputPath().length() < 1))
-    {
-        print_usage();
-        return 0;
-    }
-
-    Publisher pub(svo);
-    pub.publish();
-
-    return 0;
-}
-void print_usage()
-{
-    printf("error: error arguments\n");
-    printf("usage: texturePacker -no-gui -i /usr/local/input -o /usr/local/tmp/output -f ios \n");
-    printf("       -no-gui run application in console mode \n");
-    printf("       -i input directory path \n");
-    printf("       -o output directory path \n");
-    printf("       -f ios or android\n");
 }

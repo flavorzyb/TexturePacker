@@ -26,6 +26,7 @@ public:
     QString getInputPath() const;
     QString getAbsoluteInputFilePath() const;
     QString getOutputPath() const;
+    QString getAbsoluteOutputFilePath() const;
 
     format getFormat() const;
 private:

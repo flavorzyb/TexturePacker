@@ -26,7 +26,9 @@ HEADERS +=  $$PWD/include/config.h \
             $$PWD/include/bipabstract.h \
             $$PWD/include/bipreader.h \
             $$PWD/include/worker.h \
-            $$PWD/include/framevo.h
+            $$PWD/include/framevo.h \
+            $$PWD/include/png2bipcahcevo.h \
+            $$PWD/include/png2bipcache.h
 
 SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/settingsvo.cpp \
@@ -46,7 +48,9 @@ SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/bipabstract.cpp \
             $$PWD/src/bipreader.cpp \
             $$PWD/src/worker.cpp \
-            $$PWD/src/framevo.cpp
+            $$PWD/src/framevo.cpp \
+            $$PWD/src/png2bipcahcevo.cpp \
+            $$PWD/src/png2bipcache.cpp
 
 INCLUDEPATH += $$PWD
 

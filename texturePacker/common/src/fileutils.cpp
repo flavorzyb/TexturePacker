@@ -7,6 +7,7 @@
 #include <QCryptographicHash>
 #include <QThread>
 #include "include/fileutils.h"
+#include "include/config.h"
 
 FileUtils::FileUtils() :
     QObject(NULL)
@@ -40,6 +41,37 @@ QVector<QString> FileUtils::getAllImageFiles(const QString & path)
                 {
                     result.push_back(iterator->absoluteFilePath());
                 }
+            }
+            else
+            {
+                //
+            }
+        }
+    }
+
+    return result;
+}
+
+QVector<QString> FileUtils::getAllFiles(const QString &path)
+{
+    QVector<QString> result;
+    QDir dir(path);
+    QFileInfoList fileInfoLists = dir.entryInfoList();
+    QFileInfoList::const_iterator iterator = fileInfoLists.constBegin();
+
+    for(; iterator != fileInfoLists.constEnd(); iterator++)
+    {
+        QString filename = iterator->fileName();
+
+        if (!filename.startsWith("."))
+        {
+            if (iterator->isDir())
+            {
+                result += getAllFiles(iterator->absoluteFilePath());
+            }
+            else if (iterator->isFile())
+            {
+                result.push_back(iterator->absoluteFilePath());
             }
             else
             {
@@ -181,6 +213,12 @@ QString FileUtils::md5(const QString &str)
     return result;
 }
 
+bool FileUtils::isDir(const QString &filePath)
+{
+    QFileInfo fileInfo(filePath);
+    return (fileInfo.exists() && fileInfo.isDir());
+}
+
 QString FileUtils::md5File(const QString &filePath)
 {
     QFile file(filePath);
@@ -191,4 +229,23 @@ QString FileUtils::md5File(const QString &filePath)
     file.close();
 
     return result;
+}
+
+QString FileUtils::getPng2BipCacheDirPath(const QString &hashPath, SettingsVO::format format)
+{
+    char strFormat[32] = {0};
+    snprintf(strFormat, sizeof(strFormat), "%d", format);
+    QString path = QDir::homePath() + "/.tp/cache/" + md5(hashPath + strFormat);
+    QDir dir(path);
+    if (!dir.exists())
+    {
+        dir.mkpath(path);
+    }
+
+    return path;
+}
+
+QString FileUtils::getPng2BipCacheFilePath(const QString &hashPath, SettingsVO::format format)
+{
+    return (getPng2BipCacheDirPath(hashPath, format) + "/png2bip_" + Config::VERSION + ".cache");
 }

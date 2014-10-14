@@ -18,7 +18,8 @@ HEADERS  += $$PWD/include/mainwindow.h \
             $$PWD/include/utils.h \
             $$PWD/include/publishthread.h \
             $$PWD/include/tpapplication.h \
-            $$PWD/include/viewwindow.h
+            $$PWD/include/viewwindow.h \
+            $$PWD/include/tpconsoleapplication.h
 
 SOURCES +=  $$PWD/src/main.cpp\
             $$PWD/src/mainwindow.cpp \
@@ -26,7 +27,8 @@ SOURCES +=  $$PWD/src/main.cpp\
             $$PWD/src/utils.cpp \
             $$PWD/src/publishthread.cpp \
             $$PWD/src/tpapplication.cpp \
-            $$PWD/src/viewwindow.cpp
+            $$PWD/src/viewwindow.cpp \
+            $$PWD/src/tpconsoleapplication.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../

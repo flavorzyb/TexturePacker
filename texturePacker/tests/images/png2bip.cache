@@ -1,0 +1,14 @@
+{
+    "common/aa.png": {
+        "bipFile": "common/aa.bip",
+        "bipFileMd5": "bbbbbbbb",
+        "pngFile": "common/aa.png",
+        "pngFileMd5": "aaaaaaaa"
+    },
+    "common/bb.png": {
+        "bipFile": "common/bb.bip",
+        "bipFileMd5": "ddddddd",
+        "pngFile": "common/bb.png",
+        "pngFileMd5": "cccccc"
+    }
+}

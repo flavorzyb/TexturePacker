@@ -26,7 +26,8 @@ SOURCES += \
     readertest.cpp \
     writertest.cpp \
     bipwritertest.cpp \
-    bipreadertest.cpp
+    bipreadertest.cpp \
+    png2bipcachetest.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
@@ -40,7 +41,8 @@ HEADERS += \
     readertest.h \
     writertest.h \
     bipwritertest.h \
-    bipreadertest.h
+    bipreadertest.h \
+    png2bipcachetest.h
 
 macx {
     QMAKE_POST_LINK =   rm -rf images && cp -rf $$PWD/images ./ && \
