@@ -1,4 +1,5 @@
 #include <QRgb>
+
 #include "include/png.h"
 #include "include/imageutils.h"
 #include "include/fileutils.h"
@@ -101,7 +102,6 @@ PVR * PNG::convertToPVR()
     int hindex = ((ph - 2) > h) ? 2 : 0;
 
     unsigned char * pImageData = createImageData(fnw, fnh, w, h, pw, ph, windex, hindex);
-
     if (pImageData != NULL)
     {
         pvrtexture::CPVRTextureHeader header(pvrtexture::PVRStandard8PixelType.PixelTypeID, pw, ph);
@@ -109,6 +109,7 @@ PVR * PNG::convertToPVR()
         delete [] pImageData;
         pvrtexture::PixelType pvrTC4BPP_RGB(ePVRTPF_PVRTCI_4bpp_RGBA);
         QString pvrFile = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".pvr";
+
         if (pvrtexture::Transcode(pvrTexture, pvrTC4BPP_RGB, ePVRTVarTypeUnsignedByteNorm, ePVRTCSpacelRGB, pvrtexture::ePVRTCBest, false) && pvrTexture.saveFile(pvrFile.toStdString().c_str()))
         {
             ImageVO ivo(pw, ph);
@@ -158,10 +159,10 @@ unsigned char *PNG::createImageData(int fnw,  int fnh, int w, int h, int pw, int
         {
            if ((x >= windex) &&
                    (y >= hindex) &&
-                   ((x + fnw) < w) &&
-                   ((y + fnh) < h))
+                   (x < w + windex) &&
+                   (y < h + hindex))
            {
-               QRgb v = m_pImg->pixel(x + fnw, y + fnh);
+               QRgb v = m_pImg->pixel(x + fnw - windex, y + fnh - hindex);
                pImageData[4 * (y * pw + x) + 0] = qRed(v);
                pImageData[4 * (y * pw + x) + 1] = qGreen(v);
                pImageData[4 * (y * pw + x) + 2] = qBlue(v);
