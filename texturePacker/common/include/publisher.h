@@ -28,7 +28,7 @@ public:
 
 private:
     void loadCacheData();
-
+    void chopExcludePath();
 private:
     SettingsVO  m_svo;
     QVector<QString> m_fileLists;

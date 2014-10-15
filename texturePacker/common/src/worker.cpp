@@ -41,7 +41,7 @@ void Worker::run()
         PVR * pvr = png.convertToPVR();
         ImageVO ivo = pvr->imagevo();
         ivo.setFileName(path);
-        ivo.chopFrameNamePath(FileUtils::getAbsoluteFilePath(m_inputPath));
+        ivo.chopFrameNamePath(FileUtils::getAbsoluteDirPath(m_inputPath));
         path  = m_outputPath + "/" + path;
         pvr->setImagevo(ivo);
         int index = path.lastIndexOf(".");

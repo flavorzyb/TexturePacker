@@ -70,6 +70,12 @@ bool Png2BipCache::save(const QString &path)
     QJsonDocument doc(json);
 
     QFile file(path);
+
+    if (file.exists())
+    {
+        file.remove();
+    }
+
     if (!file.open(QIODevice::WriteOnly))
     {
         return false;
@@ -83,6 +89,12 @@ bool Png2BipCache::save(const QString &path)
 
 void Png2BipCache::add(const Png2BipCahceVO &value)
 {
+    QMap<QString, Png2BipCahceVO>::iterator iterator = m_map.find(value.pngFilePath());
+    if (iterator != m_map.end())
+    {
+        m_map.erase(iterator);
+    }
+
     m_map.insert(value.pngFilePath(), value);
 }
 

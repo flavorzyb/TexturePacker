@@ -17,6 +17,7 @@ public:
     static bool hasParentDirectory(const QString & path);
     static bool createParentDirectory(const QString & path);
     static QString getAbsoluteFilePath(const QString & path);
+    static QString getAbsoluteDirPath(const QString & path);
     static unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
     static bool writeFile(const char * fileName, const char * mode, const unsigned char * content, unsigned long size);
     static bool writeFile(const char * fileName, const char * mode, const char * content, unsigned long size);
@@ -28,6 +29,7 @@ public:
     static QString md5File(const QString & filePath);
     static QString getPng2BipCacheDirPath(const QString &hashPath, SettingsVO::format format);
     static QString getPng2BipCacheFilePath(const QString &hashPath, SettingsVO::format format);
+    static bool copyFile(const QString & sourceFileName, const QString & destFileName);
 signals:
 
 public slots:

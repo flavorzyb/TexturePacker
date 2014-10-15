@@ -1,4 +1,5 @@
 #include <QFile>
+#include <QDir>
 #include "include/tpconsoleapplication.h"
 #include "common/include/fileutils.h"
 #include "common/include/config.h"
@@ -52,6 +53,20 @@ TPConsoleApplication::TPConsoleApplication(int &argc, char **argv):
             m_isInitCache = true;
             m_initCachePath = argv[i+1];
         }
+        else if (strcmp("-exclude", argv[i])==0)
+        {
+            QString excludePathArgv = argv[i+1];
+            QStringList excludePathList = excludePathArgv.split(",");
+            int size = excludePathList.size();
+            for(int i = 0; i < size; i++)
+            {
+                QString path = excludePathList.at(i).trimmed();
+                if (path.length() > 0)
+                {
+                    m_svo.addExcludePath(path);
+                }
+            }
+        }
     }
 }
 
@@ -66,7 +81,6 @@ TPConsoleApplication::~TPConsoleApplication()
 
 bool TPConsoleApplication::checkConsole()
 {
-
     if (m_args < 8)
     {
         print_usage();
@@ -114,18 +128,19 @@ void TPConsoleApplication::runConsole()
 void TPConsoleApplication::print_usage()
 {
     printf("error: error arguments\n");
-    printf("usage: texturePacker -no-gui -i /usr/local/input -o /usr/local/tmp/output -f ios [-init /usr/local/cache]\n");
+    printf("usage: texturePacker -no-gui -i /usr/local/input -o /usr/local/tmp/output -f ios [-init /usr/local/cache] [-exclude /usr/local/input/aaa,/usr/local/input/bbb]\n");
     printf("       -no-gui run application in console mode \n");
     printf("       -i input directory path \n");
     printf("       -o output directory path \n");
     printf("       -f ios or android\n");
     printf("       -init setting init cache dir\n");
+    printf("       -exclude exclude path, split by \",\"\n");
 }
 
 bool TPConsoleApplication::initCache(const SettingsVO & svo, const QString & initCachePath)
 {
-    QString cacheDirPath = FileUtils::getPng2BipCacheDirPath(svo.getAbsoluteInputFilePath(), svo.getFormat());
-    QString initCacheAbsolutePath = FileUtils::getAbsoluteFilePath(initCachePath);
+    QString cacheDirPath = FileUtils::getPng2BipCacheDirPath(svo.getAbsoluteInputDirPath(), svo.getFormat());
+    QString initCacheAbsolutePath = FileUtils::getAbsoluteDirPath(initCachePath);
     unsigned int cachePathLen = initCacheAbsolutePath.length();
     QVector<QString> fileLists = FileUtils::getAllFiles(initCacheAbsolutePath);
     QVector<QString>::iterator iterator = fileLists.begin();

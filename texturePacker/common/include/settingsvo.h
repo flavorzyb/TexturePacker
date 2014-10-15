@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QObject>
+#include <QHash>
 
 class SettingsVO
 {
@@ -24,15 +25,19 @@ public:
     void setFormat(format f);
 
     QString getInputPath() const;
-    QString getAbsoluteInputFilePath() const;
+    QString getAbsoluteInputDirPath() const;
     QString getOutputPath() const;
-    QString getAbsoluteOutputFilePath() const;
+    QString getAbsoluteOutputDirPath() const;
 
     format getFormat() const;
+
+    void addExcludePath(const QString & path);
+    bool isInExcludePath(const QString & path) const;
 private:
-    QString m_inputPath;
-    QString m_outputPath;
-    format m_format;
+    QString          m_inputPath;
+    QString          m_outputPath;
+    format           m_format;
+    QHash<QString, bool> m_excludePathMap;
 };
 
 #endif // SETTINGSVO_H

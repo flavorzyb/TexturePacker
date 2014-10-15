@@ -116,6 +116,13 @@ QString FileUtils::getAbsoluteFilePath(const QString &path)
     return fileInfo.absoluteFilePath();
 }
 
+QString FileUtils::getAbsoluteDirPath(const QString &path)
+{
+    QDir dir(path);
+
+    return dir.absolutePath();
+}
+
 unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMode, unsigned long *pSize)
 {
     unsigned char * pBuffer = NULL;
@@ -250,4 +257,12 @@ QString FileUtils::getPng2BipCacheDirPath(const QString &hashPath, SettingsVO::f
 QString FileUtils::getPng2BipCacheFilePath(const QString &hashPath, SettingsVO::format format)
 {
     return (getPng2BipCacheDirPath(hashPath, format) + "/png2bip_" + Config::VERSION + ".cache");
+}
+
+bool FileUtils::copyFile(const QString &sourceFileName, const QString &destFileName)
+{
+    FileUtils::createParentDirectory(destFileName);
+    unlink(destFileName);
+
+    return QFile::copy(sourceFileName, destFileName);
 }

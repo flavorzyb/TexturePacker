@@ -23,6 +23,7 @@ const SettingsVO & Publisher::getSettingsVO() const
 bool Publisher::publish()
 {
     m_fileLists = FileUtils::getAllImageFiles(m_svo.getInputPath());
+    chopExcludePath();
     loadCacheData();
 
     m_fileCount = m_fileLists.size();
@@ -35,8 +36,8 @@ bool Publisher::publish()
     t.start();
 
     m_works.setPublisher(this);
-    m_works.setInputPath(m_svo.getAbsoluteInputFilePath());
-    m_works.setOutputPath(m_svo.getOutputPath());
+    m_works.setInputPath(m_svo.getAbsoluteInputDirPath());
+    m_works.setOutputPath(m_svo.getAbsoluteOutputDirPath());
     m_works.start();
 
     m_works.wait();
@@ -49,7 +50,7 @@ bool Publisher::publish()
     printf("----------cost time: %d hours %d minutes %d seconds %d ms----------\n", hour, min, sec, ms);
     m_isFinished = true;
 
-    m_png2BipCache.save(FileUtils::getPng2BipCacheFilePath(m_svo.getAbsoluteInputFilePath(), m_svo.getFormat()));
+    m_png2BipCache.save(FileUtils::getPng2BipCacheFilePath(m_svo.getAbsoluteInputDirPath(), m_svo.getFormat()));
     return true;
 }
 
@@ -92,7 +93,7 @@ QVector<QString> Publisher::failFileLists() const
 
 void Publisher::doneFile(bool isSucc, const QString &filePath, const QString & bipFilePath, int width, int height)
 {
-    QString path = filePath.right(filePath.length() - 1 - m_svo.getAbsoluteInputFilePath().length());
+    QString path = filePath.right(filePath.length() - 1 - m_svo.getAbsoluteInputDirPath().length());
     QString info = path + " ... ... ";
 
     if (isSucc)
@@ -102,19 +103,19 @@ void Publisher::doneFile(bool isSucc, const QString &filePath, const QString & b
 
         QString bipFullPath = FileUtils::getAbsoluteFilePath(bipFilePath);
         QString bipMd5String = FileUtils::md5File(bipFullPath);
-        QString bipPath = bipFullPath.right(bipFullPath.length() - 1 - m_svo.getAbsoluteOutputFilePath().length());
+        QString bipPath = bipFullPath.right(bipFullPath.length() - 1 - m_svo.getAbsoluteOutputDirPath().length());
 
         Png2BipCahceVO p2bvo;
         p2bvo.setPngFilePath(path);
+
         p2bvo.setPngFileMd5String(FileUtils::md5File(filePath));
         p2bvo.setBipFilePath(bipPath);
         p2bvo.setBipFileMd5String(bipMd5String);
 
-        QString cacheDirPath = FileUtils::getPng2BipCacheDirPath(m_svo.getAbsoluteInputFilePath(), m_svo.getFormat());
+        QString cacheDirPath = FileUtils::getPng2BipCacheDirPath(m_svo.getAbsoluteInputDirPath(), m_svo.getFormat());
 
         QString bipCacheFullPath = cacheDirPath + "/" + bipPath;
-        FileUtils::createParentDirectory(bipCacheFullPath);
-        if (QFile::copy(bipFullPath, bipCacheFullPath))
+        if (FileUtils::copyFile(bipFullPath, bipCacheFullPath))
         {
             m_png2BipCache.add(p2bvo);
         }
@@ -140,10 +141,10 @@ void Publisher::doneFile(bool isSucc, const QString &filePath, const QString & b
 
 void Publisher::loadCacheData()
 {
-    QString cacheDirPath = FileUtils::getPng2BipCacheDirPath(m_svo.getAbsoluteInputFilePath(), m_svo.getFormat());
-    m_png2BipCache.load(FileUtils::getPng2BipCacheFilePath(m_svo.getAbsoluteInputFilePath(), m_svo.getFormat()));
+    QString cacheDirPath = FileUtils::getPng2BipCacheDirPath(m_svo.getAbsoluteInputDirPath(), m_svo.getFormat());
+    m_png2BipCache.load(FileUtils::getPng2BipCacheFilePath(m_svo.getAbsoluteInputDirPath(), m_svo.getFormat()));
     QVector<QString>::iterator iterator = m_fileLists.begin();
-    int inputLen = m_svo.getAbsoluteInputFilePath().length();
+    int inputLen = m_svo.getAbsoluteInputDirPath().length();
 
     QVector<QString> needRemoveFiles;
     for(; iterator != m_fileLists.end(); iterator++)
@@ -181,4 +182,20 @@ void Publisher::loadCacheData()
             }
         }
     }
+}
+
+void Publisher::chopExcludePath()
+{
+    QVector<QString> result;
+    QVector<QString>::iterator iterator = m_fileLists.begin();
+
+    for(; iterator != m_fileLists.end(); iterator++)
+    {
+        if (!m_svo.isInExcludePath(*iterator))
+        {
+            result.push_back(*iterator);
+        }
+    }
+
+    m_fileLists = result;
 }
