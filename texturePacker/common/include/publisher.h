@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QString>
 #include <QVector>
-#include <QMutex>
 
 #include "include/worker.h"
 #include "include/settingsvo.h"
@@ -14,7 +13,7 @@ class Publisher : public QObject
 {
     Q_OBJECT
 private:
-    enum{MAX_THREAD_NUM = 4};
+    enum{MAX_THREAD_NUM = 1};
 
 public:
     explicit Publisher(const SettingsVO & svo);
@@ -34,12 +33,10 @@ private:
     SettingsVO  m_svo;
     QVector<QString> m_fileLists;
     unsigned int m_fileCount;
-    QMutex m_mutex;
-    Worker m_works[MAX_THREAD_NUM];
+    Worker m_works;
     QVector<QString> m_succFileLists;
     QVector<QString> m_failFileLists;
     QVector<QString> m_outInfoLists;
-    QMutex m_doneMutex;
     bool m_isFinished;
     Png2BipCache m_png2BipCache;
 };

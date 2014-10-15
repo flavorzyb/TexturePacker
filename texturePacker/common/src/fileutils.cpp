@@ -188,9 +188,11 @@ QString FileUtils::createImageTempFolder()
 
 QString FileUtils::getRandFileNameString()
 {
-    srand((int)time(0));
+    qsrand(time(0));
+    int t1 = qrand();
+    int t2 = qrand();
     char strFile[32] = {0};
-    sprintf(strFile, "%d_%d", rand(), rand());
+    sprintf(strFile, "%d_%d", t1, t2);
     return strFile;
 }
 

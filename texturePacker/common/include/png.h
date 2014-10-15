@@ -1,5 +1,6 @@
 #ifndef PNG_H
 #define PNG_H
+#include <QRect>
 #include "include/image.h"
 
 class PVR;
@@ -17,10 +18,7 @@ public:
     virtual bool save(const QString & filename);
     inline const QImage * getImage() const {return m_pImg;}
 private:
-    int findFirstHorizontalNoBlank();
-    int findLastHorizontalNoBlank();
-    int findFirstVerticalNoBlank();
-    int findLastVerticalNoBlank();
+    QRect findCropRect();
     unsigned char * createImageData(int fnw,  int fnh, int w, int h, int pw, int ph, int windex, int hindex);
 
 private:

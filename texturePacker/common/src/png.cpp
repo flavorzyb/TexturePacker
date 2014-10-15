@@ -64,20 +64,22 @@ PVR * PNG::convertToPVR()
         return NULL;
     }
 
-    int fnw = findFirstHorizontalNoBlank();
-    int lnw = findLastHorizontalNoBlank();
+    QRect cropRect = findCropRect();
 
-    int fnh = findFirstVerticalNoBlank();
-    int lnh = findLastVerticalNoBlank();
+    int fnw = cropRect.x();
+    int lnw = cropRect.width();
+
+    int fnh = cropRect.y();
+    int lnh = cropRect.height();
 
     // if image is blank
-    if (fnw== width())
+    if (fnw >= lnw)
     {
         fnw = 0;
         lnw = width() - 1;
     }
 
-    if (fnh == height())
+    if (fnh >= lnh)
     {
         fnh = 0;
         lnh = height() - 1;
@@ -98,8 +100,8 @@ PVR * PNG::convertToPVR()
         pw = ph;
     }
 
-    int windex = ((pw - 2) > w) ? 2 : 0;
-    int hindex = ((ph - 2) > h) ? 2 : 0;
+    int windex = (((pw - 2) > w) ? 2 : 0);
+    int hindex = (((ph - 2) > h) ? 2 : 0);
 
     unsigned char * pImageData = createImageData(fnw, fnh, w, h, pw, ph, windex, hindex);
     if (pImageData != NULL)
@@ -152,29 +154,18 @@ unsigned char *PNG::createImageData(int fnw,  int fnh, int w, int h, int pw, int
     }
 
     unsigned char * pImageData = new unsigned char [len];
+    memset(pImageData, 0, len * sizeof(unsigned char));
 
-    for (int x = 0; x < pw; ++x)
+
+    for(int x = windex; x < (windex + w); x++)
     {
-        for (int y = 0; y < ph; ++y)
+        for (int y = hindex; y < (hindex + h); y++)
         {
-           if ((x >= windex) &&
-                   (y >= hindex) &&
-                   (x < w + windex) &&
-                   (y < h + hindex))
-           {
-               QRgb v = m_pImg->pixel(x + fnw - windex, y + fnh - hindex);
-               pImageData[4 * (y * pw + x) + 0] = qRed(v);
-               pImageData[4 * (y * pw + x) + 1] = qGreen(v);
-               pImageData[4 * (y * pw + x) + 2] = qBlue(v);
-               pImageData[4 * (y * pw + x) + 3] = qAlpha(v);
-           }
-           else
-           {
-               pImageData[4 * (y * pw + x) + 0] = 0;
-               pImageData[4 * (y * pw + x) + 1] = 0;
-               pImageData[4 * (y * pw + x) + 2] = 0;
-               pImageData[4 * (y * pw + x) + 3] = 0;
-           }
+            QRgb v = m_pImg->pixel(x + fnw - windex, y + fnh - hindex);
+            pImageData[4 * (y * pw + x)    ] = qRed(v);
+            pImageData[4 * (y * pw + x) + 1] = qGreen(v);
+            pImageData[4 * (y * pw + x) + 2] = qBlue(v);
+            pImageData[4 * (y * pw + x) + 3] = qAlpha(v);
         }
     }
 
@@ -191,86 +182,46 @@ bool PNG::save(const QString &filename)
     return m_pImg->save(filename, "PNG");
 }
 
-int PNG::findFirstHorizontalNoBlank()
+QRect PNG::findCropRect()
 {
     if (m_pImg == NULL)
     {
-        return -1;
+        return QRect(0, 0, 0, 0);
     }
 
-    for (int w = 0; w < width(); w++)
+    int minx = 999999;
+    int miny = 999999;
+    int maxx = 0;
+    int maxy = 0;
+
+    for (int x = 0; x < width(); ++x)
     {
-        for (int h = 0; h < height(); ++h)
+        for (int y = 0; y < height(); ++y)
         {
-            if (qAlpha(m_pImg->pixel(w, h)) != 0)
+            if (qAlpha(m_pImg->pixel(x, y)) != 0)
             {
-                return w;
+                if (minx > x)
+                {
+                    minx = x;
+                }
+
+                if (miny > y)
+                {
+                    miny = y;
+                }
+
+                if (maxx < x)
+                {
+                    maxx = x;
+                }
+
+                if (maxy < y)
+                {
+                    maxy = y;
+                }
             }
         }
     }
 
-    return width();
-}
-
-int PNG::findLastHorizontalNoBlank()
-{
-    if (m_pImg == NULL)
-    {
-        return -1;
-    }
-
-    for (int w = width() - 1; w >= 0; w--)
-    {
-        for (int h = 0; h < height(); ++h)
-        {
-            if (qAlpha(m_pImg->pixel(w, h)) != 0)
-            {
-                return w;
-            }
-        }
-    }
-
-    return 0;
-}
-
-int PNG::findFirstVerticalNoBlank()
-{
-    if (m_pImg == NULL)
-    {
-        return -1;
-    }
-
-    for (int h = 0; h < height(); ++h)
-    {
-        for (int w = 0; w < width(); w++)
-        {
-            if (qAlpha(m_pImg->pixel(w, h)) != 0)
-            {
-                return h;
-            }
-        }
-    }
-
-    return height();
-}
-
-int PNG::findLastVerticalNoBlank()
-{
-    if (m_pImg == NULL)
-    {
-        return -1;
-    }
-
-    for (int h = height() - 1; h >=0; h--)
-    {
-        for (int w = 0; w < width(); w++)
-        {
-            if (qAlpha(m_pImg->pixel(w, h)) != 0)
-            {
-                return h;
-            }
-        }
-    }
-
-    return 0;
+    return QRect(minx, miny, maxx, maxy);
 }

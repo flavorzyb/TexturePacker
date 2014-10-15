@@ -33,18 +33,13 @@ bool Publisher::publish()
 
     QTime t;
     t.start();
-    for (int i = 0; i < MAX_THREAD_NUM; ++i)
-    {
-        m_works[i].setPublisher(this);
-        m_works[i].setInputPath(m_svo.getAbsoluteInputFilePath());
-        m_works[i].setOutputPath(m_svo.getOutputPath());
-        m_works[i].start();
-    }
 
-    for (int i = 0; i < MAX_THREAD_NUM; ++i)
-    {
-        m_works[i].wait();
-    }
+    m_works.setPublisher(this);
+    m_works.setInputPath(m_svo.getAbsoluteInputFilePath());
+    m_works.setOutputPath(m_svo.getOutputPath());
+    m_works.start();
+
+    m_works.wait();
 
     int time = t.elapsed();
     int hour = time / 1000 / 3600;
@@ -61,13 +56,11 @@ bool Publisher::publish()
 QString Publisher::fetchTask()
 {
     QString result = "";
-    m_mutex.lock();
     if (m_fileLists.size() > 0)
     {
         result = *(m_fileLists.begin());
         m_fileLists.pop_front();
     }
-    m_mutex.unlock();
 
     return result;
 }
@@ -75,7 +68,6 @@ QString Publisher::fetchTask()
 QString Publisher::fetchOutInfo()
 {
     QString result = "";
-    m_doneMutex.lock();
     while (m_outInfoLists.size() > 0)
     {
         if (result.length() > 0)
@@ -86,7 +78,6 @@ QString Publisher::fetchOutInfo()
         result += *(m_outInfoLists.begin());
         m_outInfoLists.pop_front();
     }
-    m_doneMutex.unlock();
     return result;
 }
 QVector<QString> Publisher::succFileLists() const
@@ -101,7 +92,6 @@ QVector<QString> Publisher::failFileLists() const
 
 void Publisher::doneFile(bool isSucc, const QString &filePath, const QString & bipFilePath, int width, int height)
 {
-    m_doneMutex.lock();
     QString path = filePath.right(filePath.length() - 1 - m_svo.getAbsoluteInputFilePath().length());
     QString info = path + " ... ... ";
 
@@ -146,8 +136,6 @@ void Publisher::doneFile(bool isSucc, const QString &filePath, const QString & b
     {
         printf("%s\n", info.toStdString().c_str());
     }
-
-    m_doneMutex.unlock();
 }
 
 void Publisher::loadCacheData()
