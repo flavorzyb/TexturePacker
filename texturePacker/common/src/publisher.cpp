@@ -24,6 +24,7 @@ bool Publisher::publish()
 {
     m_fileLists = FileUtils::getAllImageFiles(m_svo.getInputPath());
     chopExcludePath();
+    filterMinSizeFile();
     loadCacheData();
 
     m_fileCount = m_fileLists.size();
@@ -198,4 +199,23 @@ void Publisher::chopExcludePath()
     }
 
     m_fileLists = result;
+}
+
+void Publisher::filterMinSizeFile()
+{
+    if (m_svo.minSize() > 0)
+    {
+        QVector<QString> result;
+        QVector<QString>::iterator iterator = m_fileLists.begin();
+
+        for(; iterator != m_fileLists.end(); iterator++)
+        {
+            if (FileUtils::getFileSize(*iterator) > m_svo.minSize())
+            {
+                result.push_back(*iterator);
+            }
+        }
+
+        m_fileLists = result;
+    }
 }

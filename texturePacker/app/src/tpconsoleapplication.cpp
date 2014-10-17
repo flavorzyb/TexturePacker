@@ -53,6 +53,16 @@ TPConsoleApplication::TPConsoleApplication(int &argc, char **argv):
             m_isInitCache = true;
             m_initCachePath = argv[i+1];
         }
+        else if (strcmp("-min", argv[i])==0)
+        {
+            QString strMin = argv[i+1];
+            bool ok = false;
+            int min = strMin.toInt(&ok);
+            if (ok && min > 0)
+            {
+                m_svo.setMinSize();
+            }
+        }
         else if (strcmp("-exclude", argv[i])==0)
         {
             QString excludePathArgv = argv[i+1];
@@ -133,6 +143,7 @@ void TPConsoleApplication::print_usage()
     printf("       -i input directory path \n");
     printf("       -o output directory path \n");
     printf("       -f ios or android\n");
+    printf("       -min min size which will be convert\n");
     printf("       -init setting init cache dir\n");
     printf("       -exclude exclude path, split by \",\"\n");
 }

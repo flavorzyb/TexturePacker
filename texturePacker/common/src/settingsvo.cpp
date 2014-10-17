@@ -5,6 +5,7 @@ SettingsVO::SettingsVO():
     m_inputPath("")
   , m_outputPath("")
   , m_format(SettingsVO::IOS)
+  , m_minSize(0)
   , m_excludePathMap()
 {
 }
@@ -13,13 +14,13 @@ SettingsVO::SettingsVO(const SettingsVO & svo):
     m_inputPath(svo.m_inputPath)
   , m_outputPath(svo.m_outputPath)
   , m_format(svo.m_format)
+  , m_minSize(svo.m_minSize)
   , m_excludePathMap(svo.m_excludePathMap)
 {
 }
 
 SettingsVO::~SettingsVO()
 {
-
 }
 
 void SettingsVO::setInputPath(QString path)
@@ -90,21 +91,33 @@ bool SettingsVO::isInExcludePath(const QString &path) const
 
     return false;
 }
+unsigned int SettingsVO::minSize() const
+{
+    return m_minSize;
+}
+
+void SettingsVO::setMinSize(unsigned int minSize)
+{
+    m_minSize = minSize;
+}
+
 
 bool SettingsVO::operator ==(const SettingsVO & svo) const
 {
     return ((m_inputPath == svo.m_inputPath) &&
             (m_outputPath == svo.m_outputPath) &&
             (m_format == svo.m_format) &&
+            (m_minSize == svo.m_minSize)
             (m_excludePathMap == svo.m_excludePathMap));
 }
 
 const SettingsVO & SettingsVO::operator =(const SettingsVO &svo)
 {
-    m_inputPath = svo.m_inputPath;
-    m_outputPath = svo.m_outputPath;
-    m_format = svo.m_format;
-    m_excludePathMap = svo.m_excludePathMap;
+    m_inputPath         = svo.m_inputPath;
+    m_outputPath        = svo.m_outputPath;
+    m_format            = svo.m_format;
+    m_minSize           = svo.m_minSize;
+    m_excludePathMap    = svo.m_excludePathMap;
 
     return (*this);
 }

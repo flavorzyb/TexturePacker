@@ -33,11 +33,15 @@ public:
 
     void addExcludePath(const QString & path);
     bool isInExcludePath(const QString & path) const;
+    unsigned int minSize() const;
+    void setMinSize(unsigned int minSize);
+
 private:
-    QString          m_inputPath;
-    QString          m_outputPath;
-    format           m_format;
-    QHash<QString, bool> m_excludePathMap;
+    QString                 m_inputPath;
+    QString                 m_outputPath;
+    format                  m_format;
+    unsigned int            m_minSize;
+    QHash<QString, bool>    m_excludePathMap;
 };
 
 #endif // SETTINGSVO_H

@@ -266,3 +266,9 @@ bool FileUtils::copyFile(const QString &sourceFileName, const QString &destFileN
 
     return QFile::copy(sourceFileName, destFileName);
 }
+
+unsigned int FileUtils::getFileSize(const QString &filePath)
+{
+    QFileInfo fileInfo(filePath);
+    return fileInfo.size();
+}
