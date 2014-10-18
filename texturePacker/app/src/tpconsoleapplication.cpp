@@ -60,7 +60,7 @@ TPConsoleApplication::TPConsoleApplication(int &argc, char **argv):
             int min = strMin.toInt(&ok);
             if (ok && min > 0)
             {
-                m_svo.setMinSize();
+                m_svo.setMinSize(min);
             }
         }
         else if (strcmp("-exclude", argv[i])==0)
@@ -138,7 +138,7 @@ void TPConsoleApplication::runConsole()
 void TPConsoleApplication::print_usage()
 {
     printf("error: error arguments\n");
-    printf("usage: texturePacker -no-gui -i /usr/local/input -o /usr/local/tmp/output -f ios [-init /usr/local/cache] [-exclude /usr/local/input/aaa,/usr/local/input/bbb]\n");
+    printf("usage: texturePacker -no-gui -i /usr/local/input -o /usr/local/tmp/output -f ios [-init /usr/local/cache] [-exclude /usr/local/input/aaa,/usr/local/input/bbb] [-min size]\n");
     printf("       -no-gui run application in console mode \n");
     printf("       -i input directory path \n");
     printf("       -o output directory path \n");

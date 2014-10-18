@@ -107,7 +107,7 @@ bool SettingsVO::operator ==(const SettingsVO & svo) const
     return ((m_inputPath == svo.m_inputPath) &&
             (m_outputPath == svo.m_outputPath) &&
             (m_format == svo.m_format) &&
-            (m_minSize == svo.m_minSize)
+            (m_minSize == svo.m_minSize) &&
             (m_excludePathMap == svo.m_excludePathMap));
 }
 
