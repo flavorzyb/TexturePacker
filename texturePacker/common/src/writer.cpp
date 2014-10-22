@@ -43,7 +43,7 @@ Writer::~Writer()
 
 bool Writer::writeString(const QString &value)
 {
-    int len = value.length();
+    int len = value.toStdString().length();
     if (len > 0)
     {
         writeShort(len);
