@@ -64,7 +64,7 @@ bool Png2BipCache::save(const QString &path)
         value.insert("bipFile", iterator->bipFilePath());
         value.insert("bipFileMd5", iterator->bipFileMd5String());
 
-        json.insert(iterator->pngFilePath(), value);
+        json.insert(iterator->pngFilePath() + "_" + iterator->pngFileMd5String(), value);
     }
 
     QJsonDocument doc(json);
@@ -98,9 +98,9 @@ void Png2BipCache::add(const Png2BipCahceVO &value)
     m_map.insert(value.pngFilePath(), value);
 }
 
-const Png2BipCahceVO *Png2BipCache::getCacheVO(const QString &key) const
+const Png2BipCahceVO *Png2BipCache::getCacheVO(const QString &key, const QString & md5String) const
 {
-    QMap<QString, Png2BipCahceVO>::const_iterator iterator =  m_map.constFind(key);
+    QMap<QString, Png2BipCahceVO>::const_iterator iterator =  m_map.constFind(key+"_"+md5String);
     if (iterator == m_map.constEnd())
     {
         return NULL;

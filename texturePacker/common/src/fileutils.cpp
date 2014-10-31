@@ -228,6 +228,12 @@ bool FileUtils::isDir(const QString &filePath)
     return (fileInfo.exists() && fileInfo.isDir());
 }
 
+bool FileUtils::isFile(const QString &filePath)
+{
+    QFileInfo fileInfo(filePath);
+    return (fileInfo.exists() && fileInfo.isFile());
+}
+
 QString FileUtils::md5File(const QString &filePath)
 {
     QFile file(filePath);

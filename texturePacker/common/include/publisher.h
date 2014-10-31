@@ -30,6 +30,7 @@ private:
     void loadCacheData();
     void chopExcludePath();
     void filterMinSizeFile();
+    QString getMd5Path(const QString & md5String);
 
 private:
     SettingsVO  m_svo;

@@ -26,6 +26,7 @@ public:
     static bool unlink(const QString & filename);
     static QString md5(const QString & str);
     static bool isDir(const QString & filePath);
+    static bool isFile(const QString & filePath);
     static QString md5File(const QString & filePath);
     static QString getPng2BipCacheDirPath(const QString &hashPath, SettingsVO::format format);
     static QString getPng2BipCacheFilePath(const QString &hashPath, SettingsVO::format format);

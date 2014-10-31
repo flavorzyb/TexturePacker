@@ -1,5 +1,6 @@
 #include <QTime>
 #include <QFile>
+#include <QtCore>
 
 #include "include/publisher.h"
 #include "include/fileutils.h"
@@ -115,7 +116,8 @@ void Publisher::doneFile(bool isSucc, const QString &filePath, const QString & b
 
         QString cacheDirPath = FileUtils::getPng2BipCacheDirPath(m_svo.getAbsoluteInputDirPath(), m_svo.getFormat());
 
-        QString bipCacheFullPath = cacheDirPath + "/" + bipPath;
+        QString bipCacheFullPath = cacheDirPath + "/" + getMd5Path(bipMd5String) + "/" + bipMd5String;
+        FileUtils::createParentDirectory(bipCacheFullPath);
         if (FileUtils::copyFile(bipFullPath, bipCacheFullPath))
         {
             m_png2BipCache.add(p2bvo);
@@ -156,10 +158,8 @@ void Publisher::loadCacheData()
 
         if ((p2bvo != NULL) && (p2bvo->pngFileMd5String() == md5String))
         {
-
-            QString bipCachePath = cacheDirPath + "/" + p2bvo->bipFilePath();
-            QString bipFileMd5String = FileUtils::md5File(bipCachePath);
-            if (bipFileMd5String == p2bvo->bipFileMd5String())
+            QString bipCachePath = cacheDirPath + "/" + getMd5Path(p2bvo->bipFileMd5String()) + "/" + p2bvo->bipFileMd5String();
+            if (FileUtils::isFile(bipCachePath))
             {
                 QString bipFullPath = m_svo.getOutputPath() + "/" + p2bvo->bipFilePath();
                 FileUtils::createParentDirectory(bipFullPath);
@@ -218,4 +218,14 @@ void Publisher::filterMinSizeFile()
 
         m_fileLists = result;
     }
+}
+
+QString Publisher::getMd5Path(const QString &md5String)
+{
+    if (md5String.length() > 2)
+    {
+        return md5String.left(2);
+    }
+
+    return "";
 }

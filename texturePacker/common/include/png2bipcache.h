@@ -12,7 +12,7 @@ public:
     bool load(const QString & path);
     bool save(const QString & path);
     void add(const Png2BipCahceVO & value);
-    const Png2BipCahceVO *getCacheVO(const QString & key) const;
+    const Png2BipCahceVO *getCacheVO(const QString & key, const QString & md5String) const;
     inline unsigned int size() const {return m_map.size();}
 private:
     QMap<QString, Png2BipCahceVO> m_map;
