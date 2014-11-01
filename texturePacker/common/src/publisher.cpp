@@ -163,7 +163,7 @@ void Publisher::loadCacheData()
             {
                 QString bipFullPath = m_svo.getOutputPath() + "/" + p2bvo->bipFilePath();
                 FileUtils::createParentDirectory(bipFullPath);
-                QFile::copy(bipCachePath, bipFullPath);
+                FileUtils::copyFile(bipCachePath, bipFullPath);
                 needRemoveFiles.push_back(*iterator);
             }
         }
