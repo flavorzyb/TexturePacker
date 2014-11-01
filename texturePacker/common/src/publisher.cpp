@@ -154,7 +154,7 @@ void Publisher::loadCacheData()
     {
         QString md5String = FileUtils::md5File(*iterator);
         QString path =  iterator->right(iterator->length() - inputLen - 1);
-        const Png2BipCahceVO * p2bvo = m_png2BipCache.getCacheVO(path);
+        const Png2BipCahceVO * p2bvo = m_png2BipCache.getCacheVO(path, md5String);
 
         if ((p2bvo != NULL) && (p2bvo->pngFileMd5String() == md5String))
         {
