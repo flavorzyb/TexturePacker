@@ -21,17 +21,17 @@ int main(int argc, char *argv[])
     BipReaderTest bipReader;
     Png2BipCacheTest png2BipCache;
 
-//    QTest::qExec(&fileUtils, argc, argv);
+    QTest::qExec(&fileUtils, argc, argv);
     QTest::qExec(&publish, argc, argv);
-//    QTest::qExec(&png, argc, argv);
+    QTest::qExec(&png, argc, argv);
 
-//    QTest::qExec(&pvr, argc, argv);
-//    QTest::qExec(&reader, argc, argv);
-//    QTest::qExec(&writer, argc, argv);
+    QTest::qExec(&pvr, argc, argv);
+    QTest::qExec(&reader, argc, argv);
+    QTest::qExec(&writer, argc, argv);
 
-//    QTest::qExec(&bipWriter, argc, argv);
-//    QTest::qExec(&bipReader, argc, argv);
-//    QTest::qExec(&png2BipCache, argc, argv);
+    QTest::qExec(&bipWriter, argc, argv);
+    QTest::qExec(&bipReader, argc, argv);
+    QTest::qExec(&png2BipCache, argc, argv);
 
     return 0;
 }

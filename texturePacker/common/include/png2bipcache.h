@@ -14,8 +14,10 @@ public:
     void add(const Png2BipCahceVO & value);
     const Png2BipCahceVO *getCacheVO(const QString & key, const QString & md5String) const;
     inline unsigned int size() const {return m_map.size();}
+    inline QString getVersion() const {return m_version;}
 private:
     QMap<QString, Png2BipCahceVO> m_map;
+    QString m_version;
 };
 
 #endif // PNG2BIPCACHELOADER_H

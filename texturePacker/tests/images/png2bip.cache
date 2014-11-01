@@ -1,14 +1,17 @@
 {
-    "common/aa.png": {
-        "bipFile": "common/aa.bip",
-        "bipFileMd5": "bbbbbbbb",
-        "pngFile": "common/aa.png",
-        "pngFileMd5": "aaaaaaaa"
+    "data": {
+        "common/aa.png_aaaaaaaa": {
+            "bipFile": "common/aa.bip",
+            "bipFileMd5": "bbbbbbbb",
+            "pngFile": "common/aa.png",
+            "pngFileMd5": "aaaaaaaa"
+        },
+        "common/bb.png_cccccc": {
+            "bipFile": "common/bb.bip",
+            "bipFileMd5": "ddddddd",
+            "pngFile": "common/bb.png",
+            "pngFileMd5": "cccccc"
+        }
     },
-    "common/bb.png": {
-        "bipFile": "common/bb.bip",
-        "bipFileMd5": "ddddddd",
-        "pngFile": "common/bb.png",
-        "pngFileMd5": "cccccc"
-    }
+    "version": "1.1.0"
 }

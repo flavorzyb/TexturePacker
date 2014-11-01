@@ -1,4 +1,5 @@
 #include "png2bipcachetest.h"
+#include "include/config.h"
 
 Png2BipCacheTest::Png2BipCacheTest()
 {
@@ -17,10 +18,13 @@ void Png2BipCacheTest::cleanup()
 
 void Png2BipCacheTest::testLoad()
 {
+    QVERIFY(m_cache->getVersion() == "0");
     QCOMPARE(m_cache->load("images/png2bip.cache"), true);
     QVERIFY(m_cache->size() == 2);
     QCOMPARE(m_cache->load("images/png2bipxx33d.cache"), false);
     QVERIFY(m_cache->size() == 0);
+
+    QCOMPARE(m_cache->getVersion(), Config::VERSION);
 }
 
 void Png2BipCacheTest::testSave()

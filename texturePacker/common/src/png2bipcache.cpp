@@ -4,8 +4,9 @@
 #include <QFile>
 
 #include "include/png2bipcache.h"
+#include "include/config.h"
 
-Png2BipCache::Png2BipCache()
+Png2BipCache::Png2BipCache():m_version("0")
 {
 }
 
@@ -26,9 +27,11 @@ bool Png2BipCache::load(const QString &path)
     QJsonDocument doc(QJsonDocument::fromJson(jsonData));
 
     QJsonObject json = doc.object();
+    m_version = json["version"].toString();
+    QJsonObject data = json["data"].toObject();
 
-    QJsonObject::iterator iterator = json.begin();
-    for (; iterator != json.end(); iterator++)
+    QJsonObject::iterator iterator = data.begin();
+    for (; iterator != data.end(); iterator++)
     {
         QJsonObject value = iterator.value().toObject();
 
@@ -53,6 +56,9 @@ bool Png2BipCache::save(const QString &path)
     }
 
     QJsonObject json;
+    json.insert("version", Config::VERSION);
+
+    QJsonObject data;
 
     QMap<QString, Png2BipCahceVO>::iterator iterator = m_map.begin();
     for( ; iterator != m_map.end(); iterator++)
@@ -64,8 +70,10 @@ bool Png2BipCache::save(const QString &path)
         value.insert("bipFile", iterator->bipFilePath());
         value.insert("bipFileMd5", iterator->bipFileMd5String());
 
-        json.insert(iterator->pngFilePath() + "_" + iterator->pngFileMd5String(), value);
+        data.insert(iterator->pngFilePath() + "_" + iterator->pngFileMd5String(), value);
     }
+
+    json.insert("data", data);
 
     QJsonDocument doc(json);
 
