@@ -19,7 +19,8 @@ private Q_SLOTS:
     void init();
     void cleanup();
     void testGetSettingsVO();
-    void testPublish();
+    void testPublishIOS();
+    void testPublishAndroid();
 private:
     SettingsVO m_svo;
 };

@@ -28,7 +28,8 @@ HEADERS +=  $$PWD/include/config.h \
             $$PWD/include/worker.h \
             $$PWD/include/framevo.h \
             $$PWD/include/png2bipcahcevo.h \
-            $$PWD/include/png2bipcache.h
+            $$PWD/include/png2bipcache.h \
+            $$PWD/include/etc.h
 
 SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/settingsvo.cpp \
@@ -50,7 +51,8 @@ SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/worker.cpp \
             $$PWD/src/framevo.cpp \
             $$PWD/src/png2bipcahcevo.cpp \
-            $$PWD/src/png2bipcache.cpp
+            $$PWD/src/png2bipcache.cpp \
+            $$PWD/src/etc.cpp
 
 INCLUDEPATH += $$PWD
 
