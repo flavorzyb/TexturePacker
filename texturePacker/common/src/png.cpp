@@ -231,7 +231,7 @@ ETC * PNG::convertToETC()
     if (imagePath.length() < 1)
     {
         imagePath = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".png";
-        if (save(path) == false)
+        if (save(imagePath) == false)
         {
             return NULL;
         }

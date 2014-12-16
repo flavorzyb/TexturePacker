@@ -10,6 +10,7 @@
 #include "png2bipcachetest.h"
 #include "etcheadertest.h"
 #include "etctest.h"
+#include "etcencodetest.h"
 
 int main(int argc, char *argv[])
 {
@@ -24,10 +25,11 @@ int main(int argc, char *argv[])
     Png2BipCacheTest png2BipCache;
     ETCHeaderTest etcHeader;
     ETCTest etc;
+    ETCEncodeTest etcEncode;
 
 //    QTest::qExec(&fileUtils, argc, argv);
 //    QTest::qExec(&publish, argc, argv);
-    QTest::qExec(&png, argc, argv);
+//    QTest::qExec(&png, argc, argv);
 
 //    QTest::qExec(&pvr, argc, argv);
 //    QTest::qExec(&reader, argc, argv);
@@ -36,8 +38,10 @@ int main(int argc, char *argv[])
 //    QTest::qExec(&bipWriter, argc, argv);
 //    QTest::qExec(&bipReader, argc, argv);
 //    QTest::qExec(&png2BipCache, argc, argv);
+
 //    QTest::qExec(&etcHeader, argc, argv);
 //    QTest::qExec(&etc, argc, argv);
+    QTest::qExec(&etcEncode, argc, argv);
 
     return 0;
 }

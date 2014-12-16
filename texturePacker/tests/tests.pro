@@ -29,7 +29,8 @@ SOURCES += \
     bipreadertest.cpp \
     png2bipcachetest.cpp \
     etcheadertest.cpp \
-    etctest.cpp
+    etctest.cpp \
+    etcencodetest.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
@@ -46,11 +47,14 @@ HEADERS += \
     bipreadertest.h \
     png2bipcachetest.h \
     etcheadertest.h \
-    etctest.h
+    etctest.h \
+    etcencodetest.h
 
 macx {
     QMAKE_POST_LINK =   rm -rf images && cp -rf $$PWD/images ./ && \
                         rm -rf input && cp -rf $$PWD/input ./ && \
                         rm -rf output && mkdir output && \
-                        rm -rf data && cp -rf $$PWD/data ./
+                        rm -rf data && cp -rf $$PWD/data ./  && \
+                        cp $$PWD/../common/bin/etcpack ./  && \
+                        cp $$PWD/../common/bin/convert ./
 }
