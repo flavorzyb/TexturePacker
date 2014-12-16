@@ -3,6 +3,7 @@
 #include "include/png.h"
 #include "include/imageutils.h"
 #include "include/fileutils.h"
+#include "include/etcencode.h"
 
 PNG::PNG():Image()
     , m_pImg(NULL)
@@ -237,6 +238,6 @@ ETC * PNG::convertToETC()
         }
     }
 
-
-    return NULL;
+    ETCEncode encode;
+    return encode.convert(imagePath);
 }
