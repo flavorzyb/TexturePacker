@@ -1,4 +1,4 @@
-#ifndef FrameVO_H
+#ifndef IMAGEVO_H
 #define IMAGEVO_H
 
 #include <QVector>

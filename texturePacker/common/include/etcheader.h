@@ -4,8 +4,7 @@
 class ETCHeader
 {
 public:
-    ETCHeader();
-    ETCHeader(const unsigned char * data);
+    explicit ETCHeader(const unsigned char * data);
     unsigned short getWidth(void);
     unsigned short getHeight(void);
     unsigned short getPaddedWidth(void);

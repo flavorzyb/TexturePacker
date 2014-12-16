@@ -2,9 +2,8 @@
 #define PNG_H
 #include <QRect>
 #include "include/image.h"
-
-class PVR;
-class ETC;
+#include "include/pvr.h"
+#include "include/etc.h"
 
 class PNG : public Image
 {

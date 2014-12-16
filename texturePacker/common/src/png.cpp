@@ -3,8 +3,6 @@
 #include "include/png.h"
 #include "include/imageutils.h"
 #include "include/fileutils.h"
-#include "include/pvr.h"
-#include "include/etc.h"
 
 PNG::PNG():Image()
     , m_pImg(NULL)

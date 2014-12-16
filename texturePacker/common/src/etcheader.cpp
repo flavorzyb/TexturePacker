@@ -1,9 +1,5 @@
 #include "include/etcheader.h"
 
-ETCHeader::ETCHeader()
-{
-}
-
 ETCHeader::ETCHeader(const unsigned char *data)
 {
     _paddedWidthMSB = data[8];
