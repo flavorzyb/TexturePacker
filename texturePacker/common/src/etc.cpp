@@ -4,16 +4,14 @@
 #include "include/ziputils.h"
 
 ETC::ETC():
-    Image()
-  , m_imagevo(0, 0)
+    BipImage()
   , m_data(NULL)
   , m_size(0)
 {
 }
 
 ETC::ETC(const QString & filename):
-    Image(filename)
-  , m_imagevo(0, 0)
+    BipImage(filename)
   , m_data(NULL)
   , m_size(0)
 {
@@ -125,16 +123,6 @@ unsigned char * ETC::saveCCZToBuffer(unsigned long *size)
     }
 
     return NULL;
-}
-
-const ImageVO ETC::imagevo() const
-{
-    return m_imagevo;
-}
-
-void ETC::setImagevo(const ImageVO & imagevo)
-{
-    m_imagevo = imagevo;
 }
 
 bool ETC::loadETC(const QString & filename)

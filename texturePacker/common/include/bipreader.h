@@ -7,7 +7,6 @@
 
 class BipReader : public BipAbstract
 {
-    Q_OBJECT
 public:
     explicit BipReader(const QString & fileName);
     virtual ~BipReader();

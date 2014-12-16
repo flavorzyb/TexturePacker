@@ -7,7 +7,6 @@
 
 class PNG : public Image
 {
-    Q_OBJECT
 public:
     PNG();
     PNG(const QString & filename);

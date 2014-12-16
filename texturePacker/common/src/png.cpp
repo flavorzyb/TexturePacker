@@ -261,7 +261,7 @@ ETC * PNG::convertToETC()
 
         ivo.addFrame(frame);
 
-        result->setImagevo(ivo);
+        result->setImageVO(ivo);
 
         return result;
     }

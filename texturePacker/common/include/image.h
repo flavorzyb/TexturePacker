@@ -5,9 +5,8 @@
 #include <QString>
 #include <QImage>
 
-class Image : public QObject
+class Image
 {
-    Q_OBJECT
 public:
     Image();
     Image(const QString & filename);
@@ -21,10 +20,6 @@ public:
     int height() const;
     const QString & filePath() const;
     bool exists(const QString & filename) const;
-
-signals:
-
-public slots:
 
 protected:
     void setFilePath(const QString &filePath);

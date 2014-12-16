@@ -56,16 +56,16 @@ void Worker::run()
         else if (m_publisher->getSettingsVO().isAndroidFormat())
         {
             ETC * etc = png.convertToETC();
-            ImageVO ivo = etc->imagevo();
+            ImageVO ivo = etc->getImageVO();
             ivo.setFileName(path);
             ivo.chopFrameNamePath(FileUtils::getAbsoluteDirPath(m_inputPath));
             path  = m_outputPath + "/" + path;
-            etc->setImagevo(ivo);
+            etc->setImageVO(ivo);
             int index = path.lastIndexOf(".");
             path = path.left(index) + ".bip";
-            BipWriter writer(etc);
+//            BipWriter writer(etc);
             FileUtils::createParentDirectory(path);
-            writer.save(path);
+//            writer.save(path);
             m_publisher->doneFile(true, m_imageFilePath, path, png.width(), png.height());
         }
     }
