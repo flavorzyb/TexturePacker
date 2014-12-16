@@ -1,6 +1,6 @@
 #include "etcheadertest.h"
-#include "include/etcheader.h"
-#include "include/fileutils.h"
+#include "common/include/etcheader.h"
+#include "common/include/fileutils.h"
 
 ETCHeaderTest::ETCHeaderTest()
 {

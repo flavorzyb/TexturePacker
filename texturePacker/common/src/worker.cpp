@@ -38,26 +38,25 @@ void Worker::run()
             return ;
         }
 
-        ImageVO ivo;
+        ImageVO ivo(0,0);
         if (m_publisher->getSettingsVO().isIOSFormat())
         {
             PVR * pvr = png.convertToPVR();
             ivo = pvr->imagevo();
+            ivo.setFileName(path);
+            ivo.chopFrameNamePath(FileUtils::getAbsoluteDirPath(m_inputPath));
+            path  = m_outputPath + "/" + path;
+            pvr->setImagevo(ivo);
+            int index = path.lastIndexOf(".");
+            path = path.left(index) + ".bip";
+            BipWriter writer(pvr);
+            FileUtils::createParentDirectory(path);
+            writer.save(path);
+            m_publisher->doneFile(true, m_imageFilePath, path, png.width(), png.height());
         }
         else if (m_publisher->getSettingsVO().isAndroidFormat())
         {
         }
-
-        ivo.setFileName(path);
-        ivo.chopFrameNamePath(FileUtils::getAbsoluteDirPath(m_inputPath));
-        path  = m_outputPath + "/" + path;
-        pvr->setImagevo(ivo);
-        int index = path.lastIndexOf(".");
-        path = path.left(index) + ".bip";
-        BipWriter writer(pvr);
-        FileUtils::createParentDirectory(path);
-        writer.save(path);
-        m_publisher->doneFile(true, m_imageFilePath, path, png.width(), png.height());
     }
 }
 

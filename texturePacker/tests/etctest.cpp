@@ -1,6 +1,6 @@
 #include "etctest.h"
-#include "include/etc.h"
-#include "include/fileutils.h"
+#include "common/include/etc.h"
+#include "common/include/fileutils.h"
 
 ETCTest::ETCTest() :
     QObject()

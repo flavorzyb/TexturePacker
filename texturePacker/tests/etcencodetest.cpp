@@ -1,5 +1,5 @@
 #include "etcencodetest.h"
-#include "include/etcencode.h"
+#include "common/include/etcencode.h"
 
 ETCEncodeTest::ETCEncodeTest():QObject()
 {

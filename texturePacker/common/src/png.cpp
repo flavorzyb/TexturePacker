@@ -228,6 +228,11 @@ QRect PNG::findCropRect()
 
 ETC * PNG::convertToETC()
 {
+    if (m_pImg == NULL)
+    {
+        return NULL;
+    }
+
     QString imagePath = filePath();
     if (imagePath.length() < 1)
     {
@@ -239,5 +244,27 @@ ETC * PNG::convertToETC()
     }
 
     ETCEncode encode;
-    return encode.convert(imagePath);
+    ETC * result = encode.convert(imagePath);
+
+    if (result != NULL)
+    {
+        int w = width();
+        int h = height();
+        ImageVO ivo(w, h);
+        ivo.setFileName(filePath());
+        FrameVO frame(w, h);
+        frame.setName(filePath());
+        frame.setMd5String(FileUtils::md5File(filePath()));
+        frame.setRect(0, 0, w, h);
+        frame.setOffset(0, 0);
+        frame.setSourceColorRect(0, 0, w, h);
+
+        ivo.addFrame(frame);
+
+        result->setImagevo(ivo);
+
+        return result;
+    }
+
+    return NULL;
 }

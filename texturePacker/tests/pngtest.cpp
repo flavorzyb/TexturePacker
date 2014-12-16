@@ -1,6 +1,7 @@
 #include "pngtest.h"
 #include "common/include/png.h"
 #include "common/include/pvr.h"
+#include "common/include/etc.h"
 
 PngTest::PngTest()
 {
@@ -43,4 +44,13 @@ void PngTest::testConvertToPVR()
 Image *PngTest::getImage()
 {
     return m_image;
+}
+
+void PngTest::testConvertToETC()
+{
+    m_image->load();
+    ETC * result = m_image->convertToETC();
+    QVERIFY(result != NULL);
+    QCOMPARE(result->save("output/zw_shu.pkm"), true);
+    QCOMPARE(result->saveCCZ("output/zw_shu.pkm.ccz"), true);
 }

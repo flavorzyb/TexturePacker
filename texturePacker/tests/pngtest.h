@@ -16,7 +16,7 @@ private Q_SLOTS:
     virtual void testLoad();
     virtual void testSave();
     void testConvertToPVR();
-
+    void testConvertToETC();
 protected:
     virtual Image * getImage();
 
