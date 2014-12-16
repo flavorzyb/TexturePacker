@@ -123,6 +123,11 @@ QString FileUtils::getAbsoluteDirPath(const QString &path)
     return dir.absolutePath();
 }
 
+unsigned char* FileUtils::getFileData(const QString & pszFileName, const char* pszMode, unsigned long * pSize)
+{
+    return getFileData(pszFileName.toStdString().c_str(), pszMode, pSize);
+}
+
 unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMode, unsigned long *pSize)
 {
     unsigned char * pBuffer = NULL;
@@ -166,16 +171,31 @@ unsigned char *FileUtils::getFileData(const char *pszFileName, const char *pszMo
         return true; \
     } \
 
+bool FileUtils::writeFile(const QString & fileName,
+                          const char * mode,
+                          const unsigned char * content,
+                          unsigned long size)
+{
+    return writeFile(fileName.toStdString().c_str(), mode, content, size);
+}
+
 bool FileUtils::writeFile(const char *fileName, const char *mode, const unsigned char *content, unsigned long size)
 {
     WRITE_FILE_DATA(filename, mode, unsigned char, content, size)
 
     return false;
 }
+bool FileUtils::writeFile(const QString & fileName,
+                      const char * mode,
+                      const char * content,
+                      unsigned long size)
+{
+    return writeFile(fileName.toStdString().c_str(), mode, content, size);
+}
 
 bool FileUtils::writeFile(const char *fileName, const char *mode, const char *content, unsigned long size)
 {
-    WRITE_FILE_DATA(filename, mode, char, content, size)
+    WRITE_FILE_DATA(fileName, mode, char, content, size)
 
     return false;
 }

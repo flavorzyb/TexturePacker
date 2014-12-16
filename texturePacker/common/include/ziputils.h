@@ -2,6 +2,7 @@
 #define ZIPUTILS_H
 
 #include <QObject>
+#include <QString>
 
 struct CCZHeader {
         unsigned char   sig[4];             // signature. Should be 'CCZ!' 4 bytes
@@ -23,9 +24,11 @@ class ZipUtils : public QObject
     Q_OBJECT
 public:
     ZipUtils();
+    static int ccInflateCCZFile(const QString & filename, unsigned char **out);
     static int ccInflateCCZFile(const char *filename, unsigned char **out);
     static int ccInflateCCZData(const unsigned char *compressed, unsigned int dataLen, unsigned char **out);
     static bool ccDeflateCCZFile(const char * filename, unsigned char * data, unsigned long dataLen);
+    static bool ccDeflateCCZFile(const QString & filename, unsigned char * data, unsigned long dataLen);
     static int ccDeflateCCZData(unsigned char * data, unsigned long dataLen, unsigned char **out);
 };
 

@@ -18,9 +18,30 @@ public:
     static bool createParentDirectory(const QString & path);
     static QString getAbsoluteFilePath(const QString & path);
     static QString getAbsoluteDirPath(const QString & path);
-    static unsigned char* getFileData(const char* pszFileName, const char* pszMode, unsigned long * pSize);
-    static bool writeFile(const char * fileName, const char * mode, const unsigned char * content, unsigned long size);
-    static bool writeFile(const char * fileName, const char * mode, const char * content, unsigned long size);
+    static unsigned char* getFileData(const char* pszFileName,
+                                      const char* pszMode,
+                                      unsigned long * pSize);
+    static unsigned char* getFileData(const QString & pszFileName,
+                                      const char* pszMode,
+                                      unsigned long * pSize);
+
+    static bool writeFile(const QString & fileName,
+                          const char * mode,
+                          const unsigned char * content,
+                          unsigned long size);
+    static bool writeFile(const char * fileName,
+                          const char * mode,
+                          const unsigned char * content,
+                          unsigned long size);
+    static bool writeFile(const QString & fileName,
+                          const char * mode,
+                          const char * content,
+                          unsigned long size);
+    static bool writeFile(const char * fileName,
+                          const char * mode,
+                          const char * content,
+                          unsigned long size);
+
     static QString createImageTempFolder();
     static QString getRandFileNameString();
     static bool unlink(const QString & filename);

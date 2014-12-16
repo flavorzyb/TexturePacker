@@ -18,7 +18,7 @@ void ETCHeaderTest::cleanup()
 void ETCHeaderTest::testLoadETCHeader()
 {
     unsigned long size = 0;
-    unsigned char * data = FileUtils::getFileData(m_etcFilePath.toStdString().c_str(), "rb", &size);
+    unsigned char * data = FileUtils::getFileData(m_etcFilePath, "rb", &size);
     QVERIFY(size > 16);
     QVERIFY(data != NULL);
 

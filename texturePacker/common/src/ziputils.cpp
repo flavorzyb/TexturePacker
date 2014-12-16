@@ -8,6 +8,10 @@
 ZipUtils::ZipUtils()
 {
 }
+int ZipUtils::ccInflateCCZFile(const QString & filename, unsigned char **out)
+{
+    return ccInflateCCZFile(filename.toStdString().c_str(), out);
+}
 
 int ZipUtils::ccInflateCCZFile(const char *filename, unsigned char **out)
 {
@@ -93,6 +97,11 @@ int ZipUtils::ccInflateCCZData(const unsigned char *compressed, unsigned int dat
     }
 
     return len;
+}
+
+bool ZipUtils::ccDeflateCCZFile(const QString & filename, unsigned char * data, unsigned long dataLen)
+{
+    return ccDeflateCCZFile(filename.toStdString().c_str(), data, dataLen);
 }
 
 bool ZipUtils::ccDeflateCCZFile(const char *filename, unsigned char *data, unsigned long dataLen)

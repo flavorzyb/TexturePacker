@@ -8,7 +8,7 @@
 class ETC : public Image
 {
 public:
-    explicit ETC();
+    ETC();
     explicit ETC(const QString & filename);
     virtual ~ETC();
 

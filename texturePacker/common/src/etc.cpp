@@ -92,10 +92,7 @@ bool ETC::save(const QString & filename)
 {
     if ((m_data != NULL) && (m_size > 16))
     {
-        return FileUtils::writeFile(filename.toStdString().c_str(),
-                                    "wb",
-                                    m_data,
-                                    m_size);
+        return FileUtils::writeFile(filename, "wb", m_data, m_size);
     }
     return false;
 }
@@ -104,7 +101,7 @@ bool ETC::saveCCZ(const QString & filename)
 {
     if ((m_data != NULL) && (m_size > 16))
     {
-        return ZipUtils::ccDeflateCCZFile(filename.toStdString().c_str(),
+        return ZipUtils::ccDeflateCCZFile(filename,
                                           m_data, m_size);
     }
 
@@ -144,9 +141,7 @@ bool ETC::loadETC(const QString & filename)
 {
     FREE_ETC_DATA();
 
-    m_data = FileUtils::getFileData(filename.toStdString().c_str(),
-                                    "rb",
-                                    &m_size);
+    m_data = FileUtils::getFileData(filename, "rb", &m_size);
 
     if ((m_size > 16) && (m_data != NULL))
     {
