@@ -4,6 +4,7 @@
 #include "include/image.h"
 
 class PVR;
+class ETC;
 
 class PNG : public Image
 {
@@ -15,6 +16,7 @@ public:
     virtual bool load();
     bool loadData(const unsigned char * pData, int width, int height);
     PVR * convertToPVR();
+    ETC * convertToETC();
     virtual bool save(const QString & filename);
     inline const QImage * getImage() const {return m_pImg;}
 private:

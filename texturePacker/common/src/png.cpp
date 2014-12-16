@@ -4,6 +4,7 @@
 #include "include/imageutils.h"
 #include "include/fileutils.h"
 #include "include/pvr.h"
+#include "include/etc.h"
 
 PNG::PNG():Image()
     , m_pImg(NULL)
@@ -224,4 +225,9 @@ QRect PNG::findCropRect()
     }
 
     return QRect(minx, miny, maxx, maxy);
+}
+
+ETC * PNG::convertToETC()
+{
+    return NULL;
 }

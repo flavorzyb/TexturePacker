@@ -3,13 +3,9 @@
 
 class ETC : public Image
 {
-    Q_OBJECT
 public:
-    explicit ETC(QObject *parent = 0);
-
-signals:
-
-public slots:
+    explicit ETC();
+    ETC(const QString & filename);
 
 };
 

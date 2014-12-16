@@ -1,4 +1,4 @@
-#include "etc.h"
+#include "include/etc.h"
 
 ETC::ETC(QObject *parent) :
     Image(parent)

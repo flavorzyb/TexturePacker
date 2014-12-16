@@ -14,7 +14,6 @@ class PVR : public Image
 public:
     PVR();
     PVR(const QString & filename);
-//    PVR(const PVR & pvr);
     virtual ~PVR();
     virtual bool load();
     bool loadData(const unsigned char * pData, unsigned long size);
@@ -32,6 +31,7 @@ public:
     PNG * convertToPng();
 
 private:
+    PVR(const PVR & pvr);
     bool isPVRCCZFile(const QString & filename) const;
     bool loadPVRCCZ(const QString & filename);
     bool loadPVR(const QString & filename);
