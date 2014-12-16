@@ -38,8 +38,16 @@ void Worker::run()
             return ;
         }
 
-        PVR * pvr = png.convertToPVR();
-        ImageVO ivo = pvr->imagevo();
+        ImageVO ivo;
+        if (m_publisher->getSettingsVO().isIOSFormat())
+        {
+            PVR * pvr = png.convertToPVR();
+            ivo = pvr->imagevo();
+        }
+        else if (m_publisher->getSettingsVO().isAndroidFormat())
+        {
+        }
+
         ivo.setFileName(path);
         ivo.chopFrameNamePath(FileUtils::getAbsoluteDirPath(m_inputPath));
         path  = m_outputPath + "/" + path;

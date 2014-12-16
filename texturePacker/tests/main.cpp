@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     ETCEncodeTest etcEncode;
 
 //    QTest::qExec(&fileUtils, argc, argv);
-//    QTest::qExec(&publish, argc, argv);
+    QTest::qExec(&publish, argc, argv);
 //    QTest::qExec(&png, argc, argv);
 
 //    QTest::qExec(&pvr, argc, argv);
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
 //    QTest::qExec(&etcHeader, argc, argv);
 //    QTest::qExec(&etc, argc, argv);
-    QTest::qExec(&etcEncode, argc, argv);
+//    QTest::qExec(&etcEncode, argc, argv);
 
     return 0;
 }

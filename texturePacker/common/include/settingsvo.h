@@ -24,6 +24,9 @@ public:
     void setOutputPath(QString path);
     void setFormat(format f);
 
+    inline bool isIOSFormat() const { return m_format == IOS;}
+    inline bool isAndroidFormat() const { return m_format == ANDROID;}
+
     QString getInputPath() const;
     QString getAbsoluteInputDirPath() const;
     QString getOutputPath() const;
