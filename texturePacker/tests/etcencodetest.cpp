@@ -21,4 +21,6 @@ void ETCEncodeTest::testConvert()
     QVERIFY(etc != NULL);
     QCOMPARE(etc->width(), 500);
     QCOMPARE(etc->height(), 1000);
+
+    etc->save("output/zw_shu.pkm");
 }

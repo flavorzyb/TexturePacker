@@ -298,3 +298,9 @@ unsigned int FileUtils::getFileSize(const QString &filePath)
     QFileInfo fileInfo(filePath);
     return fileInfo.size();
 }
+
+QString FileUtils::getFileBaseName(const QString & filePath)
+{
+    QFileInfo fileInfo(filePath);
+    return fileInfo.completeBaseName();
+}

@@ -53,6 +53,7 @@ public:
     static QString getPng2BipCacheFilePath(const QString &hashPath, SettingsVO::format format);
     static bool copyFile(const QString & sourceFileName, const QString & destFileName);
     static unsigned int getFileSize(const QString & filePath);
+    static QString getFileBaseName(const QString & filePath);
 signals:
 
 public slots:
