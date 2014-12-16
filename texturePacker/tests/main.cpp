@@ -36,7 +36,7 @@ int main(int argc, char *argv[])
 //    QTest::qExec(&bipWriter, argc, argv);
 //    QTest::qExec(&bipReader, argc, argv);
 //    QTest::qExec(&png2BipCache, argc, argv);
-//    QTest::qExec(&etcHeader, argc, argv);
+    QTest::qExec(&etcHeader, argc, argv);
     QTest::qExec(&etc, argc, argv);
 
     return 0;
