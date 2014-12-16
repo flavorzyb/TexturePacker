@@ -34,8 +34,8 @@ int main(int argc, char *argv[])
     setenv("PATH", path.toStdString().c_str(), 1);
 
 //    QTest::qExec(&fileUtils, argc, argv);
-//    QTest::qExec(&publish, argc, argv);
-    QTest::qExec(&png, argc, argv);
+    QTest::qExec(&publish, argc, argv);
+//    QTest::qExec(&png, argc, argv);
 
 //    QTest::qExec(&pvr, argc, argv);
 //    QTest::qExec(&reader, argc, argv);

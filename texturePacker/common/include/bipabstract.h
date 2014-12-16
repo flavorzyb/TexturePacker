@@ -1,13 +1,11 @@
 #ifndef BIPABSTRACT_H
 #define BIPABSTRACT_H
 
-#include <QObject>
-
 #include "include/pvr.h"
+#include "include/etc.h"
 
-class BipAbstract : public QObject
+class BipAbstract
 {
-    Q_OBJECT
 public:
     explicit BipAbstract();
     virtual ~BipAbstract();
@@ -23,7 +21,8 @@ private:
     const BipAbstract & operator = (const BipAbstract & bip);
 
 private:
-    PVR *m_pvr;
+    PVR * m_pvr;
+    ETC * m_etc;
 };
 
 #endif // BIPABSTRACT_H

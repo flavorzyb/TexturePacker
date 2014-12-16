@@ -12,6 +12,7 @@ class BipWriter : public BipAbstract
     Q_OBJECT
 public:
     explicit BipWriter(PVR *pvr);
+    explicit BipWriter(PVR *pvr);
     virtual ~BipWriter();
     bool save(const QString & filepath);
 
