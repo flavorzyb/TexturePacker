@@ -227,5 +227,16 @@ QRect PNG::findCropRect()
 
 ETC * PNG::convertToETC()
 {
+    QString imagePath = filePath();
+    if (imagePath.length() < 1)
+    {
+        imagePath = FileUtils::createImageTempFolder() + "/" + FileUtils::getRandFileNameString() + ".png";
+        if (save(path) == false)
+        {
+            return NULL;
+        }
+    }
+
+
     return NULL;
 }
