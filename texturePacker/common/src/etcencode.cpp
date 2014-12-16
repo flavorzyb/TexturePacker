@@ -1,5 +1,6 @@
 #include <QImage>
 #include <QProcess>
+#include <QProcessEnvironment>
 #include "include/etcencode.h"
 #include "include/fileutils.h"
 
@@ -103,6 +104,7 @@ ETC * ETCEncode::convert(const QString & pngPath)
 
     QProcess process;
     QString cmd = "etcpack " + FileUtils::getAbsoluteFilePath(pngPath) + " " + outPath + " -s fast -c etc1 -aa";
+
     process.start(cmd);
     process.waitForFinished();
 
@@ -132,15 +134,15 @@ void ETCEncode::writeBEUint16(unsigned char * pOut, unsigned int data)
 
 void ETCEncode::createHeader(unsigned int width, unsigned int height)
 {
-    memcpy(_headerData, PKM_HEADER, sizeof(PKM_HEADER));
+    memcpy(m_headerData, PKM_HEADER, sizeof(PKM_HEADER));
     unsigned int encodedWidth = (width + 3) & ~3;
     unsigned int encodedHeight = (height + 3) & ~3;
 
-    writeBEUint16(_headerData + ETC1_PKM_FORMAT_OFFSET, ETC1_RGB_NO_MIPMAPS);
-    writeBEUint16(_headerData + ETC1_PKM_ENCODED_WIDTH_OFFSET, encodedWidth);
-    writeBEUint16(_headerData + ETC1_PKM_ENCODED_HEIGHT_OFFSET, encodedHeight);
-    writeBEUint16(_headerData + ETC1_PKM_WIDTH_OFFSET, width);
-    writeBEUint16(_headerData + ETC1_PKM_HEIGHT_OFFSET, height);
+    writeBEUint16(m_headerData + ETC1_PKM_FORMAT_OFFSET, ETC1_RGB_NO_MIPMAPS);
+    writeBEUint16(m_headerData + ETC1_PKM_ENCODED_WIDTH_OFFSET, encodedWidth);
+    writeBEUint16(m_headerData + ETC1_PKM_ENCODED_HEIGHT_OFFSET, encodedHeight);
+    writeBEUint16(m_headerData + ETC1_PKM_WIDTH_OFFSET, width);
+    writeBEUint16(m_headerData + ETC1_PKM_HEIGHT_OFFSET, height);
 }
 
 unsigned char * ETCEncode::encodeImage(const unsigned char* pIn,

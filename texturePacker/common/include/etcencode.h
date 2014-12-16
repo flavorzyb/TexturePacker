@@ -15,7 +15,6 @@ public:
     ETCEncode();
     virtual ~ETCEncode();
     ETC * convert(const QString & pngPath);
-
 private:
     ETCEncode(const ETCEncode & etc);
     ETCEncode & operator = (const ETCEncode & etc);
@@ -73,7 +72,8 @@ private:
     static const unsigned int ETC1_PKM_HEIGHT_OFFSET;
     static const unsigned int ETC1_RGB_NO_MIPMAPS;
 private:
-    unsigned char _headerData[HEADER_SIZE];
+    unsigned char m_headerData[HEADER_SIZE];
+
 };
 
 #endif // ETCENCODE_H
