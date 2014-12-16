@@ -1,6 +1,5 @@
 #include "include/etc.h"
 
-ETC::ETC(QObject *parent) :
-    Image(parent)
+ETC::ETC():Image()
 {
 }

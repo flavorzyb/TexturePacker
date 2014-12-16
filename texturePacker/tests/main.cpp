@@ -8,6 +8,7 @@
 #include "bipwritertest.h"
 #include "bipreadertest.h"
 #include "png2bipcachetest.h"
+#include "etcheadertest.h"
 
 int main(int argc, char *argv[])
 {
@@ -20,9 +21,10 @@ int main(int argc, char *argv[])
     BipWriterTest bipWriter;
     BipReaderTest bipReader;
     Png2BipCacheTest png2BipCache;
+    ETCHeaderTest etcHeader;
 
 //    QTest::qExec(&fileUtils, argc, argv);
-    QTest::qExec(&publish, argc, argv);
+//    QTest::qExec(&publish, argc, argv);
 //    QTest::qExec(&png, argc, argv);
 
 //    QTest::qExec(&pvr, argc, argv);
@@ -32,6 +34,7 @@ int main(int argc, char *argv[])
 //    QTest::qExec(&bipWriter, argc, argv);
 //    QTest::qExec(&bipReader, argc, argv);
 //    QTest::qExec(&png2BipCache, argc, argv);
+    QTest::qExec(&etcHeader, argc, argv);
 
     return 0;
 }
