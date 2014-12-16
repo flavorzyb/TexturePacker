@@ -45,7 +45,7 @@ bool ViewWindow::loadFile(const QString &filePath)
 
         m_lbStatusBar->setText(strSize);
 
-        const QVector<FrameVO> framelists = pvr->imagevo().frames();
+        const QVector<FrameVO> framelists = pvr->getImageVO().frames();
         QVector<FrameVO>::const_iterator iterator = framelists.begin();
         for (; iterator != framelists.end(); iterator++)
         {

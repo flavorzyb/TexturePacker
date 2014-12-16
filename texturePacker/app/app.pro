@@ -36,4 +36,6 @@ macx {
     ICON = $$PWD/../resources/icon/tp.icns
     QMAKE_INFO_PLIST = $$PWD/../resources/Info.plist
     ##LIBS += -framework CoreFoundation
+    QMAKE_POST_LINK =   cp $$PWD/../common/bin/etcpack BipPacker.app/Contents/MacOS  && \
+                        cp $$PWD/../common/bin/convert BipPacker.app/Contents/MacOS
 }

@@ -28,8 +28,7 @@ int main(int argc, char *argv[])
     ETCEncodeTest etcEncode;
 
     QCoreApplication app(argc, argv);
-    QString path = "";
-    path += getenv("PATH");
+    QString path = getenv("PATH");
     path += ":" + app.applicationDirPath();
     setenv("PATH", path.toStdString().c_str(), 1);
 
