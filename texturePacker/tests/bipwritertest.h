@@ -15,10 +15,8 @@ public:
 private Q_SLOTS:
     virtual void init();
     virtual void cleanup();
-    void testSave();
-
-private:
-    BipWriter *m_writer;
+    void testSavePVR();
+    void testSaveETC();
 };
 
 #endif // BIPWRITERTEST_H

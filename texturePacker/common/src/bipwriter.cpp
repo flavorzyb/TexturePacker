@@ -2,9 +2,9 @@
 #include "include/writer.h"
 #include "include/fileutils.h"
 
-BipWriter::BipWriter(PVR *pvr):BipAbstract()
+BipWriter::BipWriter(BipImage *img):BipAbstract()
 {
-    setPvr(pvr);
+    setBipImage(img);
 }
 
 BipWriter::~BipWriter()
@@ -13,13 +13,13 @@ BipWriter::~BipWriter()
 
 bool BipWriter::save(const QString &filepath)
 {
-    PVR * pvr = this->pvr();
-    if (NULL == pvr)
+    BipImage * result = getBipImage();
+    if (NULL == result)
     {
         return false;
     }
 
-    if (pvr->isEmpty())
+    if (result->isEmpty())
     {
         return false;
     }
@@ -27,7 +27,7 @@ bool BipWriter::save(const QString &filepath)
     Writer writer;
     initWriter(&writer);
 
-    if (writerHeadData(&writer, filepath) && writerPVRData(filepath))
+    if (writerHeadData(&writer, filepath) && writerData(filepath))
     {
         return true;
     }
@@ -37,8 +37,8 @@ bool BipWriter::save(const QString &filepath)
 
 void BipWriter::initWriter(Writer * writer)
 {
-    PVR * pvr = this->pvr();
-    ImageVO ivo = pvr->imagevo();
+    BipImage * result = getBipImage();
+    ImageVO ivo = result->getImageVO();
     const QVector<FrameVO> & frameLists = ivo.frames();
     unsigned int frameCount = frameLists.size();
 
@@ -104,11 +104,11 @@ bool BipWriter::writerHeadData(Writer *writer, const QString & filepath)
     return FileUtils::writeFile(filepath.toStdString().c_str(), "wb", pData, len);
 }
 
-bool BipWriter::writerPVRData(const QString &filepath)
+bool BipWriter::writerData(const QString &filepath)
 {
-    PVR * pvr = this->pvr();
+    BipImage * img = getBipImage();
     unsigned long size = 0;
-    unsigned char *pData = pvr->saveCCZToBuffer(&size);
+    unsigned char *pData = img->saveCCZToBuffer(&size);
 
     if ((NULL != pData) && (size > 0))
     {

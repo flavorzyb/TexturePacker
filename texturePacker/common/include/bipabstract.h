@@ -1,16 +1,15 @@
 #ifndef BIPABSTRACT_H
 #define BIPABSTRACT_H
 
-#include "include/pvr.h"
-#include "include/etc.h"
+#include "include/bipimage.h"
 
 class BipAbstract
 {
 public:
     explicit BipAbstract();
     virtual ~BipAbstract();
-    PVR * pvr() const;
-    void setPvr(PVR *pvr);
+    BipImage * getBipImage() const;
+    void setBipImage(BipImage *img);
     bool isBipFile(const unsigned char * buffer, unsigned long size);
 public:
     enum{HEAD_DATA_SIZE = 8};
@@ -21,8 +20,7 @@ private:
     const BipAbstract & operator = (const BipAbstract & bip);
 
 private:
-    PVR * m_pvr;
-    ETC * m_etc;
+    BipImage * m_bipImage;
 };
 
 #endif // BIPABSTRACT_H

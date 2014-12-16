@@ -1,15 +1,14 @@
 #ifndef PVR_H
 #define PVR_H
 
-#include "include/image.h"
+#include "include/bipimage.h"
 #include "include/PVRTDecompress.h"
 #include "include/PVRTexture.h"
 #include "include/PVRTextureUtilities.h"
-#include "include/imagevo.h"
 
 class PNG;
 
-class PVR : public Image
+class PVR : public BipImage
 {
 public:
     PVR();
@@ -23,9 +22,6 @@ public:
     bool saveCCZ(const QString & filename);
     unsigned char * saveCCZToBuffer(unsigned long *size);
 
-    ImageVO imagevo() const;
-    void setImagevo(const ImageVO & imagevo);
-
     inline bool isEmpty() const { return (NULL == m_pvrTexture);}
 
     PNG * convertToPng();
@@ -37,7 +33,6 @@ private:
     bool loadPVR(const QString & filename);
 private:
     pvrtexture::CPVRTexture * m_pvrTexture;
-    ImageVO m_imagevo;
 };
 
 #endif // PVR_H

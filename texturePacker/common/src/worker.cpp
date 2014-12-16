@@ -41,11 +41,11 @@ void Worker::run()
         if (m_publisher->getSettingsVO().isIOSFormat())
         {
             PVR * pvr = png.convertToPVR();
-            ImageVO ivo = pvr->imagevo();
+            ImageVO ivo = pvr->getImageVO();
             ivo.setFileName(path);
             ivo.chopFrameNamePath(FileUtils::getAbsoluteDirPath(m_inputPath));
             path  = m_outputPath + "/" + path;
-            pvr->setImagevo(ivo);
+            pvr->setImageVO(ivo);
             int index = path.lastIndexOf(".");
             path = path.left(index) + ".bip";
             BipWriter writer(pvr);
@@ -63,9 +63,9 @@ void Worker::run()
             etc->setImageVO(ivo);
             int index = path.lastIndexOf(".");
             path = path.left(index) + ".bip";
-//            BipWriter writer(etc);
+            BipWriter writer(etc);
             FileUtils::createParentDirectory(path);
-//            writer.save(path);
+            writer.save(path);
             m_publisher->doneFile(true, m_imageFilePath, path, png.width(), png.height());
         }
     }

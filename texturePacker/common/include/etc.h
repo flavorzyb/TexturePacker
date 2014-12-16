@@ -20,7 +20,7 @@ public:
 
     inline const unsigned char * getData() const {return m_data;}
     inline unsigned long getSize() const {return m_size;}
-
+    inline bool isEmpty() const { return (NULL == m_data);}
 private:
     ETC(const ETC & etc);
     bool loadETC(const QString & filename);

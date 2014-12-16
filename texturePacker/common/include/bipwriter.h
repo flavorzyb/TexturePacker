@@ -10,14 +10,14 @@
 class BipWriter : public BipAbstract
 {
 public:
-    explicit BipWriter(PVR *pvr);
+    explicit BipWriter(BipImage *img);
     virtual ~BipWriter();
     bool save(const QString & filepath);
 
 private:
     void initWriter(Writer * writer);
     bool writerHeadData(Writer * writer, const QString & filepath);
-    bool writerPVRData(const QString & filepath);
+    bool writerData(const QString & filepath);
 };
 
 #endif // BIPWRITER_H

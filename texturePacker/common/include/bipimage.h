@@ -14,7 +14,7 @@ public:
     virtual bool save(const QString & filename) = 0;
     virtual bool saveCCZ(const QString & filename) = 0;
     virtual unsigned char * saveCCZToBuffer(unsigned long *size) = 0;
-
+    virtual bool isEmpty() const;
     const ImageVO getImageVO() const;
     void setImageVO(const ImageVO & imagevo);
 private:

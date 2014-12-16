@@ -128,7 +128,7 @@ PVR * PNG::convertToPVR()
             ivo.addFrame(frame);
 
             PVR * result = new PVR(pvrFile);
-            result->setImagevo(ivo);
+            result->setImageVO(ivo);
 
             result->load();
             FileUtils::unlink(pvrFile);

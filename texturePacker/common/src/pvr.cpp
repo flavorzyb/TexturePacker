@@ -4,29 +4,16 @@
 #include "include/png.h"
 
 PVR::PVR():
-    Image()
+    BipImage()
   , m_pvrTexture(NULL)
-  , m_imagevo(0, 0)
 {
 }
 
 PVR::PVR(const QString & filename):
-    Image(filename)
+    BipImage(filename)
   , m_pvrTexture(NULL)
-  , m_imagevo(0, 0)
 {
 }
-
-//PVR::PVR(const PVR &pvr):
-//    Image(pvr)
-//  , m_pvrTexture(NULL)
-//  , m_imagevo(pvr.m_imagevo)
-//{
-//    if (pvr.m_pvrTexture != NULL)
-//    {
-//        m_pvrTexture = new pvrtexture::CPVRTexture(*pvr.m_pvrTexture);
-//    }
-//}
 
 PVR::~PVR()
 {
@@ -192,15 +179,6 @@ bool PVR::loadPVR(const QString &filename)
     m_pvrTexture = new pvrtexture::CPVRTexture(filename.toStdString().c_str());
 
     return true;
-}
-ImageVO PVR::imagevo() const
-{
-    return m_imagevo;
-}
-
-void PVR::setImagevo(const ImageVO & imagevo)
-{
-    m_imagevo = imagevo;
 }
 
 PNG *PVR::convertToPng()

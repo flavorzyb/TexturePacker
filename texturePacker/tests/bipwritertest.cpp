@@ -1,11 +1,20 @@
 #include "bipwritertest.h"
 #include "common/include/fileutils.h"
-
+#include "common/include/pvr.h"
+#include "common/include/etc.h"
 BipWriterTest::BipWriterTest()
 {
 }
 
 void BipWriterTest::init()
+{
+}
+
+void BipWriterTest::cleanup()
+{
+}
+
+void BipWriterTest::testSavePVR()
 {
     PVR * pvr = new PVR("images/zw_shu.pvr");
     ImageVO ivo(512, 512);
@@ -21,22 +30,40 @@ void BipWriterTest::init()
 
     ivo.addFrame(fvo);
 
-    pvr->setImagevo(ivo);
+    pvr->setImageVO(ivo);
 
     pvr->load();
-    m_writer = new BipWriter(pvr);
+    BipWriter pvrWriter(pvr);
+    QCOMPARE(pvrWriter.save("output/zw_shu.bip"), true);
+
+    PVR *pvrFail = new PVR();
+    BipWriter writerFail(pvrFail);
+    QCOMPARE(writerFail.save("output/zw_shu_fail.bip"), false);
 }
 
-void BipWriterTest::cleanup()
+void BipWriterTest::testSaveETC()
 {
-    delete m_writer;
-}
+    ETC * etc = new ETC("images/zw_shu.pkm");
+    ImageVO ivo(500, 500);
+    ivo.setFileName("zw_shu.pkm");
 
-void BipWriterTest::testSave()
-{
-    QCOMPARE(m_writer->save("output/zw_shu.bip"), true);
+    FrameVO fvo(500, 500);
+    fvo.setName("zw_shu.pkm");
+    fvo.setMd5String(FileUtils::md5File("images/zw_shu.pvr"));
+    fvo.setRect(0, 0, 500, 500);
+    fvo.setOffset(0, 0);
+    fvo.setRotated(false);
+    fvo.setSourceColorRect(0, 0, 500, 500);
 
-    PVR *pvr = new PVR();
-    BipWriter writer(pvr);
-    QCOMPARE(writer.save("output/zw_shu.bip"), false);
+    ivo.addFrame(fvo);
+
+    etc->setImageVO(ivo);
+
+    etc->load();
+    BipWriter pvrWriter(etc);
+    QCOMPARE(pvrWriter.save("output/zw_shu_etc.bip"), true);
+
+    ETC *etcFail = new ETC();
+    BipWriter writerFail(etcFail);
+    QCOMPARE(writerFail.save("output/zw_shu_etc_fail.bip"), false);
 }

@@ -16,6 +16,11 @@ BipImage::~BipImage()
 {
 }
 
+bool BipImage::isEmpty() const
+{
+    return false;
+}
+
 const ImageVO BipImage::getImageVO() const
 {
     return m_imagevo;

@@ -60,7 +60,7 @@ PVR * BipReader::load()
 
     if (result->loadCCZData(reader.getData(), reader.getSize()))
     {
-        result->setImagevo(ivo);
+        result->setImageVO(ivo);
         return result;
     }
 
