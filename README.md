@@ -43,3 +43,4 @@ UI_PATH=../CGame/CGame/Resources/UI/resources-iphonehd
 更新内容:
         1. 支持安卓版本图片资源格式打包
         2. 优化部分代码
+        3. 增加Android版本的cache初始化
