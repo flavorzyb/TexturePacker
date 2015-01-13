@@ -268,3 +268,8 @@ ETC * PNG::convertToETC()
 
     return NULL;
 }
+
+S3TC * PNG::convertToS3TC()
+{
+    return NULL;
+}

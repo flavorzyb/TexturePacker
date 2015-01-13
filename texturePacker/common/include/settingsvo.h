@@ -10,8 +10,9 @@ class SettingsVO
 public:
     enum format
     {
-        IOS = 0,
+        IOS     = 0,
         ANDROID = 1,
+        WP8     = 2,
     };
 public:
     SettingsVO();
@@ -24,8 +25,9 @@ public:
     void setOutputPath(QString path);
     void setFormat(format f);
 
-    inline bool isIOSFormat() const { return m_format == IOS;}
-    inline bool isAndroidFormat() const { return m_format == ANDROID;}
+    inline bool isIOSFormat() const { return IOS == m_format;}
+    inline bool isAndroidFormat() const { return ANDROID == m_format;}
+    inline bool isWP8Format() const {return WP8 == m_format;}
 
     QString getInputPath() const;
     QString getAbsoluteInputDirPath() const;

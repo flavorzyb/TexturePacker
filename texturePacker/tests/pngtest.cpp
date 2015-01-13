@@ -54,3 +54,12 @@ void PngTest::testConvertToETC()
     QCOMPARE(result->save("output/zw_shu.pkm"), true);
     QCOMPARE(result->saveCCZ("output/zw_shu.pkm.ccz"), true);
 }
+
+void PngTest::testConvertToWP8()
+{
+    m_image->load();
+    ETC * result = m_image->convertToETC();
+    QVERIFY(result != NULL);
+    QCOMPARE(result->save("output/zw_shu.pkm"), true);
+    QCOMPARE(result->saveCCZ("output/zw_shu.pkm.ccz"), true);
+}

@@ -32,7 +32,9 @@ HEADERS +=  $$PWD/include/config.h \
             $$PWD/include/etc.h \
             $$PWD/include/etcheader.h \
             $$PWD/include/etcencode.h \
-            $$PWD/include/bipimage.h
+            $$PWD/include/bipimage.h \
+            $$PWD/include/s3tc.h \
+            $$PWD/include/s3tcencode.h
 
 SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/settingsvo.cpp \
@@ -58,7 +60,9 @@ SOURCES +=  $$PWD/src/config.cpp \
             $$PWD/src/etc.cpp \
             $$PWD/src/etcheader.cpp \
             $$PWD/src/etcencode.cpp \
-            $$PWD/src/bipimage.cpp
+            $$PWD/src/bipimage.cpp \
+            $$PWD/src/s3tc.cpp \
+            $$PWD/src/s3tcencode.cpp
 
 INCLUDEPATH += $$PWD
 

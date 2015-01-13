@@ -4,6 +4,7 @@
 #include "include/image.h"
 #include "include/pvr.h"
 #include "include/etc.h"
+#include "include/s3tc.h"
 
 class PNG : public Image
 {
@@ -15,6 +16,8 @@ public:
     bool loadData(const unsigned char * pData, int width, int height);
     PVR * convertToPVR();
     ETC * convertToETC();
+    S3TC * convertToS3TC();
+
     virtual bool save(const QString & filename);
     inline const QImage * getImage() const {return m_pImg;}
 private:

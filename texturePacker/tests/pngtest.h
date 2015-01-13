@@ -17,6 +17,7 @@ private Q_SLOTS:
     virtual void testSave();
     void testConvertToPVR();
     void testConvertToETC();
+    void testConvertToWP8();
 protected:
     virtual Image * getImage();
 
