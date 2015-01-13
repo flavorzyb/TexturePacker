@@ -1,14 +1,15 @@
 #ifndef IMAGEUTILS_H
 #define IMAGEUTILS_H
 
-#include <QObject>
-
-class ImageUtils : public QObject
+class ImageUtils
 {
-    Q_OBJECT
 public:
-    ImageUtils();
     static int getMinPowOf2(int value);
+    static bool isPowOf2(int value);
+
+private:
+    ImageUtils();
+    virtual ~ImageUtils();
 };
 
 #endif // IMAGEUTILS_H

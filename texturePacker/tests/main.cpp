@@ -11,6 +11,7 @@
 #include "etcheadertest.h"
 #include "etctest.h"
 #include "etcencodetest.h"
+#include "s3tcencodetest.h"
 
 int main(int argc, char *argv[])
 {
@@ -26,6 +27,7 @@ int main(int argc, char *argv[])
     ETCHeaderTest etcHeader;
     ETCTest etc;
     ETCEncodeTest etcEncode;
+    S3TCEncodeTest s3tcEncode;
 
     QCoreApplication app(argc, argv);
     QString path = getenv("PATH");
@@ -47,6 +49,8 @@ int main(int argc, char *argv[])
 //    QTest::qExec(&etcHeader, argc, argv);
 //    QTest::qExec(&etc, argc, argv);
 //    QTest::qExec(&etcEncode, argc, argv);
+
+    QTest::qExec(&s3tcEncode, argc, argv);
 
     return 0;
 }

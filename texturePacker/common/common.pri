@@ -6,6 +6,7 @@ QT += gui
 
 
 include($$PWD/../library/pvr/pvr.pri)
+include($$PWD/../library/sdl/sdl.pri)
 
 HEADERS +=  $$PWD/include/config.h \
             $$PWD/include/settingsvo.h \

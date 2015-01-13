@@ -30,7 +30,8 @@ SOURCES += \
     png2bipcachetest.cpp \
     etcheadertest.cpp \
     etctest.cpp \
-    etcencodetest.cpp
+    etcencodetest.cpp \
+    s3tcencodetest.cpp
 
 INCLUDEPATH +=  $$PWD \
                 $$PWD/../
@@ -48,7 +49,8 @@ HEADERS += \
     png2bipcachetest.h \
     etcheadertest.h \
     etctest.h \
-    etcencodetest.h
+    etcencodetest.h \
+    s3tcencodetest.h
 
 macx {
     QMAKE_POST_LINK =   rm -rf images && cp -rf $$PWD/images ./ && \
