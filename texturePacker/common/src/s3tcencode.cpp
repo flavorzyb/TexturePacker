@@ -56,16 +56,11 @@ S3TC * S3TCEncode::convert(const unsigned char * data, unsigned long size, unsig
         return NULL;
     }
 
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER) < 0)
-    {
-        fprintf(stderr, "OPENGL_INIT: Video initialization failed: %s\n", SDL_GetError());
-        exit(EXIT_FAILURE);
-    }
+    initSDL();
 
     return NULL;
 }
 
-void S3TCEncode::init()
+void S3TCEncode::initSDL()
 {
-
 }

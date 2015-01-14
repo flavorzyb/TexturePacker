@@ -16,7 +16,7 @@ private:
     S3TCEncode & operator = (const S3TCEncode & encode);
 
 private:
-    void init();
+    void initSDL();
 };
 
 #endif // S3TCENCODE_H
