@@ -16,6 +16,8 @@ include($$PWD/../common/common.pri)
 
 include($$PWD/../library/pvr/pvr.pri)
 
+include($$PWD/../library/sdl/sdl.pri)
+
 SOURCES += \
     fileutilstest.cpp \
     publishertest.cpp \

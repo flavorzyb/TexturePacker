@@ -78,7 +78,6 @@ HEADERS +=  $$PWD/include/SDL2/begin_code.h \
 macx: LIBS += -F$$PWD/libs/mac/ -framework SDL2
 #unix: LIBS += -L$$PWD/libs/linux_64/ -lSDL2
 
-INCLUDEPATH += $$PWD/libs
-INCLUDEPATH += $$PWD/libs/include
+INCLUDEPATH += $$PWD
+INCLUDEPATH += $$PWD/include
 
-DEPENDPATH += $$PWD/libs
